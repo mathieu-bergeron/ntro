@@ -1,0 +1,19 @@
+plugins {
+    id 'localJavaPlugin'
+    id 'localJSweetPlugin'
+}
+
+project.group = 'ca.ntro'
+project.version = '0.5'
+
+
+localJSweetPlugin {
+
+    localJSweetDependencies = ['ntro_core', 'ntro_app']
+
+}
+
+dependencies {
+
+    testImplementation 'junit:junit:4.13'
+}

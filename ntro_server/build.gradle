@@ -1,0 +1,35 @@
+plugins{
+    id 'localJavaPlugin'
+    id 'localJSweetPlugin'
+}
+
+localJSweetPlugin {
+
+    localJSweetDependencies = ['ntro_app']
+
+}
+
+dependencies {
+
+    implementation project(':ntro_core')
+    implementation project(':ntro_core_jdk')
+    implementation project(':ntro_app')
+    implementation project(':ntro_app_jdk')
+
+}
+
+
+configurations{
+    // XXX: not needed in runtime 
+    //      and conflicts with selenium and gson
+    testRuntime.exclude group: 'org.jsweet'
+    runtime.exclude group: 'org.jsweet' 
+}
+
+task testServer (type:JavaExec) {
+    dependsOn 'classes'
+    main = 'ca.ntro.server.JavaMainServer'
+    classpath = sourceSets.main.runtimeClasspath
+    jvmArgs('-Dfile.encoding=UTF-8','-Xverify:none') // -Xverify:none for profiling in jvisualvm
+    standardInput = System.in
+}

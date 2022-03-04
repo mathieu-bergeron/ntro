@@ -1,0 +1,17 @@
+plugins {
+    id 'localJavaPlugin'
+    id 'localFxPlugin'
+    id 'localJSweetPlugin'
+}
+
+group = 'ca.ntro'
+version = '0.1'
+
+
+dependencies {
+    implementation project(':ntro_core')
+    implementation project(':ntro_core_jdk')
+
+    implementation project(':ntro_app')
+    implementation project(':ntro_app_jdk')
+}
