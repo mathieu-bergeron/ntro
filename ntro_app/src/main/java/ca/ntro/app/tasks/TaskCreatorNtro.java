@@ -2,6 +2,7 @@ package ca.ntro.app.tasks;
 
 import java.util.Map;
 
+import ca.ntro.app.tasks.frontend.ClockDescriptor;
 import ca.ntro.core.task_graphs.task_graph.Task;
 import ca.ntro.core.task_graphs.task_graph.TaskGraph;
 import ca.ntro.core.task_graphs.task_graph.TaskContainer;
@@ -73,7 +74,16 @@ public abstract class TaskCreatorNtro<O extends Object,
 
 	@Override
 	public TC waitsFor(TD descriptor) {
-		Task previousTask =  getParent().findTask(descriptor.id());
+		Task previousTask = null;
+		
+		if(descriptor.id().equals("clock[nextTick]")) {
+			
+			previousTask = descriptor.newTask(getParent());
+			
+		}else {
+			
+			previousTask =  getParent().findTask(descriptor.id());
+		}
 		
 		if(previousTask == null) {
 			previousTask = getGraph().findTask(descriptor.id());

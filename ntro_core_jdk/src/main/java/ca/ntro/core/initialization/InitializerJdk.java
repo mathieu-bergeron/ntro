@@ -12,6 +12,7 @@ import ca.ntro.core.services.ReflectionServiceJdk;
 import ca.ntro.core.services.StackAnalyzerJdk;
 import ca.ntro.core.services.StorageService;
 import ca.ntro.core.services.StorageServiceJdk;
+import ca.ntro.core.services.Time;
 import ca.ntro.core.services.TimeJdk;
 import ca.ntro.core.task_graphs.task_graph.Task;
 import ca.ntro.core.values.ObjectMap;
@@ -28,13 +29,17 @@ public class InitializerJdk
 		Ntro.registerReflectionService(new ReflectionServiceJdk());
 		Ntro.registerGraphWriter(GraphWriterJdk.class);
 		Ntro.registerCollections(new CollectionsJdk());
-		Ntro.registerTime(new TimeJdk());
+		Ntro.registerTime(provideTime());
 		Ntro.registerAsserter(new AsserterJdk());
 		Ntro.registerRandom(new RandomJdk());
 		Ntro.registerJsonService(new JsonServiceJdk());
 		Ntro.registerStorageService(provideStorageService());
 		
 		
+	}
+	
+	protected Time provideTime() {
+		return new TimeJdk();
 	}
 	
 	protected StorageService provideStorageService() {

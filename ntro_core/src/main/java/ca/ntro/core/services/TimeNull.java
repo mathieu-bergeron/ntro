@@ -15,4 +15,9 @@ public class TimeNull implements Time {
 	public void runAfterDelay(long milliseconds, Runnable runnable) {
 	}
 
+	@Override
+	public void runRepeatedly(long milliseconds, Runnable runnable) {
+		
+	}
+
 }

@@ -4,6 +4,7 @@ public interface Time {
 	
 	void sleep(long milliseconds);
 	void runAfterDelay(long milliseconds, Runnable runnable);
+	void runRepeatedly(long milliseconds, Runnable runnable);
 	long nowMillis();
 
 }

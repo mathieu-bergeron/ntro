@@ -1,28 +1,12 @@
-package ca.ntro.core.services;
+package ntro.core.services;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-import ca.ntro.core.initialization.Ntro;
+import ca.ntro.core.services.TimeJdk;
+import javafx.application.Platform;
 
-public class TimeJdk implements Time {
-
-	@Override
-	public void sleep(long milliseconds) {
-		try {
-
-			Thread.sleep(milliseconds);
-
-		} catch (InterruptedException e) {
-
-			Ntro.exceptionService().throwException(e);
-		}
-	}
-
-	@Override
-	public long nowMillis() {
-		return System.currentTimeMillis();
-	}
+public class TimeFx extends TimeJdk {
 
 	@Override
 	public void runAfterDelay(long milliseconds, Runnable runnable) {
@@ -30,7 +14,7 @@ public class TimeJdk implements Time {
 
 			@Override
 			public void run() {
-				runnable.run();
+				Platform.runLater(runnable);
 			}
 
 		}, milliseconds);
@@ -42,9 +26,8 @@ public class TimeJdk implements Time {
 
 			@Override
 			public void run() {
-				runnable.run();
+				Platform.runLater(runnable);
 			}
-			
 			
 		}, 0, milliseconds);
 	}

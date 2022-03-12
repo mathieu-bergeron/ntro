@@ -6,7 +6,8 @@ public class ClockDescriptorNtro implements ClockDescriptor {
 
 	@Override
 	public FrontendSimpleTaskDescriptor<Tick> nextTick() {
-		return null;
+		return new FrontendClockTaskDescriptorNtro<>("clock[nextTick]");
 	}
+	
 
 }
