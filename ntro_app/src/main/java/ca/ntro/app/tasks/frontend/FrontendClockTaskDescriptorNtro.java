@@ -14,7 +14,7 @@ public class FrontendClockTaskDescriptorNtro<O>
 
        extends FrontendSimpleTaskDescriptorNtro<O> {
 	
-	private long lastTick = Ntro.time().nowMillis();
+	private long lastTick = Ntro.time().nowNanoseconds();
 
 	public FrontendClockTaskDescriptorNtro(String id) {
 		super(id);
@@ -33,9 +33,9 @@ public class FrontendClockTaskDescriptorNtro<O>
 			
 			Ntro.time().runRepeatedly(1, () -> {
 				
-				long tick = Ntro.time().nowMillis();
+				long tick = Ntro.time().nowNanoseconds();
 				
-				double elapsed = (tick - lastTick) / 1E3;
+				double elapsed = (tick - lastTick) / 1E9;
 				
 				lastTick = tick;
 				

@@ -7,7 +7,7 @@ public class TimeNull implements Time {
 	}
 
 	@Override
-	public long nowMillis() {
+	public long nowMilliseconds() {
 		return 0;
 	}
 
@@ -18,6 +18,12 @@ public class TimeNull implements Time {
 	@Override
 	public void runRepeatedly(long milliseconds, Runnable runnable) {
 		
+	}
+
+	@Override
+	public long nowNanoseconds() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

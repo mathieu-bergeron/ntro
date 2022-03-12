@@ -75,7 +75,7 @@ public class FutureNtro<O extends Object> implements Future<O> {
 	public Result<O> get(long maxDelayMillis) {
 		ResultNtro<O> result = new ResultNtro<>();
 		
-		long start = Ntro.time().nowMillis();
+		long start = Ntro.time().nowMilliseconds();
 		maxDelayMillis = maxDelayMillis >= MIN_DELAY_MILLIS ? maxDelayMillis : MIN_DELAY_MILLIS;
 		long delayMillis = 0;
 		
@@ -87,7 +87,7 @@ public class FutureNtro<O extends Object> implements Future<O> {
 			
 			Ntro.time().sleep(FUTURE_GET_SLEEP_TIME_MILLIS);
 			
-			delayMillis = Ntro.time().nowMillis() - start;
+			delayMillis = Ntro.time().nowMilliseconds() - start;
 		}
 		
 		if(hasException()) {

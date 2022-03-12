@@ -20,7 +20,7 @@ public class TimeJdk implements Time {
 	}
 
 	@Override
-	public long nowMillis() {
+	public long nowMilliseconds() {
 		return System.currentTimeMillis();
 	}
 
@@ -47,6 +47,11 @@ public class TimeJdk implements Time {
 			
 			
 		}, 0, milliseconds);
+	}
+
+	@Override
+	public long nowNanoseconds() {
+		return System.nanoTime();
 	}
 
 }
