@@ -1,5 +1,7 @@
 package ca.ntro.app.services;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -53,18 +55,22 @@ public class MessageServiceNtro implements MessageService {
 	public void sendMessage(Message message) {
 		Set<SimpleTask> handlers = messageHandlers.get(message.getClass());
 		
+		// XXX: clone to simulate the message is serialized
+		//      and deserialized
+		Message sentMessage = (Message) Ntro.reflection().clone(message);
+		
 		if(handlers != null) {
 			
 			for(SimpleTask handler : handlers) {
 
-				handler.addResult(message);
+				handler.addResult(sentMessage);
 			}
 		}
 	}
 
 	@Override
-	public void pushObservation(String revisionsName, Observation<?> observation) {
-		Set<SimpleTask> handlers = observationHandlers.get(revisionsName);
+	public void pushObservation(String observationName, Observation<?> observation) {
+		Set<SimpleTask> handlers = observationHandlers.get(observationName);
 		
 		if(handlers != null) {
 			

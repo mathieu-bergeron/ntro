@@ -19,6 +19,7 @@ public class ModelStoreDefault implements ModelStore {
 
 	@Override
 	public <M extends Model> M load(Class<?> modelClass) {
+		
 		M model = (M) currentModels.get(modelClass);
 		
 		if(model == null) {
@@ -60,18 +61,17 @@ public class ModelStoreDefault implements ModelStore {
 
 	@Override
 	public void save(Object model) {
-		
 		Object previousModel = previousModels.get(model.getClass());
 		
-		if(previousModels != null
+		if(previousModel != null
 				&& !Ntro.reflection().graphEquals(previousModel, model)) {
-
-			writeModelFile(filePathFromClass(model.getClass()), model);
 			
 			pushObservation(model.getClass(), previousModel, model);
+
+			writeModelFile(filePathFromClass(model.getClass()), model);
+
 		}
 	}
-
 
 	private void writeModelFile(Path filePath, Object model) {
 
@@ -130,6 +130,15 @@ public class ModelStoreDefault implements ModelStore {
 				&& currentModel != null
 				&& !Ntro.reflection().graphEquals(previousModel, currentModel)) {
 
+			/*
+			System.out.println("[INFO] observation from file");
+			ObjectGraph previousModelGraph = Ntro.reflection().graphFromObject(previousModel, "previousModel");
+			ObjectGraph modelGraph = Ntro.reflection().graphFromObject(currentModel, "model");
+			
+			previousModelGraph.write(Ntro.graphWriter());
+			modelGraph.write(Ntro.graphWriter());
+			*/
+			
 			pushObservation(modelClass, previousModel, currentModel);
 		}
 	}
@@ -148,7 +157,10 @@ public class ModelStoreDefault implements ModelStore {
 		
 		ObservationNtro observation = new ObservationNtro<>();
 		observation.setPreviousValue((Observable) previousModel);
-		observation.setCurrentValue((Observable) currentModel);
+
+		// XXX: clone currentModel to simulate that the observation
+		//      is received after serialization and deserialization
+		observation.setCurrentValue((Observable) Ntro.reflection().clone(currentModel));
 
 		//Revisions revisions = Ntro.reflection().revisionsFromTo(initialModel, currentModel);
 
