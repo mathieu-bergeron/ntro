@@ -32,6 +32,8 @@ public interface ReflectionService {
 	JsonObject toJsonObject(Object o);
 	Object     fromJsonObject(JsonObject jsonObject);
 	
+	boolean ifClassImplements(Class<?> _class, Class<?> _interface);
+	
 	boolean isList(Object object);
 	boolean isMap(Object object);
 	boolean isUserDefinedObject(Object object);

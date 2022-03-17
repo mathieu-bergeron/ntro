@@ -5,6 +5,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import ca.ntro.app.NtroApp;
 import ca.ntro.app.models.Model;
+import ca.ntro.app.models.Watchable;
 import ca.ntro.core.initialization.Ntro;
 import ca.ntro.core.json.JsonObject;
 import ca.ntro.core.path.Path;
@@ -98,6 +99,8 @@ public class ModelStoreDefault implements ModelStore {
 
 	@Override
 	public void watch(Class<?> modelClass) {
+		
+		
 		Path filePath = filePathFromClass(modelClass);
 
 		Object model = load(modelClass);
@@ -105,11 +108,13 @@ public class ModelStoreDefault implements ModelStore {
 		createModelFileIfNeeded(filePath, modelClass, model);
 		
 		pushFirstObservation(modelClass);
-		
-		Ntro.storage().watchFile(filePathFromClass(modelClass), () -> {
-			observeModelFile(modelClass);
-		});
 
+		if(Ntro.reflection().ifClassImplements(modelClass, Watchable.class)) {
+
+			Ntro.storage().watchFile(filePathFromClass(modelClass), () -> {
+				observeModelFile(modelClass);
+			});
+		}
 	}
 
 	private void createModelFileIfNeeded(Path filePath, Class<?> modelClass, Object model) {

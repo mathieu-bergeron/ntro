@@ -148,6 +148,27 @@ public class ReflectionServiceJdk extends ReflectionServiceNtro {
 		return method;
 	}
 
+	@Override
+	public boolean ifClassImplements(Class<?> _class, Class<?> _interface) {
+		boolean ifImplements = false;
+		
+		for(Class<?> _candidate : _class.getInterfaces()) {
+			if(_candidate.equals(_interface)) {
+				ifImplements = true;
+				break;
+			}
+		}
+		
+		if(!ifImplements) {
+			Class<?> superClass = _class.getSuperclass();
+			if(superClass != null) {
+				ifImplements = ifClassImplements(superClass, _interface);
+			}
+		}
+
+		return ifImplements;
+	}
+
 
 
 

@@ -234,4 +234,10 @@ public class ReflectionServiceNull implements ReflectionService {
 		return null;
 	}
 
+	@Override
+	public boolean ifClassImplements(Class<?> _class, Class<?> _interface) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
