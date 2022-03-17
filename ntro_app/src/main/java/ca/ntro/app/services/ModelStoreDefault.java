@@ -105,7 +105,7 @@ public class ModelStoreDefault implements ModelStore {
 		createModelFileIfNeeded(filePath, modelClass, model);
 		
 		pushFirstObservation(modelClass);
-
+		
 		Ntro.storage().watchFile(filePathFromClass(modelClass), () -> {
 			observeModelFile(modelClass);
 		});

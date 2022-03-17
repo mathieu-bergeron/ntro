@@ -12,6 +12,7 @@ import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
 import java.util.Scanner;
+import java.util.concurrent.ThreadPoolExecutor;
 
 import ca.ntro.core.initialization.Ntro;
 import ca.ntro.core.path.Path;
@@ -48,6 +49,17 @@ public class   StorageServiceJdk
 
 	@Override
 	public void writeTextFile(Path filePath, String content) {
+		new Thread() {
+
+			@Override
+			public void run() {
+				writeTextFileSync(filePath, content);
+			}
+
+		}.start();
+	}
+	
+	private synchronized void writeTextFileSync(Path filePath, String content) {
 		File file = toFile(filePath);
 
 		createParentDirectories(file);
@@ -63,7 +75,12 @@ public class   StorageServiceJdk
 
 			Ntro.throwException(e);
 		}
+		
+		
 	}
+	
+	
+	
 
 	private void createParentDirectories(File file) {
 		if(file.getParentFile() != null) {

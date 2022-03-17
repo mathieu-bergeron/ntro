@@ -75,7 +75,8 @@ public abstract class ResizableCanvas extends Pane {
 				
 				int newWidth = (int) Math.round((double) newValue);
 				
-				if(Math.abs(newWidth - oldWidth) > epsilon) {
+				if(newWidth < epsilon
+						|| Math.abs(newWidth - oldWidth) > epsilon) {
 
 					oldWidth = (int) Math.round((double) oldValue);
 					ResizableCanvas.this.newWidth = newWidth;
@@ -112,7 +113,8 @@ public abstract class ResizableCanvas extends Pane {
 
 				int newHeight = (int) Math.round((double) newValue);
 				
-				if(Math.abs(newHeight - oldHeight) > epsilon) {
+				if(newHeight < epsilon
+						|| Math.abs(newHeight - oldHeight) > epsilon) {
 
 					oldHeight = (int) Math.round((double) oldValue);
 					ResizableCanvas.this.newHeight = newHeight;
