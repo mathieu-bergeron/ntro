@@ -17,6 +17,7 @@
 
 package ca.ntro.app.views.controls;
 
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.canvas.Canvas;
@@ -27,11 +28,14 @@ public abstract class ResizableCanvas extends Pane {
 	
 	private Canvas canvas;
 	private GraphicsContext gc;
-	private int epsilon = 0;
+	private int epsilon = 1;
 	private int oldWidth = -1;
 	private int oldHeight = -1;
 	private int newWidth = -1;
 	private int newHeight = -1;
+	private double aspectRatio = 640.0/360.0;
+	private int referenceWidth;
+	private int referenceHeight = 1000;
 	
 	public GraphicsContext getGc() {
 		return gc;
@@ -45,12 +49,26 @@ public abstract class ResizableCanvas extends Pane {
 		this.epsilon = epsilon;
 	}
 
+	public double getAspectRatio() {
+		return aspectRatio;
+	}
+
+	public void setAspectRatio(double aspectRatio) {
+		this.aspectRatio = aspectRatio;
+		initializeReferenceWidth();
+	}
+
 	public ResizableCanvas() {
+		initializeReferenceWidth();
 		initializeCanvas();
 		initialize();
 	}
 	
 	protected abstract void initialize();
+	
+	private void initializeReferenceWidth() {
+		referenceWidth = (int) Math.round(referenceHeight * aspectRatio);
+	}
 
 	private void initializeCanvas() {
 		installCanvas();
@@ -60,10 +78,8 @@ public abstract class ResizableCanvas extends Pane {
 	}
 
 	private void installCanvas() {
-		
 		canvas = new Canvas();
 		gc = canvas.getGraphicsContext2D();
-		
 		this.getChildren().add(canvas);
 	}
 	
@@ -72,31 +88,68 @@ public abstract class ResizableCanvas extends Pane {
 		this.widthProperty().addListener(new ChangeListener<Number>() {
 			@Override
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-				
-				int newWidth = (int) Math.round((double) newValue);
-				
-				if(newWidth < epsilon
-						|| Math.abs(newWidth - oldWidth) > epsilon) {
-
-					oldWidth = (int) Math.round((double) oldValue);
-					ResizableCanvas.this.newWidth = newWidth;
-
-					canvas.setWidth(newWidth);
-					callOn();
-				}
+				resizeCanvas();
 			}
 		});
 	}
+
+	private void resizeCanvas() {
+
+		double canvasWidth = getWidth();
+		double canvasHeight = getHeight();
+		double currentAspectRatio = canvasWidth / canvasHeight;
+		int newWidth;
+		int newHeight;
+				
+		if(currentAspectRatio > aspectRatio) {
+
+			newHeight = (int) Math.floor(canvasHeight);
+			newWidth = newHeight * referenceWidth / referenceHeight;
+			
+		}else {
+
+			newWidth = (int) Math.floor(canvasWidth);
+			newHeight = newWidth * referenceHeight / referenceWidth;
+
+		}
+		
+		if(Math.abs(canvasWidth - newWidth) > epsilon
+				&& Math.abs(canvasHeight - newHeight) > epsilon) {
+			
+			canvas.setLayoutX((canvasWidth - newWidth) / 2);
+			canvas.setLayoutY((canvasHeight - newHeight) / 2);
+			
+			resizeCanvas(newWidth, newHeight);
+		}
+	}
+
+	private void resizeCanvas(int newWidth, int newHeight) {
+
+		if(this.newWidth != -1) {
+			this.oldWidth = this.newWidth;
+		}
+
+		if(this.newHeight != -1) {
+			this.oldHeight = this.newHeight;
+		}
+		
+		this.newWidth = newWidth;
+		this.newHeight = newHeight;
+		
+		canvas.setWidth(newWidth);
+		canvas.setHeight(newHeight);
+
+		callOn();
+	}
 	
 	private void callOn() {
-		if(oldWidth == 0
-				&& oldHeight == 0) {
+		if(oldWidth == -1
+				|| oldHeight == -1) {
 			
 			onInitialSize(newWidth, newHeight);
-
-		}else if(newWidth > 0
-				&& newHeight > 0) {
 			
+		} else {
+				
 			onNewSize(oldWidth, 
 					  oldHeight, 
 					  newWidth, 
@@ -110,18 +163,7 @@ public abstract class ResizableCanvas extends Pane {
 		this.heightProperty().addListener(new ChangeListener<Number>() {
 			@Override
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-
-				int newHeight = (int) Math.round((double) newValue);
-				
-				if(newHeight < epsilon
-						|| Math.abs(newHeight - oldHeight) > epsilon) {
-
-					oldHeight = (int) Math.round((double) oldValue);
-					ResizableCanvas.this.newHeight = newHeight;
-
-					canvas.setHeight(newHeight);
-					callOn();
-				}
+				resizeCanvas();
 			}
 		});
 	}
