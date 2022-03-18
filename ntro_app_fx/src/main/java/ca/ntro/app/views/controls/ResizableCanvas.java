@@ -148,8 +148,8 @@ public abstract class ResizableCanvas extends Pane {
 		}
 	}
 
-	private void resizeRelocateCanvas(int layoutX,
-			                          int layoutY,
+	private void resizeRelocateCanvas(int offsetX,
+			                          int offsetY,
 			                          int newWidth, 
 			                          int newHeight) {
 
@@ -164,8 +164,11 @@ public abstract class ResizableCanvas extends Pane {
 		this.canvasWidth = newWidth;
 		this.canvasHeight = newHeight;
 		
-		canvas.setLayoutX(layoutX);
-		canvas.setLayoutY(layoutY);
+		this.offsetX = offsetX;
+		this.offsetY = offsetY;
+		
+		canvas.setLayoutX(offsetX);
+		canvas.setLayoutY(offsetY);
 
 		canvas.setWidth(newWidth);
 		canvas.setHeight(newHeight);
