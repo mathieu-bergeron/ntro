@@ -31,11 +31,13 @@ public abstract class ResizableCanvas extends Pane {
 	private int epsilon = 1;
 	private int oldWidth = -1;
 	private int oldHeight = -1;
-	private int newWidth = -1;
-	private int newHeight = -1;
 	private double aspectRatio = 640.0/360.0;
 	private int referenceWidth;
 	private int referenceHeight = 1000;
+	private int canvasWidth = -1;
+	private int canvasHeight = -1;
+	private int offsetX = 0;
+	private int offsetY = 0;
 	
 	public GraphicsContext getGc() {
 		return gc;
@@ -56,6 +58,24 @@ public abstract class ResizableCanvas extends Pane {
 	public void setAspectRatio(double aspectRatio) {
 		this.aspectRatio = aspectRatio;
 		initializeReferenceWidth();
+	}
+	
+	public int getCanvasWidth() {
+		return canvasWidth;
+	}
+
+
+	public int getCanvasHeight() {
+		return canvasHeight;
+	}
+
+
+	public int getOffsetX() {
+		return offsetX;
+	}
+
+	public int getOffsetY() {
+		return offsetY;
 	}
 
 	public ResizableCanvas() {
@@ -95,43 +115,58 @@ public abstract class ResizableCanvas extends Pane {
 
 	private void resizeCanvas() {
 
-		double canvasWidth = getWidth();
-		double canvasHeight = getHeight();
-		double currentAspectRatio = canvasWidth / canvasHeight;
+		double containerWidth = getWidth();
+		double containerHeight = getHeight();
+		double currentAspectRatio = containerWidth / containerHeight;
 		int newWidth;
 		int newHeight;
 				
 		if(currentAspectRatio > aspectRatio) {
 
-			newHeight = (int) Math.floor(canvasHeight);
+			newHeight = (int) Math.floor(containerHeight) - epsilon;
 			newWidth = newHeight * referenceWidth / referenceHeight;
 			
 		}else {
 
-			newWidth = (int) Math.floor(canvasWidth);
+			newWidth = (int) Math.floor(containerWidth) - epsilon;
 			newHeight = newWidth * referenceHeight / referenceWidth;
 
 		}
 		
-		canvas.setLayoutX((canvasWidth - newWidth) / 2);
-		canvas.setLayoutY((canvasHeight - newHeight) / 2);
+		int newOffsetX = (int) Math.floor((containerWidth - newWidth) / 2);
+		int newOffsetY = (int) Math.floor((containerHeight - newHeight) / 2);
 		
-		resizeCanvas(newWidth, newHeight);
+		if(Math.abs(newOffsetX + newWidth - containerWidth) > epsilon
+				|| Math.abs(newOffsetY + newHeight - containerHeight) > epsilon) {
+			
+				
+			resizeRelocateCanvas(newOffsetX,
+								 newOffsetY,
+								 newWidth, 
+								 newHeight);
+			
+		}
 	}
 
-	private void resizeCanvas(int newWidth, int newHeight) {
+	private void resizeRelocateCanvas(int layoutX,
+			                          int layoutY,
+			                          int newWidth, 
+			                          int newHeight) {
 
-		if(this.newWidth != -1) {
-			this.oldWidth = this.newWidth;
+		if(this.canvasWidth != -1) {
+			this.oldWidth = this.canvasWidth;
 		}
 
-		if(this.newHeight != -1) {
-			this.oldHeight = this.newHeight;
+		if(this.canvasHeight != -1) {
+			this.oldHeight = this.canvasHeight;
 		}
 		
-		this.newWidth = newWidth;
-		this.newHeight = newHeight;
+		this.canvasWidth = newWidth;
+		this.canvasHeight = newHeight;
 		
+		canvas.setLayoutX(layoutX);
+		canvas.setLayoutY(layoutY);
+
 		canvas.setWidth(newWidth);
 		canvas.setHeight(newHeight);
 
@@ -142,14 +177,14 @@ public abstract class ResizableCanvas extends Pane {
 		if(oldWidth == -1
 				|| oldHeight == -1) {
 			
-			onInitialSize(newWidth, newHeight);
+			onInitialSize(canvasWidth, canvasHeight);
 			
 		} else {
 				
 			onNewSize(oldWidth, 
 					  oldHeight, 
-					  newWidth, 
-					  newHeight);
+					  canvasWidth, 
+					  canvasHeight);
 		}
 	}
 
