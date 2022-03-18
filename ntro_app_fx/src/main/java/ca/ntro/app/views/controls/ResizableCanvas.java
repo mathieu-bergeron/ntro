@@ -113,14 +113,10 @@ public abstract class ResizableCanvas extends Pane {
 
 		}
 		
-		if(Math.abs(canvasWidth - newWidth) > epsilon
-				&& Math.abs(canvasHeight - newHeight) > epsilon) {
-			
-			canvas.setLayoutX((canvasWidth - newWidth) / 2);
-			canvas.setLayoutY((canvasHeight - newHeight) / 2);
-			
-			resizeCanvas(newWidth, newHeight);
-		}
+		canvas.setLayoutX((canvasWidth - newWidth) / 2);
+		canvas.setLayoutY((canvasHeight - newHeight) / 2);
+		
+		resizeCanvas(newWidth, newHeight);
 	}
 
 	private void resizeCanvas(int newWidth, int newHeight) {
