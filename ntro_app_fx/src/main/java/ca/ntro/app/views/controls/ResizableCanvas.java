@@ -95,32 +95,28 @@ public abstract class ResizableCanvas extends Pane {
 
 	private void resizeCanvas() {
 
-		double canvasWidth = getWidth();
-		double canvasHeight = getHeight();
-		double currentAspectRatio = canvasWidth / canvasHeight;
+		double containerWidth = getWidth();
+		double containerHeight = getHeight();
+		double containerAspectRatio = containerWidth / containerHeight;
 		int newWidth;
 		int newHeight;
 				
-		if(currentAspectRatio > aspectRatio) {
+		if(containerAspectRatio > aspectRatio) {
 
-			newHeight = (int) Math.floor(canvasHeight);
+			newHeight = (int) Math.floor(containerHeight);
 			newWidth = newHeight * referenceWidth / referenceHeight;
 			
 		}else {
 
-			newWidth = (int) Math.floor(canvasWidth);
+			newWidth = (int) Math.floor(containerWidth);
 			newHeight = newWidth * referenceHeight / referenceWidth;
 
 		}
+
+		canvas.setLayoutX(Math.floor((containerWidth - newWidth) / 2));
+		canvas.setLayoutY(Math.floor((containerHeight - newHeight) / 2));
 		
-		if(Math.abs(canvasWidth - newWidth) > epsilon
-				&& Math.abs(canvasHeight - newHeight) > epsilon) {
-			
-			canvas.setLayoutX((canvasWidth - newWidth) / 2);
-			canvas.setLayoutY((canvasHeight - newHeight) / 2);
-			
-			resizeCanvas(newWidth, newHeight);
-		}
+		resizeCanvas(newWidth, newHeight);
 	}
 
 	private void resizeCanvas(int newWidth, int newHeight) {
