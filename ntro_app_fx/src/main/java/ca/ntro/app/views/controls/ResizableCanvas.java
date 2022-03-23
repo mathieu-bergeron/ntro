@@ -31,7 +31,11 @@ public abstract class ResizableCanvas extends Pane {
 	private int epsilon = 1;
 	private int oldWidth = -1;
 	private int oldHeight = -1;
-	private double aspectRatio = 640.0/360.0;
+
+	private double baseWidth = 640.0;
+	private double baseHeight = 360.0;
+
+	private double aspectRatio = baseWidth / baseHeight;
 	private int referenceWidth;
 	private int referenceHeight = 1000;
 	private int canvasWidth = -1;
