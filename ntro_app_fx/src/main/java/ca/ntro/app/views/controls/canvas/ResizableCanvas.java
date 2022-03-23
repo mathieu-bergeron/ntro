@@ -15,7 +15,7 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with aquiletour.  If not, see <https://www.gnu.org/licenses/>
 
-package ca.ntro.app.views.controls;
+package ca.ntro.app.views.controls.canvas;
 
 
 import javafx.beans.value.ChangeListener;
@@ -28,26 +28,26 @@ public abstract class ResizableCanvas extends Pane {
 	
 	private Canvas canvas;
 	private GraphicsContext gc;
-	private int epsilon = 1;
-	private int oldWidth = -1;
-	private int oldHeight = -1;
+	private double epsilon = 1;
+	private double oldWidth = -1;
+	private double oldHeight = -1;
 
 	private double baseWidth = 640.0;
 	private double baseHeight = 360.0;
 
 	private double aspectRatio = baseWidth / baseHeight;
-	private int referenceWidth;
-	private int referenceHeight = 1000;
-	private int canvasWidth = -1;
-	private int canvasHeight = -1;
-	private int offsetX = 0;
-	private int offsetY = 0;
+	private double referenceWidth;
+	private double referenceHeight = 1000;
+	private double canvasWidth = -1;
+	private double canvasHeight = -1;
+	private double offsetX = 0;
+	private double offsetY = 0;
 	
 	public GraphicsContext getGc() {
 		return gc;
 	}
 
-	protected int getEpsilon() {
+	protected double getEpsilon() {
 		return epsilon;
 	}
 
@@ -64,21 +64,21 @@ public abstract class ResizableCanvas extends Pane {
 		initializeReferenceWidth();
 	}
 	
-	public int getCanvasWidth() {
+	public double getCanvasWidth() {
 		return canvasWidth;
 	}
 
 
-	public int getCanvasHeight() {
+	public double getCanvasHeight() {
 		return canvasHeight;
 	}
 
 
-	public int getOffsetX() {
+	public double getOffsetX() {
 		return offsetX;
 	}
 
-	public int getOffsetY() {
+	public double getOffsetY() {
 		return offsetY;
 	}
 
@@ -118,9 +118,15 @@ public abstract class ResizableCanvas extends Pane {
 	}
 
 	private void resizeCanvas() {
+		
+		if(Math.abs(getWidth() - oldWidth) > epsilon
+				|| Math.abs(getHeight() - oldHeight) > epsilon) {
 
-		double containerWidth = getWidth();
-		double containerHeight = getHeight();
+			resizeRelocateCanvas(0, 0, getWidth(), getHeight());
+		}
+		
+		/*
+		
 		double currentAspectRatio = containerWidth / containerHeight;
 		int newWidth;
 		int newHeight;
@@ -150,12 +156,14 @@ public abstract class ResizableCanvas extends Pane {
 								 newHeight);
 			
 		}
+		
+		*/
 	}
 
-	private void resizeRelocateCanvas(int offsetX,
-			                          int offsetY,
-			                          int newWidth, 
-			                          int newHeight) {
+	private void resizeRelocateCanvas(double offsetX,
+			                          double offsetY,
+			                          double newWidth, 
+			                          double newHeight) {
 
 		if(this.canvasWidth != -1) {
 			this.oldWidth = this.canvasWidth;
@@ -206,10 +214,10 @@ public abstract class ResizableCanvas extends Pane {
 		});
 	}
 
-	protected abstract void onInitialSize(int initialWidth, int initialHeight);
-	protected abstract void onNewSize(int oldWidth, 
-			                          int oldHeight, 
-			                          int newWidth,
-			                          int newHeight);
+	protected abstract void onInitialSize(double initialWidth, double initialHeight);
+	protected abstract void onNewSize(double oldWidth, 
+			                          double oldHeight, 
+			                          double newWidth,
+			                          double newHeight);
 
 }
