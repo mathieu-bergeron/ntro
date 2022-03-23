@@ -22,6 +22,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
 public abstract class ResizableCanvas extends Pane {
@@ -99,7 +100,17 @@ public abstract class ResizableCanvas extends Pane {
 		
 		installWidthObserver();
 		installHeightObserver();
+		
+		installMouseEventListener();
 	}
+
+	private void installMouseEventListener() {
+		this.addEventFilter(MouseEvent.MOUSE_CLICKED, evtFx -> {
+			onMouseEvent(evtFx, evtFx.getX(), evtFx.getY());
+		});
+	}
+
+	protected abstract void onMouseEvent(MouseEvent evtFx, double x, double y);
 
 	private void installCanvas() {
 		canvas = new Canvas();
