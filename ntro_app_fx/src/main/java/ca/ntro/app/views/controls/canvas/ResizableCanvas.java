@@ -15,7 +15,7 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with aquiletour.  If not, see <https://www.gnu.org/licenses/>
 
-package ca.ntro.app.views.controls;
+package ca.ntro.app.views.controls.canvas;
 
 
 import javafx.beans.value.ChangeListener;
@@ -28,20 +28,13 @@ public abstract class ResizableCanvas extends Pane {
 	
 	private Canvas canvas;
 	private GraphicsContext gc;
-	private int epsilon = 1;
-	private int oldWidth = -1;
-	private int oldHeight = -1;
-	private int newWidth = -1;
-	private int newHeight = -1;
-	private double aspectRatio = 640.0/360.0;
-	private int referenceWidth;
-	private int referenceHeight = 1000;
-	
+	private double epsilon = 1;
+
 	public GraphicsContext getGc() {
 		return gc;
 	}
 
-	protected int getEpsilon() {
+	protected double getEpsilon() {
 		return epsilon;
 	}
 
@@ -49,26 +42,12 @@ public abstract class ResizableCanvas extends Pane {
 		this.epsilon = epsilon;
 	}
 
-	public double getAspectRatio() {
-		return aspectRatio;
-	}
-
-	public void setAspectRatio(double aspectRatio) {
-		this.aspectRatio = aspectRatio;
-		initializeReferenceWidth();
-	}
-
 	public ResizableCanvas() {
-		initializeReferenceWidth();
-		initializeCanvas();
 		initialize();
+		initializeCanvas();
 	}
-	
+
 	protected abstract void initialize();
-	
-	private void initializeReferenceWidth() {
-		referenceWidth = (int) Math.round(referenceHeight * aspectRatio);
-	}
 
 	private void initializeCanvas() {
 		installCanvas();
@@ -94,65 +73,30 @@ public abstract class ResizableCanvas extends Pane {
 	}
 
 	private void resizeCanvas() {
+		
+		if(Math.abs(getWidth() - canvas.getWidth()) > epsilon
+				|| Math.abs(getHeight() - canvas.getHeight()) > epsilon) {
+			
+			double oldCanvasWidth = canvas.getWidth();
+			double oldCanvasHeight = canvas.getHeight();
+			double newCanvasWidth = getWidth();
+			double newCanvasHeight = getHeight();
+			
+			if(oldCanvasWidth > 0
+					&& oldCanvasHeight > 0) {
 
-		double containerWidth = getWidth();
-		double containerHeight = getHeight();
-		double containerAspectRatio = containerWidth / containerHeight;
-		int newWidth;
-		int newHeight;
+				onNewSize(oldCanvasWidth, oldCanvasHeight, newCanvasWidth, newCanvasHeight);
 				
-		if(containerAspectRatio > aspectRatio) {
+			}else if(newCanvasWidth > 0
+					&& newCanvasHeight > 0) {
 
-			newHeight = (int) Math.floor(containerHeight);
-			newWidth = newHeight * referenceWidth / referenceHeight;
-			
-		}else {
+				onInitialSize(newCanvasWidth, newCanvasHeight);
+			}
 
-			newWidth = (int) Math.floor(containerWidth);
-			newHeight = newWidth * referenceHeight / referenceWidth;
-
-		}
-
-		canvas.setLayoutX(Math.floor((containerWidth - newWidth) / 2));
-		canvas.setLayoutY(Math.floor((containerHeight - newHeight) / 2));
-		
-		resizeCanvas(newWidth, newHeight);
-	}
-
-	private void resizeCanvas(int newWidth, int newHeight) {
-
-		if(this.newWidth != -1) {
-			this.oldWidth = this.newWidth;
-		}
-
-		if(this.newHeight != -1) {
-			this.oldHeight = this.newHeight;
-		}
-		
-		this.newWidth = newWidth;
-		this.newHeight = newHeight;
-		
-		canvas.setWidth(newWidth);
-		canvas.setHeight(newHeight);
-
-		callOn();
-	}
-	
-	private void callOn() {
-		if(oldWidth == -1
-				|| oldHeight == -1) {
-			
-			onInitialSize(newWidth, newHeight);
-			
-		} else {
-				
-			onNewSize(oldWidth, 
-					  oldHeight, 
-					  newWidth, 
-					  newHeight);
+			canvas.setWidth(newCanvasWidth);
+			canvas.setHeight(newCanvasHeight);
 		}
 	}
-
 
 	private void installHeightObserver() {
 
@@ -164,10 +108,10 @@ public abstract class ResizableCanvas extends Pane {
 		});
 	}
 
-	protected abstract void onInitialSize(int initialWidth, int initialHeight);
-	protected abstract void onNewSize(int oldWidth, 
-			                          int oldHeight, 
-			                          int newWidth,
-			                          int newHeight);
+	protected abstract void onInitialSize(double initialWidth, double initialHeight);
+	protected abstract void onNewSize(double oldWidth, 
+			                          double oldHeight, 
+			                          double newWidth,
+			                          double newHeight);
 
 }

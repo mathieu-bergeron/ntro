@@ -9,7 +9,7 @@ import ca.ntro.core.task_graphs.task_graph.TaskGroup;
 
 public abstract class TaskGroupCreatorNtro<O extends Object, TASKS extends Tasks>
 
-       extends        TaskCreatorNtro<O, TaskGroupDescriptor<?>, TaskGroupCreator<O, TASKS>, TaskGroup>
+       extends        TaskCreatorNtro<O, TaskDescriptor<?>, TaskGroupCreator<O, TASKS>, TaskGroup>
 
        implements     TaskGroupCreator<O, TASKS> {
 	

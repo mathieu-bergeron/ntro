@@ -6,7 +6,7 @@ public interface TaskGroupCreator<O extends Object, TASKS extends Object>
 
        extends   TaskCreator<O, TaskGroup>,
                  WaitsFor<O,
-                          TaskGroupDescriptor<?>,
+                          TaskDescriptor<?>,
                           TaskGroupCreator<O, TASKS>,
                           TaskGroup> {
 

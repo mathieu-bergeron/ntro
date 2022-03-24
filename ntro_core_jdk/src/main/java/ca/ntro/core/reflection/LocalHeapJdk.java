@@ -17,4 +17,5 @@ public class LocalHeapJdk extends LocalHeapNtro {
 		
 		return new ObjectNodeJdk(graph, localHeap, object, nodeId, isStartNode);
 	}
+
 }

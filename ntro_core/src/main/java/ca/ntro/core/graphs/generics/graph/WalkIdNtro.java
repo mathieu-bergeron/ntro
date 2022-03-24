@@ -21,4 +21,10 @@ public class WalkIdNtro
 		return path;
 	}
 
+	@Override
+	public String toString() {
+		return toPath().toRawPath();
+	}
+
+
 }

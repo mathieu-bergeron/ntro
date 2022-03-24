@@ -120,7 +120,7 @@ public abstract class GenericObjectBuilderNtro<O> {
 	protected ObjectNode getReferencedNode(ObjectNode objectReferenceNode) {
 
 		String referencedObjectId = (String) objectReferenceNode.asMap().get(JsonObject.REFERENCE_KEY);
-
+		
 		ObjectNode referencedNode = getGraph().findNode(referencedObjectId);
 
 		return referencedNode;
