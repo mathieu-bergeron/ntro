@@ -136,7 +136,6 @@ public abstract class StreamNtro<I extends Object>
 			
 			return accumulator;
 			
-			
 		}).value();
 	}
 
