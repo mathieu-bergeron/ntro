@@ -2,8 +2,6 @@ package ca.ntro.core.json;
 
 import ca.ntro.core.graphs.common.NodeId;
 import ca.ntro.core.graphs.generics.graph.WalkId;
-import ca.ntro.core.graphs.generics.graph.WalkIdNtro;
-import ca.ntro.core.initialization.Ntro;
 import ca.ntro.core.path.Path;
 import ca.ntro.core.reflection.object_graph.ObjectGraph;
 import ca.ntro.core.reflection.object_graph.ObjectGraphNtro;
@@ -30,24 +28,28 @@ public abstract class   JsonObjectGraphNtro
 	}
 
 	@Override
-	public ObjectNode findNode(String nodeId) {
-		ObjectNode node = null;
+	public ObjectNode findNode(String rawPathToNode) {
+
+		ObjectNode node = ((JsonObjectGraphStructure) getGraphStructure()).getLocalHeap().findNodeById(rawPathToNode);
 		
-		WalkId walkId = WalkId.fromPath(Path.fromRawPath(nodeId));
+		if(node == null) {
 
-		var lastOfWalk = walk(walkId).findFirst(walkInProgress -> {
+			WalkId walkId = WalkId.fromPath(Path.fromRawPath(rawPathToNode));
 
-					if(walkInProgress.remainingWalk().isEmpty()
-							&& walkInProgress.hasCurrentNode()) {
+			var lastOfWalk = walk(walkId).findFirst(walkInProgress -> {
+
+						if(walkInProgress.remainingWalk().isEmpty()
+								&& walkInProgress.hasCurrentNode()) {
+							
+							return true;
+						}
 						
-						return true;
-					}
-					
-					return false;
-		});
+						return false;
+			});
 
-		if(lastOfWalk != null) {
-			node = lastOfWalk.currentNode();
+			if(lastOfWalk != null) {
+				node = lastOfWalk.currentNode();
+			}
 		}
 
 		return node;

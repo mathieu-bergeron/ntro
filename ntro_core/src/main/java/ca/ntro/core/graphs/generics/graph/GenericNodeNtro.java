@@ -286,7 +286,7 @@ public abstract class GenericNodeNtro<N extends GenericNode<N,E,SO>,
 			                 SO options,
 			                 Visitor<WalkInProgress<N, E, SO>> visitor) throws Throwable {
 
-		
+
 		if(remainingWalk.size() <= 0) {
 			return;
 		}
@@ -304,16 +304,14 @@ public abstract class GenericNodeNtro<N extends GenericNode<N,E,SO>,
 
 			WalkNtro<N,E,SO> newWalked = new WalkNtro<>(walked);
 			newWalked.add(nextEdge);
-			
-			remainingWalk = remainingWalk.subWalk(1);
 
+			remainingWalk = remainingWalk.subWalk(1);
+			
 			WalkInProgressNtro<N,E,SO> walkInProgress = new WalkInProgressNtro<N,E,SO>(newWalked, remainingWalk, nextEdge.to());
 			
 			visitor.visit(walkInProgress);
-			
-			GenericNodeNtro<N,E,SO> nextNode  = (GenericNodeNtro<N,E,SO>) nextEdge.to();
-			
-			nextNode.visitWalk(newWalked, remainingWalk, options, visitor);
+
+			((GenericNodeNtro<N,E,SO>) nextEdge.to()).visitWalk(newWalked, remainingWalk, options, visitor);
 
 		} else {
 			

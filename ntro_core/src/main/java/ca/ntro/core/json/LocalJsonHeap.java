@@ -1,7 +1,5 @@
 package ca.ntro.core.json;
 
-
-import java.util.HashMap;
 import java.util.Map;
 
 import ca.ntro.core.graphs.common.NodeId;
@@ -13,16 +11,6 @@ import ca.ntro.core.reflection.object_graph.ObjectNode;
 public class LocalJsonHeap  
        
        extends LocalHeapNtro {
-	
-	private Map<String, ObjectNode> nodesByReferenceId = new HashMap<>();
-
-	public Map<String, ObjectNode> getNodesByReferenceId() {
-		return nodesByReferenceId;
-	}
-
-	public void setNodesByReferenceId(Map<String, ObjectNode> nodesByReferenceId) {
-		this.nodesByReferenceId = nodesByReferenceId;
-	}
 
 	public LocalJsonHeap(ObjectGraphNtro graph) {
 		super(graph);
@@ -54,12 +42,10 @@ public class LocalJsonHeap
 
 				if(referencedNodeId != null) {
 					
-					node = getNodesByReferenceId().get(referencedNodeId);
+					node = findNodeById(referencedNodeId);
 					
 					if(node == null) {
-
 						node = getGraph().findNode(referencedNodeId);
-						getNodesByReferenceId().put(referencedNodeId, node);
 					}
 				}
 			}
@@ -67,6 +53,4 @@ public class LocalJsonHeap
 		
 		return node;
 	}
-
-
 }

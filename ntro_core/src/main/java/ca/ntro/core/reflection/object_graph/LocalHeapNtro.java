@@ -12,6 +12,7 @@ public abstract class LocalHeapNtro implements LocalHeap {
 
 	private ObjectGraphNtro graph;
 	private Map<Object, Map<ObjectNode, Object>> heap = new HashMap<>();
+	private Map<String, ObjectNode> nodesById = new HashMap<>();
 
 	public ObjectGraphNtro getGraph() {
 		return graph;
@@ -97,5 +98,12 @@ public abstract class LocalHeapNtro implements LocalHeap {
 		}
 
 		objectByNode.put(node, object);
+
+		nodesById.put(node.id().toKey().toString(), node);
+	}
+
+	@Override
+	public ObjectNode findNodeById(String nodeId) {
+		return nodesById.get(nodeId);
 	}
 }
