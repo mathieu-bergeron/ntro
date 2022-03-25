@@ -61,9 +61,9 @@ public abstract class World2d<GC extends Object,
 		}
 	}
 
-	public void copyDataFrom(WORLD2D pong2d) {
+	public void copyDataFrom(WORLD2D world2d) {
 		for(int i = 0; i < objects.size(); i++) {
-			pong2d.copyDataTo(i, objects.get(i));
+			world2d.copyDataTo(i, objects.get(i));
 		}
 	}
 
