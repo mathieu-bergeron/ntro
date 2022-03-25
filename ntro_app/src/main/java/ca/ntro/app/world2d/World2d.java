@@ -37,9 +37,16 @@ public abstract class World2d<GC extends Object,
 		this.objects = objects;
 	}
 	
+	public World2d() {
+		initialize();
+	}
+	
+	protected abstract void initialize();
+
 	public void addObject2d(OBJECT2D object2d) {
 		object2d.setWorld(this);
 		objects.add(object2d);
+		object2d.initialize();
 	}
 
 	public void onTimePasses(double secondsElapsed) {

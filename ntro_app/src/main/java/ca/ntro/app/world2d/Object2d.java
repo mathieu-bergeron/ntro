@@ -92,6 +92,8 @@ public abstract class Object2d<GC extends Object,
 	
 	public abstract void draw(GC gc);
 
+	public abstract void initialize();
+
 	public void copyDataFrom(OBJECT2D object2d) {
 		setTopLeftX(object2d.getTopLeftX());
 		setTopLeftY(object2d.getTopLeftY());
