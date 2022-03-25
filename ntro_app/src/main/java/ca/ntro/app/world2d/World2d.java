@@ -68,9 +68,7 @@ public abstract class World2d<GC extends Object,
 	}
 
 	protected void copyDataTo(int i, OBJECT2D object2d) {
-		OBJECT2D from = objects.get(i);
-		
-		if(from != null) {
+		if(i < objects.size()) {
 			object2d.copyDataFrom(objects.get(i));
 		}
 	}
