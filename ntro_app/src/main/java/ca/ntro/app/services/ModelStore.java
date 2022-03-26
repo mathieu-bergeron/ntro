@@ -10,6 +10,7 @@ public interface ModelStore {
 
 	void save(Object model);
 	
+	void writeModelFiles();
 	void writeGraphs();
 
 }

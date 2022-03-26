@@ -69,8 +69,7 @@ public class ModelStoreDefault implements ModelStore {
 			
 			pushObservation(model.getClass(), previousModel, model);
 
-			writeModelFile(filePathFromClass(model.getClass()), model);
-
+			writeModelFile(model);
 		}
 	}
 
@@ -83,6 +82,18 @@ public class ModelStoreDefault implements ModelStore {
 		Ntro.storage().writeTextFile(filePath, jsonString);
 
 	}
+
+	private void writeModelFile(Object model) {
+		writeModelFile(filePathFromClass(model.getClass()), model);
+	}
+
+	@Override
+	public void writeModelFiles() {
+		for(Object model : currentModels.values()) {
+			writeModelFile(model);
+		}
+	}
+
 
 	@Override
 	public void writeGraphs() {
@@ -171,6 +182,7 @@ public class ModelStoreDefault implements ModelStore {
 
 		NtroApp.messageService().pushObservation(Ntro.reflection().simpleName(modelClass), observation);
 	}
+
 
 
 
