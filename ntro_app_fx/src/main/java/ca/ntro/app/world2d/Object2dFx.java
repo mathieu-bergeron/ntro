@@ -10,6 +10,8 @@ public abstract class Object2dFx<OBJECT2D extends Object2dFx<OBJECT2D, WORLD2D>,
                        OBJECT2D,
                        WORLD2D> {
 	
-	protected abstract boolean onMouseEvent(MouseEvent evtFx, double x, double y);
+	protected abstract boolean onMouseEvent(MouseEvent evtFx, 
+			                                double worldX, 
+			                                double worldY);
 
 }
