@@ -1,8 +1,6 @@
 package ca.ntro.app.views.controls.canvas;
 
-import ca.ntro.app.NtroApp;
 import ca.ntro.app.world2d.World2dFx;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.scene.input.MouseEvent;
@@ -81,15 +79,14 @@ public abstract class World2dCanvas extends ResizableCanvas {
 		getGc().restore();
 	}
 
-	public void displayWorld2d(World2dFx monde2d) {
-		getGc().strokeRect(0, 0, worldWidth, worldHeight);
+	public void displayWorld2d(World2dFx world2d) {
 
 		getGc().save();
 		getGc().beginPath();
 		getGc().rect(0, 0, worldWidth, worldHeight);
 		getGc().clip();
 		
-		monde2d.draw(getGc());
+		world2d.draw(getGc());
 		
 		getGc().restore();
 	}

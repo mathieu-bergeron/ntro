@@ -41,6 +41,14 @@ public abstract class ResizableCanvas extends Pane {
 	protected void setEpsilon(int epsilon) {
 		this.epsilon = epsilon;
 	}
+	
+	protected void setCanvasWidth(double width) {
+		canvas.setWidth(width);
+	}
+
+	protected void setCanvasHeight(double height) {
+		canvas.setHeight(height);
+	}
 
 	public ResizableCanvas() {
 		initialize();
