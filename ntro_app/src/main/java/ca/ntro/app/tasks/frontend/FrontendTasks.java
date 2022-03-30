@@ -4,6 +4,7 @@ import ca.ntro.app.frontend.View;
 import ca.ntro.app.frontend.ViewLoader;
 import ca.ntro.app.frontend.events.EventNtro;
 import ca.ntro.app.services.Window;
+import ca.ntro.app.session.Session;
 import ca.ntro.app.tasks.SimpleTaskCreator;
 import ca.ntro.app.tasks.TaskGroupCreator;
 import ca.ntro.app.tasks.Tasks;
@@ -47,8 +48,8 @@ public interface FrontendTasks extends Tasks {
 		return new FrontendSimpleTaskDescriptorNtro<>("snapshot["+ Ntro.reflection().simpleName(revisableClass) + "]");
 	}
 
-	public static <R extends Observable> FrontendSimpleTaskDescriptor<Revisions> updates(Class<R> revisableClass) {
-		return new FrontendSimpleTaskDescriptorNtro<>("versions["+ Ntro.reflection().simpleName(revisableClass) + "]");
+	public static <S extends Session> FrontendSimpleTaskDescriptor<Session> session(Class<S> sessionClass) {
+		return new FrontendSimpleTaskDescriptorNtro<>("session["+ Ntro.reflection().simpleName(sessionClass) + "]");
 	}
 
 	public static <R extends Observable> FrontendSimpleTaskDescriptor<Modified<R>> modified(Class<R> revisableClass) {

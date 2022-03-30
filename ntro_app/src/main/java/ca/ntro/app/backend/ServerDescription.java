@@ -4,6 +4,6 @@ public interface ServerDescription {
 
 	public int port();
 	public String serverName();
-	public boolean useSsl();
+	public boolean useSecureConnection();
 
 }

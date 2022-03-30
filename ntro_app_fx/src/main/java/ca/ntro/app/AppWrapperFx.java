@@ -24,16 +24,6 @@ public class AppWrapperFx extends Application {
     private static FrontendRegistrarFx  frontendRegistrar;
     private static SystemTasksNtro      systemTasksNtro;
     
-    private void onExit() {
-
-        System.out.println("\n\n\n[GENERATING GRAPHS]\n\n\n");
-        NtroApp.models().writeGraphs();
-
-        backendRegistrar.writeGraph();
-        frontendRegistrar.writeGraph();
-        systemTasksNtro.writeGraph();
-
-    }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -111,4 +101,13 @@ public class AppWrapperFx extends Application {
 
     }
 
+    private void onExit() {
+
+        System.out.println("\n\n\n[GENERATING GRAPHS]\n\n\n");
+        NtroApp.models().writeGraphs();
+
+        backendRegistrar.writeGraph();
+        frontendRegistrar.writeGraph();
+        systemTasksNtro.writeGraph();
+    }
 }
