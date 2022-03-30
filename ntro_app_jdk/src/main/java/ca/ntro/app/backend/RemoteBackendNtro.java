@@ -34,9 +34,4 @@ public abstract class RemoteBackendNtro
 		return false;
 	}
 
-	@Override
-	public boolean useSecureConnection() {
-		return false;
-	}
-
 }

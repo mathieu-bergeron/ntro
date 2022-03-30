@@ -11,6 +11,7 @@ public interface NtroServerJdk {
 	void registerMessages(MessageRegistrar registrar);
 	void registerModels(ModelRegistrar registrar);
 	void registerBackend(BackendRegistrar registrar);
+	void registerServer(ServerRegistrarJdk registrar);
 
     private static void checkJavaVersion() {
         String javaVersion = System.getProperty("java.version");
