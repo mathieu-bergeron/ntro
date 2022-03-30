@@ -70,7 +70,7 @@ public class AppWrapperFx extends Application {
         app.registerFrontend(frontendRegistrar);
 
         System.out.println("\n\n\n");
-        System.out.println("[INFO] Ntro version 0.9");
+        System.out.println("[INFO] Ntro version 1.0");
         System.out.println("[INFO] Locale: '" + NtroApp.currentLocale() + "'");
 
         // XXX: must first prepare every task graph

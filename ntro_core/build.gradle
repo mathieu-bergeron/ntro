@@ -4,7 +4,7 @@ plugins {
 }
 
 project.group = 'ca.ntro'
-project.version = '0.9'
+project.version = '1.0'
 
 tasks.test{
     afterTest { desc, result -> 
