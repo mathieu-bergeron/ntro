@@ -4,6 +4,9 @@ public interface Backend {
 
 	boolean isLocalBackend();
 	LocalBackend asLocalBackend();
+
+	boolean isRemoteBackend();
+	RemoteBackend asRemoteBackend();
 	
 	Session session();
 	

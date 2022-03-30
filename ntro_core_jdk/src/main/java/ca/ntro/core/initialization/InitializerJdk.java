@@ -15,8 +15,6 @@ import ca.ntro.core.services.StorageServiceJdk;
 import ca.ntro.core.services.Time;
 import ca.ntro.core.services.TimeJdk;
 import ca.ntro.core.task_graphs.task_graph.Task;
-import ca.ntro.core.values.ObjectMap;
-import ca.ntro.core.wrappers.result.Result;
 
 public class InitializerJdk 
        extends InitializerNtro {

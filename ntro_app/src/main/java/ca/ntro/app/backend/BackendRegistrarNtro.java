@@ -77,4 +77,10 @@ public class BackendRegistrarNtro implements BackendRegistrar {
 		getTaskFactory().writeGraph();
 	}
 
+	public void openConnection() {
+		if(getBackend().isRemoteBackend()) {
+			getBackend().asRemoteBackend().openConnection();
+		}
+	}
+
 }

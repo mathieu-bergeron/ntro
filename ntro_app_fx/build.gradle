@@ -14,4 +14,8 @@ dependencies {
 
     implementation project(':ntro_app')
     implementation project(':ntro_app_jdk')
+
+    // Vertx web server and SockJS server
+    implementation 'io.vertx:vertx-web:4.0.2'
+
 }

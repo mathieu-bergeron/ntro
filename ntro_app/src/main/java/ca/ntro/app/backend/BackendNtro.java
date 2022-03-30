@@ -13,9 +13,21 @@ public class BackendNtro implements Backend {
 	}
 
 	@Override
+	public RemoteBackend asRemoteBackend() {
+		return (RemoteBackend) this;
+	}
+
+	@Override
 	public Session session() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public boolean isRemoteBackend() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 
 }

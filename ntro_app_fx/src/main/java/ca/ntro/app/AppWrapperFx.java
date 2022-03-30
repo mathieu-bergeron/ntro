@@ -72,6 +72,9 @@ public class AppWrapperFx extends Application {
         System.out.println("\n\n\n");
         System.out.println("[INFO] Ntro version 1.0");
         System.out.println("[INFO] Locale: '" + NtroApp.currentLocale() + "'");
+        
+        backendRegistrar.openConnection();
+        
 
         // XXX: must first prepare every task graph
         //      (creates trace)

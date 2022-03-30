@@ -1,7 +1,6 @@
 package ca.ntro.app;
 
 import ca.ntro.app.frontend.FrontendRegistrarFx;
-import ca.ntro.core.NtroJdk;
 import ca.ntro.core.initialization.Ntro;
 import javafx.application.Application;
 import ntro.core.NtroFx;
