@@ -2,10 +2,14 @@ package ca.ntro.app;
 
 import ca.ntro.app.frontend.FrontendRegistrarFx;
 import ca.ntro.app.services.LocaleServiceJdk;
+import ca.ntro.app.services.MessageServiceNtro;
 import ca.ntro.core.initialization.Ntro;
+import ca.ntro.core.reflection.observer.Observation;
+import ca.ntro.core.reflection.observer.ObservationNtro;
 import javafx.application.Application;
 import ntro.core.NtroFx;
 import services.ExitServiceFx;
+import services.MessageServiceFx;
 
 public interface NtroClientFx extends App<FrontendRegistrarFx> {
     
@@ -32,6 +36,7 @@ public interface NtroClientFx extends App<FrontendRegistrarFx> {
 
         NtroApp.registerLocaleService(new LocaleServiceJdk());
         NtroApp.registerExitService(new ExitServiceFx());
+        NtroApp.registerMessageService(new MessageServiceFx());
 
         try {
 

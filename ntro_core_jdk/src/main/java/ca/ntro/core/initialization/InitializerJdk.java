@@ -2,6 +2,7 @@ package ca.ntro.core.initialization;
 
 import ca.ntro.core.identifyers.ClassId;
 import ca.ntro.core.identifyers.ObjectId;
+import ca.ntro.core.reflection.observer.ObservationNtro;
 import ca.ntro.core.services.AsserterJdk;
 import ca.ntro.core.services.CollectionsJdk;
 import ca.ntro.core.services.ExceptionThrowerDefault;
@@ -32,8 +33,7 @@ public class InitializerJdk
 		Ntro.registerRandom(new RandomJdk());
 		Ntro.registerJsonService(new JsonServiceJdk());
 		Ntro.registerStorageService(provideStorageService());
-		
-		
+
 	}
 
 	protected Time provideTime() {

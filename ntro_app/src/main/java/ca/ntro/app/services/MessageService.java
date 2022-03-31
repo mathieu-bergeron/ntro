@@ -2,10 +2,13 @@ package ca.ntro.app.services;
 
 import ca.ntro.app.messages.Message;
 import ca.ntro.app.messages.MessageNtro;
+import ca.ntro.app.messages.MessageServer;
 import ca.ntro.core.reflection.observer.Observation;
 import ca.ntro.core.task_graphs.task_graph.SimpleTask;
 
 public interface MessageService {
+	
+	void registerMessageServer(MessageServer server);
 
 	<MSG extends MessageNtro> MSG newMessage(Class<MSG> messageClass);
 
@@ -13,7 +16,12 @@ public interface MessageService {
 
 	void registerObserverTask(String revisionsName, SimpleTask revisionsHandlerTask);
 	
-	void sendMessage(Message message);
-	void pushObservation(String revisionsName, Observation<?> observation);
+	void sendMessageToServer(Message message);
+	void broadcastMessageToOtherClients(Message message);
+
+	void receiveMessageFromServer(Message message);
+
+	void pushObservationToClients(String observationName, Observation<?> observation);
+	void receiveObservationFromServer(String observationName, Observation<?> observation);
 
 }

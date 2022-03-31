@@ -1,22 +1,21 @@
 package ca.ntro.app.messages;
 
 import ca.ntro.app.services.MessageServiceNtro;
+import ca.ntro.core.initialization.Ntro;
 
 public class MessageNtro implements Message {
 	
 	private MessageServiceNtro messageService;
 
-	public MessageServiceNtro getMessageService() {
-		return messageService;
-	}
-
-	public void setMessageService(MessageServiceNtro messageService) {
+	public void registerMessageService(MessageServiceNtro messageService) {
 		this.messageService = messageService;
 	}
 
-
 	public void send() {
-		getMessageService().sendMessage(this);
+		messageService.deliverMessage(this);
 	}
 
+	public void broadcast() {
+		messageService.broadcastMessageToOtherClients(this);
+	}
 }

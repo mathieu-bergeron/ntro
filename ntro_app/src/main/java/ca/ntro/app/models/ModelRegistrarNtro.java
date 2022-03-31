@@ -41,13 +41,13 @@ public class ModelRegistrarNtro implements ModelRegistrar {
 	@Override
 	public <M extends Model> void registerModel(Class<M> modelClass) {
 		getModelClasses().add(modelClass);
-		Ntro.factory().registerNamedClass(Ntro.reflection().simpleName(modelClass), modelClass);
+		Ntro.factory().registerNamedClass(modelClass);
 	}
 
 	@Override
 	public <V extends Value> void registerValue(Class<V> valueClass) {
 		getValueClasses().add(valueClass);
-		Ntro.factory().registerNamedClass(Ntro.reflection().simpleName(valueClass), valueClass);
+		Ntro.factory().registerNamedClass(valueClass);
 	}
 
 	public void addModelObserverTasks(TaskFactoryNtro<?> taskFactory) {

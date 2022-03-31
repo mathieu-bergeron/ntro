@@ -180,7 +180,8 @@ public class ModelStoreDefault implements ModelStore {
 
 		//Revisions revisions = Ntro.reflection().revisionsFromTo(initialModel, currentModel);
 
-		NtroApp.messageService().pushObservation(Ntro.reflection().simpleName(modelClass), observation);
+		NtroApp.messageService().receiveObservationFromServer(Ntro.reflection().simpleName(modelClass), observation);
+		NtroApp.messageService().pushObservationToClients(Ntro.reflection().simpleName(modelClass), observation);
 	}
 
 

@@ -5,6 +5,7 @@ import java.util.Set;
 
 import ca.ntro.app.NtroApp;
 import ca.ntro.app.tasks.TaskFactoryNtro;
+import ca.ntro.core.initialization.Ntro;
 import ca.ntro.core.task_graphs.generic_task_graph.SimpleTaskOptions;
 import ca.ntro.core.task_graphs.task_graph.SimpleTaskNtro;
 import ca.ntro.core.task_graphs.task_graph.Task;
@@ -25,10 +26,9 @@ public class MessageRegistrarNtro implements MessageRegistrar {
 		this.messageClasses = messageClasses;
 	}
 
-
-
 	@Override
 	public <MSG extends Message> void registerMessage(Class<MSG> messageClass) {
+		Ntro.factory().registerNamedClass(messageClass);
 		getMessageClasses().add(messageClass);
 	}
 
