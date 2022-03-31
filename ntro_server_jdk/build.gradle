@@ -1,5 +1,6 @@
 plugins{
     id 'localJavaPlugin'
+    id 'localFxPlugin'
 }
 
 dependencies {
@@ -7,6 +8,7 @@ dependencies {
     implementation project(':ntro_core_jdk')
     implementation project(':ntro_app')
     implementation project(':ntro_app_jdk')
+    implementation project(':ntro_app_fx')
     implementation project(':ntro_server')
 
     implementation 'org.java-websocket:Java-WebSocket:1.5.2'

@@ -1,18 +1,21 @@
-package ca.ntro.server;
+package ca.ntro.app;
 
 import ca.ntro.app.backend.BackendRegistrar;
 import ca.ntro.app.messages.MessageRegistrar;
 import ca.ntro.app.models.ModelRegistrar;
-import ca.ntro.core.NtroJdk;
+import ca.ntro.app.services.LocaleServiceJdk;
 import ca.ntro.core.initialization.Ntro;
+import javafx.application.Application;
+import ntro.core.NtroFx;
+import services.ExitServiceFx;
 
 public interface NtroServerJdk {
 
 	void registerMessages(MessageRegistrar registrar);
 	void registerModels(ModelRegistrar registrar);
 	void registerBackend(BackendRegistrar registrar);
-	void registerServer(ServerRegistrarJdk registrar);
-
+	void registerServer(ServerRegistrarJdkImpl registrar);
+	
     private static void checkJavaVersion() {
         String javaVersion = System.getProperty("java.version");
         if(!javaVersion.startsWith("11")) {
@@ -23,7 +26,6 @@ public interface NtroServerJdk {
 	
     @SuppressWarnings("unchecked")
     public static void launch(String[] args) {
-
         initialize();
         
         Class<? extends NtroServerJdk> callerClass = (Class<? extends NtroServerJdk>) Ntro.stackAnalyzer().callerClass();
@@ -34,9 +36,12 @@ public interface NtroServerJdk {
     private static void initialize() {
         checkJavaVersion();
 
+        NtroApp.registerLocaleService(new LocaleServiceJdk());
+        NtroApp.registerExitService(new ExitServiceFx());
+
         try {
 
-        	NtroJdk.initializer().executeBlocking();
+        	NtroFx.initializer().executeBlocking();
 
         } catch (Throwable e) {
 
@@ -51,10 +56,11 @@ public interface NtroServerJdk {
         launchImpl(callerClass, args);
     }
 
-    private static void launchImpl(Class<? extends NtroServerJdk> callerClass, String[] args) {
+    private static void launchImpl(Class<? extends NtroServerJdk> serverClass, String[] args) {
     	
-    	WebSocketServerNtro webSocketServer = new WebSocketServerNtro(8080);
-    	webSocketServer.start();
+    	// Start a FX headless app
+    	ServerWrapperFx.serverClass = serverClass;
+    	Application.launch(ServerWrapperFx.class, args);
     	
     	
     	/*

@@ -1,9 +1,7 @@
 package ca.ntro.app.backend;
 
-import java.net.URI;
-import java.net.URISyntaxException;
 
-import ca.ntro.core.initialization.Ntro;
+import ca.ntro.app.ServerRegistrarNtro;
 
 public abstract class RemoteBackendNtro 
 
@@ -11,17 +9,16 @@ public abstract class RemoteBackendNtro
 
        implements     RemoteBackend {
 	
+	private ServerRegistrarNtro serverRegistrar = new ServerRegistrarNtro();
+	
+	public RemoteBackendNtro() {
+		registerServer(serverRegistrar);
+	}
+	
 	@Override
 	public void openConnection() {
-		
-		try {
-
-			WebSocketClientNtro client = new WebSocketClientNtro(new URI("ws://localhost:8080"));
-			client.connect();
-
-		} catch (URISyntaxException e) {
-			Ntro.throwException(e);
-		}
+		WebSocketClientNtro client = new WebSocketClientNtro(serverRegistrar.getServerName(), serverRegistrar.getPort());
+		client.connect();
 	}
 
 	@Override

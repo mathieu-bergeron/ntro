@@ -43,7 +43,13 @@ public class BackendRegistrarNtro implements BackendRegistrar {
 		this.backend = backend;
 	}
 	
-	
+	public BackendRegistrarNtro() {
+	}
+
+	public BackendRegistrarNtro(ModelRegistrarNtro modelRegistrar, MessageRegistrarNtro messageRegistrarNtro) {
+		setModelRegistrar(modelRegistrar);
+		setMessageRegistrar(messageRegistrarNtro);
+	}
 
 	@Override
 	public void registerBackend(Backend backend) {
@@ -79,8 +85,14 @@ public class BackendRegistrarNtro implements BackendRegistrar {
 
 	public void openConnection() {
 		if(getBackend().isRemoteBackend()) {
+			
 			getBackend().asRemoteBackend().openConnection();
+
 		}
+	}
+
+	public boolean isRemoteBackend() {
+		return getBackend().isRemoteBackend();
 	}
 
 }

@@ -1,4 +1,4 @@
-package ca.ntro.server;
+package ca.ntro.app;
 
 public interface ConnectionInfo {
 

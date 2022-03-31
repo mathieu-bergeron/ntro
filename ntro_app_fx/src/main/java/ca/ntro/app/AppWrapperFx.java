@@ -8,9 +8,6 @@ import ca.ntro.app.frontend.FrontendRegistrarFx;
 import ca.ntro.app.frontend.WindowFx;
 import ca.ntro.app.messages.MessageRegistrarNtro;
 import ca.ntro.app.models.ModelRegistrarNtro;
-import ca.ntro.app.services.ExitServiceJdk;
-import ca.ntro.app.services.LocaleServiceJdk;
-import ca.ntro.app.system.SystemTasksNtro;
 import ca.ntro.core.initialization.Ntro;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -22,14 +19,12 @@ public class AppWrapperFx extends Application {
     
     private static BackendRegistrarNtro backendRegistrar;
     private static FrontendRegistrarFx  frontendRegistrar;
-    private static SystemTasksNtro      systemTasksNtro;
+    //private static SystemTasksNtro      systemTasksNtro;
     
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         
-        NtroApp.registerLocaleService(new LocaleServiceJdk());
-        NtroApp.registerExitService(new ExitServiceJdk());
         
         NtroClientFx app = Ntro.factory().newInstance(appClass);
 
@@ -37,7 +32,7 @@ public class AppWrapperFx extends Application {
         ModelRegistrarNtro   modelRegistrar    = new ModelRegistrarNtro();
         backendRegistrar  = new BackendRegistrarNtro();
         frontendRegistrar = new FrontendRegistrarFx();
-        systemTasksNtro   = new SystemTasksNtro();
+        //systemTasksNtro   = new SystemTasksNtro();
 
         WindowFx window = new WindowFx(primaryStage);
         frontendRegistrar.setWindow(window);
@@ -63,20 +58,26 @@ public class AppWrapperFx extends Application {
         System.out.println("[INFO] Ntro version 1.0");
         System.out.println("[INFO] Locale: '" + NtroApp.currentLocale() + "'");
         
-        backendRegistrar.openConnection();
-        
+		if(backendRegistrar.isRemoteBackend()) {
 
-        // XXX: must first prepare every task graph
-        //      (creates trace)
-        backendRegistrar.prepareToExecuteTasks();
+			backendRegistrar.openConnection();
+
+        }else {
+
+			backendRegistrar.prepareToExecuteTasks();
+
+        }
+        
         frontendRegistrar.prepareToExecuteTasks();
-        systemTasksNtro.prepareToExecuteTasks();
         
-        modelRegistrar.watchModels();
+        if(!backendRegistrar.isRemoteBackend()) {
 
-        backendRegistrar.executeTasks();
+			modelRegistrar.watchModels();
+			backendRegistrar.executeTasks();
+
+        }
+        	
         frontendRegistrar.executeTasks();
-        systemTasksNtro.executeTasks();
         
         // FIXME: should define some Ntro.threadService
         new Thread() {
@@ -89,7 +90,6 @@ public class AppWrapperFx extends Application {
                 try {
 
                     System.in.read();
-                    Platform.exit();
                     NtroApp.exit(() -> onExit());
 
                 } catch (IOException e) {
@@ -101,13 +101,15 @@ public class AppWrapperFx extends Application {
 
     }
 
-    private void onExit() {
+    public static void onExit() {
 
         System.out.println("\n\n\n[GENERATING GRAPHS]\n\n\n");
         NtroApp.models().writeGraphs();
+        
+        if(!backendRegistrar.isRemoteBackend()) {
+			backendRegistrar.writeGraph();
+        }
 
-        backendRegistrar.writeGraph();
         frontendRegistrar.writeGraph();
-        systemTasksNtro.writeGraph();
     }
 }

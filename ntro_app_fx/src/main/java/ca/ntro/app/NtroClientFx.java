@@ -1,9 +1,11 @@
 package ca.ntro.app;
 
 import ca.ntro.app.frontend.FrontendRegistrarFx;
+import ca.ntro.app.services.LocaleServiceJdk;
 import ca.ntro.core.initialization.Ntro;
 import javafx.application.Application;
 import ntro.core.NtroFx;
+import services.ExitServiceFx;
 
 public interface NtroClientFx extends App<FrontendRegistrarFx> {
     
@@ -27,6 +29,9 @@ public interface NtroClientFx extends App<FrontendRegistrarFx> {
 
     private static void initialize() {
         checkJavaVersion();
+
+        NtroApp.registerLocaleService(new LocaleServiceJdk());
+        NtroApp.registerExitService(new ExitServiceFx());
 
         try {
 

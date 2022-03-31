@@ -1,6 +1,4 @@
-package ca.ntro.server;
-
-import ca.ntro.app.ServerRegistrar;
+package ca.ntro.app;
 
 public interface ServerRegistrarJdk extends ServerRegistrar {
 
