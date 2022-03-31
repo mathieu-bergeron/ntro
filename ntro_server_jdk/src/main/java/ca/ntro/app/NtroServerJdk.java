@@ -2,7 +2,6 @@ package ca.ntro.app;
 
 import ca.ntro.app.backend.BackendRegistrar;
 import ca.ntro.app.messages.MessageRegistrar;
-import ca.ntro.app.messages.BroadcastMessageNtro;
 import ca.ntro.app.models.ModelRegistrar;
 import ca.ntro.app.services.LocaleServiceJdk;
 import ca.ntro.core.initialization.Ntro;

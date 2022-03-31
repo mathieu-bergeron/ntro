@@ -12,6 +12,9 @@ import ca.ntro.core.path.Path;
 import ca.ntro.core.reflection.object_graph.ObjectGraph;
 import ca.ntro.core.reflection.observer.Observable;
 import ca.ntro.core.reflection.observer.ObservationNtro;
+import ca.ntro.core.stream.Stream;
+import ca.ntro.core.stream.StreamNtro;
+import ca.ntro.core.stream.Visitor;
 
 public class ModelStoreDefault implements ModelStore {
 	
@@ -182,6 +185,19 @@ public class ModelStoreDefault implements ModelStore {
 
 		NtroApp.messageService().receiveObservationFromServer(Ntro.reflection().simpleName(modelClass), observation);
 		NtroApp.messageService().pushObservationToClients(Ntro.reflection().simpleName(modelClass), observation);
+	}
+
+
+	@Override
+	public Stream<Model> modelStream() {
+		return new StreamNtro<Model>() {
+			@Override
+			public void forEach_(Visitor<Model> visitor) throws Throwable {
+				for(Object model : currentModels.values()) {
+					visitor.visit((Model) model);
+				}
+			}
+		};
 	}
 
 

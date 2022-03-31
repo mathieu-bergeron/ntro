@@ -20,7 +20,9 @@ import ca.ntro.app.messages.BroadcastMessageNtro;
 import ca.ntro.core.initialization.Ntro;
 import ca.ntro.core.json.JsonObject;
 import ca.ntro.core.reflection.object_graph.ObjectGraph;
+import ca.ntro.core.reflection.observer.Observable;
 import ca.ntro.core.reflection.observer.Observation;
+import ca.ntro.core.reflection.observer.ObservationNtro;
 
 public class WebSocketServerNtro extends WebSocketServer implements MessageServer {
 	
@@ -56,6 +58,18 @@ public class WebSocketServerNtro extends WebSocketServer implements MessageServe
 	@Override
 	public void onOpen(WebSocket conn, ClientHandshake handshake) {
 		connections.add(conn);
+		
+		pushObservationsToNewClient(conn);
+	}
+
+	private void pushObservationsToNewClient(WebSocket client) {
+		NtroApp.models().modelStream().forEach(model  -> {
+			ObservationNtro observation = new ObservationNtro();
+			observation.setPreviousValue((Observable) Ntro.factory().newInstance(model.getClass()));
+			observation.setCurrentValue((Observable)model);
+			
+			pushObservationToClient(client, observation);
+		});
 	}
 
 	@Override
@@ -132,8 +146,12 @@ public class WebSocketServerNtro extends WebSocketServer implements MessageServe
 	@Override
 	public void pushObservationToClients(String observationName, Observation<?> observation) {
 		for(WebSocket client : connections) {
-			client.send(Ntro.reflection().toJsonObject(observation).toJsonString(false));
+			pushObservationToClient(client, observation);
 		}
+	}
+
+	private void pushObservationToClient(WebSocket client, Observation<?> observation) {
+		client.send(Ntro.reflection().toJsonObject(observation).toJsonString(false));
 	}
 
 	@Override
