@@ -3,6 +3,7 @@ package ca.ntro.app.tasks.frontend;
 import ca.ntro.app.frontend.View;
 import ca.ntro.app.frontend.ViewLoader;
 import ca.ntro.app.frontend.events.EventNtro;
+import ca.ntro.app.messages.Message;
 import ca.ntro.app.services.Window;
 import ca.ntro.app.session.Session;
 import ca.ntro.app.tasks.SimpleTaskCreator;
@@ -54,6 +55,10 @@ public interface FrontendTasks extends Tasks {
 
 	public static <R extends Observable> FrontendSimpleTaskDescriptor<Modified<R>> modified(Class<R> revisableClass) {
 		return new FrontendSimpleTaskDescriptorNtro<>("modified["+ Ntro.reflection().simpleName(revisableClass) + "]");
+	}
+
+	public static <MSG extends Message> FrontendSimpleTaskDescriptor<MSG> message(Class<MSG> messageClass) {
+		return new FrontendSimpleTaskDescriptorNtro<>("message["+ Ntro.reflection().simpleName(messageClass) + "]");
 	}
 
 	public static ClockDescriptor clock() {
