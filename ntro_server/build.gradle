@@ -3,6 +3,9 @@ plugins{
     id 'localJSweetPlugin'
 }
 
+project.group = 'ca.ntro'
+project.version = '1.0'
+
 localJSweetPlugin {
 
     localJSweetDependencies = ['ntro_app']

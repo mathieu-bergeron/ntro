@@ -3,6 +3,9 @@ plugins{
     id 'localFxPlugin'
 }
 
+project.group = 'ca.ntro'
+project.version = '1.0'
+
 dependencies {
     implementation project(':ntro_core')
     implementation project(':ntro_core_jdk')
