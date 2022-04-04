@@ -109,7 +109,8 @@ public class MessageServiceNtro implements MessageService {
 			default:
 				// XXX: copy message to simulate that the
 				//      message is sent through a channel
-				Message copyOfMessage = (Message) Ntro.reflection().clone(message);
+				MessageNtro copyOfMessage = (MessageNtro) Ntro.reflection().clone(message);
+				copyOfMessage.registerMessageService(this);
 				receiveMessageFromServer(copyOfMessage);
 				break;
 

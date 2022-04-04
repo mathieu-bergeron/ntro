@@ -141,6 +141,12 @@ public class WebSocketServerNtro extends WebSocketServer implements MessageServe
 
 	@Override
 	public void broadcastMessageToOtherClients(Message message) {
+		// XXX: broadcast to all clients
+		String messageText = Ntro.reflection().toJsonObject(message).toJsonString(false);
+
+		for(WebSocket broadcastTo : connections) {
+			broadcastTo.send(messageText);
+		}
 	}
 
 	@Override

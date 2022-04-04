@@ -1,7 +1,6 @@
 package ca.ntro.app.messages;
 
 import ca.ntro.app.services.MessageServiceNtro;
-import ca.ntro.core.initialization.Ntro;
 
 public class MessageNtro implements Message {
 	
