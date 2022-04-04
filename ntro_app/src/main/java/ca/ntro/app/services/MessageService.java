@@ -1,5 +1,6 @@
 package ca.ntro.app.services;
 
+import ca.ntro.app.messages.DeliveryMode;
 import ca.ntro.app.messages.Message;
 import ca.ntro.app.messages.MessageNtro;
 import ca.ntro.app.messages.MessageServer;
@@ -8,7 +9,7 @@ import ca.ntro.core.task_graphs.task_graph.SimpleTask;
 
 public interface MessageService {
 	
-	void registerMessageServer(MessageServer server);
+	void registerMessageServer(MessageServer server, DeliveryMode deliveryMode);
 
 	<MSG extends MessageNtro> MSG newMessage(Class<MSG> messageClass);
 

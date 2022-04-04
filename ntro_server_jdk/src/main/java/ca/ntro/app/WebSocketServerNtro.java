@@ -132,7 +132,7 @@ public class WebSocketServerNtro extends WebSocketServer implements MessageServe
 	@Override
 	public void onStart() {
 		System.out.println("\n\n[INFO] Listening on ws://" + getServerName() + ":" + getPort() + "\n\n\n");
-		NtroApp.messageService().registerMessageServer(this);
+		NtroApp.messageService().registerMessageServer(this, DeliveryMode.DISPATCH_LOCALLY);
 	}
 
 	@Override

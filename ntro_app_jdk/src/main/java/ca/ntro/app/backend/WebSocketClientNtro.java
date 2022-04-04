@@ -56,7 +56,7 @@ public class WebSocketClientNtro extends WebSocketClient implements MessageServe
 	public void onOpen(ServerHandshake handshakedata) {
 		System.out.println("\n\n[INFO] connected to " + getURI() + "\n\n");
 
-		NtroApp.messageService().registerMessageServer(this);
+		NtroApp.messageService().registerMessageServer(this, DeliveryMode.SEND_TO_SERVER);
 	}
 
 	@Override

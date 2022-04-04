@@ -120,9 +120,9 @@ public class MessageServiceNtro implements MessageService {
 	}
 
 	@Override
-	public void registerMessageServer(MessageServer messageServer) {
+	public void registerMessageServer(MessageServer messageServer, DeliveryMode deliveryMode) {
 		this.messageServer = messageServer;
-		this.deliveryMode = DeliveryMode.SEND_TO_SERVER;
+		this.deliveryMode = deliveryMode;
 		
 		this.messageServer.onMessageFromServer(message -> {
 			receiveMessageFromServer(message);
