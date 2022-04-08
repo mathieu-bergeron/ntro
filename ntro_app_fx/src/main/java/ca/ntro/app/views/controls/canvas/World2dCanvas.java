@@ -3,12 +3,23 @@ package ca.ntro.app.views.controls.canvas;
 import ca.ntro.app.world2d.World2dFx;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
+import javafx.geometry.Pos;
 import javafx.scene.input.MouseEvent;
 
 public abstract class World2dCanvas extends ResizableCanvas {
 	
 	private double worldWidth = 0;
 	private double worldHeight = 0;
+	
+	private Pos position = Pos.CENTER;
+
+	public Pos getPosition() {
+		return position;
+	}
+
+	public void setPosition(Pos position) {
+		this.position = position;
+	}
 
 	public double getWorldWidth() {
 		return worldWidth;
@@ -60,9 +71,15 @@ public abstract class World2dCanvas extends ResizableCanvas {
 		
 		double worldWidthScaled = worldWidth * scaleX;
 		double worldHeightScaled = worldHeight * scaleY;
-		
-		if(worldWidthScaled <  canvasWidth) {
+
+		if(worldWidthScaled <  canvasWidth
+				&& position == Pos.CENTER) {
 			translateX = ((canvasWidth - worldWidthScaled) / 2);
+
+		}else if(worldWidthScaled <  canvasWidth
+				&& position == Pos.CENTER_RIGHT) {
+
+			translateX = canvasWidth - worldWidthScaled;
 		}
 
 		if(worldHeightScaled <  canvasHeight) {
