@@ -6,12 +6,12 @@ import javafx.scene.canvas.GraphicsContext;
 
 public class CanvasFx extends ResizableCanvas implements Canvas<GraphicsContext, CanvasFx, GraphicsContextFx, CanvasFx> {
 	
-	private CanvasNtroFx canvasNtroFx = new CanvasNtroFx(this);
+	private CanvasNtroFx canvasNtroFx = new CanvasNtroFx(new GraphicsContextFx(getGc()), this);
 
 	@Override
-	protected void initialize() {
-		// TODO Auto-generated method stub
-		
+	public void initialize() {
+		System.out.println("Initialize\n\n");
+	    canvasNtroFx = new CanvasNtroFx(new GraphicsContextFx(getGc()), this);
 	}
 
 	@Override

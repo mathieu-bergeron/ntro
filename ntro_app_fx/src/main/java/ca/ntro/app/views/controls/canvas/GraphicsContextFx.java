@@ -7,6 +7,10 @@ public class GraphicsContextFx extends GraphicsContextNtro<GraphicsContext, Canv
 	
 	private GraphicsContext gc;
 
+	public GraphicsContextFx(GraphicsContext gc) {
+		this.gc = gc;
+	}
+
 	@Override
 	public void save() {
 		gc.save();
@@ -35,6 +39,11 @@ public class GraphicsContextFx extends GraphicsContextNtro<GraphicsContext, Canv
 	@Override
 	public GraphicsContext getRawGraphicsContext() {
 		return gc;
+	}
+
+	@Override
+	public void fillRect(double topLeftX, double topLeftY, double width, double height) {
+		gc.fillRect(topLeftX, topLeftY, width, height);
 	}
 
 }

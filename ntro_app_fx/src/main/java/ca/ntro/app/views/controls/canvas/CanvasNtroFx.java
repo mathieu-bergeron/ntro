@@ -15,7 +15,8 @@ public class CanvasNtroFx extends CanvasNtro<GraphicsContext, CanvasFx, Graphics
 		this.canvasFx = canvasFx;
 	}
 	
-	public CanvasNtroFx(CanvasFx canvasFx) {
+	public CanvasNtroFx(GraphicsContextFx graphicsContext, CanvasFx canvasFx) {
+		setGraphicsContext(graphicsContext);
 		setCanvasFx(canvasFx);
 	}
 

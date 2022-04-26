@@ -10,6 +10,8 @@ public interface GraphicsContext<RAW_GC extends Object,
 
 	void save();
 	void restore();
+	
+	void fillRect(double topLeftX, double topLeftY, double width, double height);
 
 	void translate(double x, double y);
 	void scale(double x, double y);
