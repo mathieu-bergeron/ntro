@@ -3,7 +3,7 @@ package ca.ntro.app.views.controls.canvas;
 import ca.ntro.app.frontend.views.controls.canvas.CanvasNtro;
 import javafx.scene.canvas.GraphicsContext;
 
-public class CanvasNtroFx extends CanvasNtro<GraphicsContext, CanvasFx, GraphicsContextFx, CanvasFx> {
+public class CanvasNtroFx extends CanvasNtro<GraphicsContext, javafx.scene.canvas.Canvas> {
 	
 	private CanvasFx canvasFx;
 
@@ -21,7 +21,7 @@ public class CanvasNtroFx extends CanvasNtro<GraphicsContext, CanvasFx, Graphics
 	}
 
 	@Override
-	public CanvasFx getRawCanvas() {
+	public javafx.scene.canvas.Canvas getRawCanvas() {
 		return getCanvasFx().getRawCanvas();
 	}
 

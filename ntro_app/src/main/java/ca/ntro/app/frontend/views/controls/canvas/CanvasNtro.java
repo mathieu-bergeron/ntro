@@ -1,11 +1,9 @@
 package ca.ntro.app.frontend.views.controls.canvas;
 
 public abstract class CanvasNtro<RAW_GC extends Object,
-                                 RAW_CANVAS extends Object,
-                                 GC extends GraphicsContext<RAW_GC, RAW_CANVAS, GC, CANVAS>,
-                                 CANVAS extends Canvas<RAW_GC, RAW_CANVAS, GC, CANVAS>>
+                                 RAW_CANVAS extends Object>
 
-       implements Canvas<RAW_GC, RAW_CANVAS, GC, CANVAS> {
+       implements Canvas<RAW_GC, RAW_CANVAS> {
 	
 	private double canvasWidth;
 	private double canvasHeight;
@@ -13,7 +11,7 @@ public abstract class CanvasNtro<RAW_GC extends Object,
 	private double viewportWidth;
 	private double viewportHeight;
 
-	private GC graphicsContext;
+	private GraphicsContext<RAW_GC, RAW_CANVAS> graphicsContext;
 
 	public double getCanvasWidth() {
 		return canvasWidth;
@@ -47,11 +45,11 @@ public abstract class CanvasNtro<RAW_GC extends Object,
 		this.viewportHeight = viewportHeight;
 	}
 
-	public GC getGraphicsContext() {
+	public GraphicsContext<RAW_GC, RAW_CANVAS> getGraphicsContext() {
 		return graphicsContext;
 	}
 
-	public void setGraphicsContext(GC graphicsContext) {
+	public void setGraphicsContext(GraphicsContext<RAW_GC, RAW_CANVAS> graphicsContext) {
 		this.graphicsContext = graphicsContext;
 	}
 
@@ -76,7 +74,7 @@ public abstract class CanvasNtro<RAW_GC extends Object,
 	}
 
 	@Override
-	public void drawOnCanvas(CanvasDrawingLambda<RAW_GC, RAW_CANVAS, GC, CANVAS> lambda) {
+	public void drawOnCanvas(CanvasDrawingLambda<RAW_GC, RAW_CANVAS> lambda) {
 		graphicsContext.save();
 		
 		lambda.draw(graphicsContext);
@@ -85,7 +83,7 @@ public abstract class CanvasNtro<RAW_GC extends Object,
 	}
 
 	@Override
-	public void drawOnViewport(CanvasDrawingLambda<RAW_GC, RAW_CANVAS, GC, CANVAS> lambda) {
+	public void drawOnViewport(CanvasDrawingLambda<RAW_GC, RAW_CANVAS> lambda) {
 		graphicsContext.save();
 		
 		lambda.draw(graphicsContext);

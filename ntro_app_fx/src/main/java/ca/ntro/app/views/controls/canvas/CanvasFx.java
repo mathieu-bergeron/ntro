@@ -4,7 +4,7 @@ import ca.ntro.app.frontend.views.controls.canvas.Canvas;
 import ca.ntro.app.frontend.views.controls.canvas.CanvasDrawingLambda;
 import javafx.scene.canvas.GraphicsContext;
 
-public class CanvasFx extends ResizableCanvas implements Canvas<GraphicsContext, CanvasFx, GraphicsContextFx, CanvasFx> {
+public class CanvasFx extends ResizableCanvas implements Canvas<GraphicsContext, javafx.scene.canvas.Canvas> {
 	
 	private CanvasNtroFx canvasNtroFx = new CanvasNtroFx(new GraphicsContextFx(getGc()), this);
 
@@ -25,14 +25,10 @@ public class CanvasFx extends ResizableCanvas implements Canvas<GraphicsContext,
 	}
 
 	@Override
-	public CanvasFx getRawCanvas() {
-		return this;
+	public javafx.scene.canvas.Canvas getRawCanvas() {
+		return getCanvas();
 	}
 
-	@Override
-	public GraphicsContextFx getGraphicsContext() {
-		return canvasNtroFx.getGraphicsContext();
-	}
 
 	@Override
 	public double canvasWidth() {
@@ -55,12 +51,12 @@ public class CanvasFx extends ResizableCanvas implements Canvas<GraphicsContext,
 	}
 
 	@Override
-	public void drawOnCanvas(CanvasDrawingLambda<GraphicsContext, CanvasFx, GraphicsContextFx, CanvasFx> lambda) {
+	public void drawOnCanvas(CanvasDrawingLambda<GraphicsContext, javafx.scene.canvas.Canvas> lambda) {
 		canvasNtroFx.drawOnCanvas(lambda);
 	}
 
 	@Override
-	public void drawOnViewport(CanvasDrawingLambda<GraphicsContext, CanvasFx, GraphicsContextFx, CanvasFx> lambda) {
+	public void drawOnViewport(CanvasDrawingLambda<GraphicsContext, javafx.scene.canvas.Canvas> lambda) {
 		canvasNtroFx.drawOnViewport(lambda);
 	}
 

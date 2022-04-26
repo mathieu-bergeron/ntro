@@ -3,7 +3,7 @@ package ca.ntro.app.views.controls.canvas;
 import ca.ntro.app.frontend.views.controls.canvas.GraphicsContextNtro;
 import javafx.scene.canvas.GraphicsContext;
 
-public class GraphicsContextFx extends GraphicsContextNtro<GraphicsContext, CanvasFx, GraphicsContextFx, CanvasFx> {
+public class GraphicsContextFx extends GraphicsContextNtro<GraphicsContext, javafx.scene.canvas.Canvas> {
 	
 	private GraphicsContext gc;
 

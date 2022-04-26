@@ -49,6 +49,11 @@ public abstract class ResizableCanvas extends Pane {
 	protected void setCanvasHeight(double height) {
 		canvas.setHeight(height);
 	}
+	
+	protected Canvas getCanvas() {
+		return canvas;
+	}
+	
 
 	public ResizableCanvas() {
 		initialize();
