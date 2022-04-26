@@ -2,9 +2,13 @@ package ca.ntro.app.frontend.views.controls.canvas;
 
 public interface Canvas<GC extends GraphicsContext> {
 	
-	double width();
-	double height();
+	double canvasWidth();
+	double canvasHeight();
 
-	GC graphicsContext();
+	double viewportWidth();
+	double viewportHeight();
+	
+	void drawOnCanvas(CanvasDrawingLambda lambda);
+	void drawOnViewport(CanvasDrawingLambda lambda);
 
 }

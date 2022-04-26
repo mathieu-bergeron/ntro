@@ -5,24 +5,44 @@ public class CanvasNtro<GC     extends GraphicsContextNtro<GC,CANVAS>,
 
        implements Canvas<GC> {
 	
-	private double width;
-	private double height;
+	private double canvasWidth;
+	private double canvasHeight;
+
+	private double viewportWidth;
+	private double viewportHeight;
+
 	private GC graphicsContext;
 
-	public double getWidth() {
-		return width;
+	public double getCanvasWidth() {
+		return canvasWidth;
 	}
 
-	public void setWidth(double width) {
-		this.width = width;
+	public void setCanvasWidth(double canvasWidth) {
+		this.canvasWidth = canvasWidth;
 	}
 
-	public double getHeight() {
-		return height;
+	public double getCanvasHeight() {
+		return canvasHeight;
 	}
 
-	public void setHeight(double height) {
-		this.height = height;
+	public void setCanvasHeight(double canvasHeight) {
+		this.canvasHeight = canvasHeight;
+	}
+
+	public double getViewportWidth() {
+		return viewportWidth;
+	}
+
+	public void setViewportWidth(double viewportWidth) {
+		this.viewportWidth = viewportWidth;
+	}
+
+	public double getViewportHeight() {
+		return viewportHeight;
+	}
+
+	public void setViewportHeight(double viewportHeight) {
+		this.viewportHeight = viewportHeight;
 	}
 
 	public GC getGraphicsContext() {
@@ -34,17 +54,41 @@ public class CanvasNtro<GC     extends GraphicsContextNtro<GC,CANVAS>,
 	}
 
 	@Override
-	public double width() {
-		return getWidth();
+	public double canvasWidth() {
+		return getCanvasWidth();
 	}
 
 	@Override
-	public double height() {
-		return getHeight();
+	public double canvasHeight() {
+		return getCanvasHeight();
 	}
 
 	@Override
-	public GC graphicsContext() {
-		return getGraphicsContext();
+	public double viewportWidth() {
+		return getViewportWidth();
 	}
+
+	@Override
+	public double viewportHeight() {
+		return getViewportHeight();
+	}
+
+	@Override
+	public void drawOnCanvas(CanvasDrawingLambda lambda) {
+		graphicsContext.save();
+		
+		lambda.draw(graphicsContext);
+		
+		graphicsContext.restore();
+	}
+
+	@Override
+	public void drawOnViewport(CanvasDrawingLambda lambda) {
+		graphicsContext.save();
+		
+		lambda.draw(graphicsContext);
+		
+		graphicsContext.restore();
+	}
+
 }
