@@ -11,7 +11,7 @@ public abstract class CanvasNtro<RAW_GC extends Object,
 	private double viewportWidth;
 	private double viewportHeight;
 
-	private GraphicsContext<RAW_GC, RAW_CANVAS> graphicsContext;
+	private InternalGraphicsContext<RAW_GC, RAW_CANVAS> graphicsContext;
 
 	public double getCanvasWidth() {
 		return canvasWidth;
@@ -45,11 +45,11 @@ public abstract class CanvasNtro<RAW_GC extends Object,
 		this.viewportHeight = viewportHeight;
 	}
 
-	public GraphicsContext<RAW_GC, RAW_CANVAS> getGraphicsContext() {
+	public InternalGraphicsContext<RAW_GC, RAW_CANVAS> getGraphicsContext() {
 		return graphicsContext;
 	}
 
-	public void setGraphicsContext(GraphicsContext<RAW_GC, RAW_CANVAS> graphicsContext) {
+	public void setGraphicsContext(InternalGraphicsContext<RAW_GC, RAW_CANVAS> graphicsContext) {
 		this.graphicsContext = graphicsContext;
 	}
 

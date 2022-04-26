@@ -6,8 +6,6 @@ public interface GraphicsContext<RAW_GC extends Object,
 	Canvas<RAW_GC, RAW_CANVAS> getCanvas();
 	RAW_GC getRawGraphicsContext();
 
-	void save();
-	void restore();
 	
 	void fillRect(double topLeftX, double topLeftY, double width, double height);
 
