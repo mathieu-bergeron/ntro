@@ -3,7 +3,7 @@ package ca.ntro.app.views.controls.canvas;
 import ca.ntro.app.frontend.views.controls.canvas.GraphicsContextNtro;
 import javafx.scene.canvas.GraphicsContext;
 
-public class GraphicsContextFx extends GraphicsContextNtro<GraphicsContextFx, CanvasFx> {
+public class GraphicsContextFx extends GraphicsContextNtro<GraphicsContext, CanvasFx, GraphicsContextFx, CanvasFx> {
 	
 	private GraphicsContext gc;
 
@@ -30,6 +30,11 @@ public class GraphicsContextFx extends GraphicsContextNtro<GraphicsContextFx, Ca
 	@Override
 	public void rotate(double degrees) {
 		gc.rotate(degrees);
+	}
+
+	@Override
+	public GraphicsContext getRawGraphicsContext() {
+		return gc;
 	}
 
 }

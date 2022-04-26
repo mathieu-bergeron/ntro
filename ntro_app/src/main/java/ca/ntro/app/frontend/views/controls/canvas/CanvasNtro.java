@@ -1,9 +1,11 @@
 package ca.ntro.app.frontend.views.controls.canvas;
 
-public class CanvasNtro<GC     extends GraphicsContextNtro<GC,CANVAS>,
-                        CANVAS extends CanvasNtro<GC,CANVAS>> 
+public abstract class CanvasNtro<RAW_GC extends Object,
+                                 RAW_CANVAS extends Object,
+                                 GC extends GraphicsContext<RAW_GC, RAW_CANVAS, GC, CANVAS>,
+                                 CANVAS extends Canvas<RAW_GC, RAW_CANVAS, GC, CANVAS>>
 
-       implements Canvas<GC> {
+       implements Canvas<RAW_GC, RAW_CANVAS, GC, CANVAS> {
 	
 	private double canvasWidth;
 	private double canvasHeight;
@@ -74,7 +76,7 @@ public class CanvasNtro<GC     extends GraphicsContextNtro<GC,CANVAS>,
 	}
 
 	@Override
-	public void drawOnCanvas(CanvasDrawingLambda lambda) {
+	public void drawOnCanvas(CanvasDrawingLambda<RAW_GC, RAW_CANVAS, GC, CANVAS> lambda) {
 		graphicsContext.save();
 		
 		lambda.draw(graphicsContext);
@@ -83,7 +85,7 @@ public class CanvasNtro<GC     extends GraphicsContextNtro<GC,CANVAS>,
 	}
 
 	@Override
-	public void drawOnViewport(CanvasDrawingLambda lambda) {
+	public void drawOnViewport(CanvasDrawingLambda<RAW_GC, RAW_CANVAS, GC, CANVAS> lambda) {
 		graphicsContext.save();
 		
 		lambda.draw(graphicsContext);

@@ -1,6 +1,12 @@
 package ca.ntro.app.frontend.views.controls.canvas;
 
-public interface Canvas<GC extends GraphicsContext> {
+public interface Canvas<RAW_GC extends Object,
+                        RAW_CANVAS extends Object,
+                        GC extends GraphicsContext<RAW_GC, RAW_CANVAS, GC, CANVAS>,
+                        CANVAS extends Canvas<RAW_GC, RAW_CANVAS, GC, CANVAS>> {
+
+	RAW_CANVAS getRawCanvas();
+	GC getGraphicsContext();
 	
 	double canvasWidth();
 	double canvasHeight();
@@ -8,7 +14,7 @@ public interface Canvas<GC extends GraphicsContext> {
 	double viewportWidth();
 	double viewportHeight();
 	
-	void drawOnCanvas(CanvasDrawingLambda lambda);
-	void drawOnViewport(CanvasDrawingLambda lambda);
+	void drawOnCanvas(CanvasDrawingLambda<RAW_GC, RAW_CANVAS, GC, CANVAS> lambda);
+	void drawOnViewport(CanvasDrawingLambda<RAW_GC, RAW_CANVAS, GC, CANVAS> lambda);
 
 }
