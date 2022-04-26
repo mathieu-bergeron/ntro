@@ -36,7 +36,8 @@ public abstract class GenericTaskGroupNtro<T  extends GenericTask<T,ST,ET,TG,G>,
 		return newTask(id, getGraph().getDefaultSimpleTaskOptions());
 	}
 
-	@Override
+	// JSWEET @Override leads to compiler error
+	//@Override
 	public <TT extends ST> TT newTask(String id, SimpleTaskOptions<TT> options) {
 		GenericTaskNtro<T,ST,ET,TG,G> newTask = getGraph().newGenericTaskInstance(id, options.getTaskClass());
 		
@@ -77,7 +78,8 @@ public abstract class GenericTaskGroupNtro<T  extends GenericTask<T,ST,ET,TG,G>,
 		return newGroup(id, getGraph().getDefaultTaskGroupOptions());
 	}
 
-	@Override
+	// JSWEET @Override leads to compiler error
+	//@Override
 	public <GG extends TG> GG newGroup(String id, TaskGroupOptions<GG> options) {
 		GenericTaskNtro<T,ST,ET,TG,G> newTask = getGraph().newGenericTaskInstance(id, options.taskGroupClass());
 		

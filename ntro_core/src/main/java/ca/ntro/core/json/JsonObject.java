@@ -10,5 +10,15 @@ public interface JsonObject extends Map<String,Object> {
 	
 	String toJsonString();
 	String toJsonString(boolean prettyPrint);
+	
+	
+	// JSWEET
+	// must explicitely redeclare Map interface
+	Object put(String key, Object value);
+
+	// JSWEET
+	// must explicitely redeclare Map interface
+	Object get(Object key);
+	
 
 }
