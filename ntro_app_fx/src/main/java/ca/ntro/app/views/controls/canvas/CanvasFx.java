@@ -9,8 +9,7 @@ public class CanvasFx extends ResizableCanvas implements Canvas<GraphicsContext,
 	private CanvasNtroFx canvasNtroFx = new CanvasNtroFx(new GraphicsContextFx(getGc()), this);
 
 	@Override
-	public void initialize() {
-	    //canvasNtroFx = new CanvasNtroFx(new GraphicsContextFx(getGc()), this);
+	protected void initialize() {
 	}
 
 	@Override
