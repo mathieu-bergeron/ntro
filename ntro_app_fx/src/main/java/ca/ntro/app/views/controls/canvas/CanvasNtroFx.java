@@ -2,8 +2,9 @@ package ca.ntro.app.views.controls.canvas;
 
 import ca.ntro.app.frontend.views.controls.canvas.CanvasNtro;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 
-public class CanvasNtroFx extends CanvasNtro<GraphicsContext, javafx.scene.canvas.Canvas> {
+public class CanvasNtroFx extends CanvasNtro<GraphicsContext, javafx.scene.canvas.Canvas, Image> {
 	
 	private CanvasFx canvasFx;
 

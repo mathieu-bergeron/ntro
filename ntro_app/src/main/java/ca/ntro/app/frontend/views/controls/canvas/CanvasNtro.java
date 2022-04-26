@@ -1,9 +1,10 @@
 package ca.ntro.app.frontend.views.controls.canvas;
 
 public abstract class CanvasNtro<RAW_GC extends Object,
-                                 RAW_CANVAS extends Object>
+                                 RAW_CANVAS extends Object,
+                                 RAW_IMAGE extends Object>
 
-       implements Canvas<RAW_GC, RAW_CANVAS> {
+       implements Canvas<RAW_GC, RAW_CANVAS, RAW_IMAGE> {
 	
 	private double canvasWidth;
 	private double canvasHeight;
@@ -11,7 +12,7 @@ public abstract class CanvasNtro<RAW_GC extends Object,
 	private double viewportWidth;
 	private double viewportHeight;
 
-	private InternalGraphicsContext<RAW_GC, RAW_CANVAS> graphicsContext;
+	private InternalGraphicsContext<RAW_GC, RAW_CANVAS, RAW_IMAGE> graphicsContext;
 
 	public double getCanvasWidth() {
 		return canvasWidth;
@@ -45,11 +46,11 @@ public abstract class CanvasNtro<RAW_GC extends Object,
 		this.viewportHeight = viewportHeight;
 	}
 
-	public InternalGraphicsContext<RAW_GC, RAW_CANVAS> getGraphicsContext() {
+	public InternalGraphicsContext<RAW_GC, RAW_CANVAS, RAW_IMAGE> getGraphicsContext() {
 		return graphicsContext;
 	}
 
-	public void setGraphicsContext(InternalGraphicsContext<RAW_GC, RAW_CANVAS> graphicsContext) {
+	public void setGraphicsContext(InternalGraphicsContext<RAW_GC, RAW_CANVAS, RAW_IMAGE> graphicsContext) {
 		this.graphicsContext = graphicsContext;
 	}
 
@@ -74,7 +75,7 @@ public abstract class CanvasNtro<RAW_GC extends Object,
 	}
 
 	@Override
-	public void drawOnCanvas(CanvasDrawingLambda<RAW_GC, RAW_CANVAS> lambda) {
+	public void drawOnCanvas(CanvasDrawingLambda<RAW_GC, RAW_CANVAS, RAW_IMAGE> lambda) {
 		graphicsContext.save();
 		
 		lambda.draw(graphicsContext);
@@ -83,7 +84,7 @@ public abstract class CanvasNtro<RAW_GC extends Object,
 	}
 
 	@Override
-	public void drawOnViewport(CanvasDrawingLambda<RAW_GC, RAW_CANVAS> lambda) {
+	public void drawOnViewport(CanvasDrawingLambda<RAW_GC, RAW_CANVAS, RAW_IMAGE> lambda) {
 		graphicsContext.save();
 		
 		lambda.draw(graphicsContext);

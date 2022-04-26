@@ -1,13 +1,18 @@
 package ca.ntro.app.frontend.views.controls.canvas;
 
-public interface GraphicsContext<RAW_GC extends Object,
-                                 RAW_CANVAS extends Object> {
+import ca.ntro.app.frontend.views.elements.Image;
 
-	Canvas<RAW_GC, RAW_CANVAS> getCanvas();
+public interface GraphicsContext<RAW_GC extends Object,
+                                 RAW_CANVAS extends Object,
+                                 RAW_IMAGE extends Object> {
+
+	Canvas<RAW_GC, RAW_CANVAS, RAW_IMAGE> getCanvas();
 	RAW_GC getRawGraphicsContext();
 
 	
 	void fillRect(double topLeftX, double topLeftY, double width, double height);
+	
+	void drawImage(Image<RAW_IMAGE> image, double topLeftX, double topLeftY);
 
 	void translate(double x, double y);
 	void scale(double x, double y);

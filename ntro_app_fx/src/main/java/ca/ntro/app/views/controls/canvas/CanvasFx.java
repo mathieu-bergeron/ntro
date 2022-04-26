@@ -3,8 +3,9 @@ package ca.ntro.app.views.controls.canvas;
 import ca.ntro.app.frontend.views.controls.canvas.Canvas;
 import ca.ntro.app.frontend.views.controls.canvas.CanvasDrawingLambda;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 
-public class CanvasFx extends ResizableCanvas implements Canvas<GraphicsContext, javafx.scene.canvas.Canvas> {
+public class CanvasFx extends ResizableCanvas implements Canvas<GraphicsContext, javafx.scene.canvas.Canvas, Image> {
 	
 	private CanvasNtroFx canvasNtroFx = new CanvasNtroFx(new GraphicsContextFx(getGc()), this);
 
@@ -51,12 +52,12 @@ public class CanvasFx extends ResizableCanvas implements Canvas<GraphicsContext,
 	}
 
 	@Override
-	public void drawOnCanvas(CanvasDrawingLambda<GraphicsContext, javafx.scene.canvas.Canvas> lambda) {
+	public void drawOnCanvas(CanvasDrawingLambda<GraphicsContext, javafx.scene.canvas.Canvas, Image> lambda) {
 		canvasNtroFx.drawOnCanvas(lambda);
 	}
 
 	@Override
-	public void drawOnViewport(CanvasDrawingLambda<GraphicsContext, javafx.scene.canvas.Canvas> lambda) {
+	public void drawOnViewport(CanvasDrawingLambda<GraphicsContext, javafx.scene.canvas.Canvas, Image> lambda) {
 		canvasNtroFx.drawOnViewport(lambda);
 	}
 

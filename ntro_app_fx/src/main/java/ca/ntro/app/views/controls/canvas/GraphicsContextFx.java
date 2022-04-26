@@ -2,8 +2,9 @@ package ca.ntro.app.views.controls.canvas;
 
 import ca.ntro.app.frontend.views.controls.canvas.GraphicsContextNtro;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 
-public class GraphicsContextFx extends GraphicsContextNtro<GraphicsContext, javafx.scene.canvas.Canvas> {
+public class GraphicsContextFx extends GraphicsContextNtro<GraphicsContext, javafx.scene.canvas.Canvas, Image> {
 	
 	private GraphicsContext gc;
 
@@ -44,6 +45,11 @@ public class GraphicsContextFx extends GraphicsContextNtro<GraphicsContext, java
 	@Override
 	public void fillRect(double topLeftX, double topLeftY, double width, double height) {
 		gc.fillRect(topLeftX, topLeftY, width, height);
+	}
+
+	@Override
+	public void drawImage(ca.ntro.app.frontend.views.elements.Image<Image> image, double topLeftX, double topLeftY) {
+		gc.drawImage(image.getRawImage(), topLeftX, topLeftY);
 	}
 
 }
