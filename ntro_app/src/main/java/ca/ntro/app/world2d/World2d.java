@@ -5,9 +5,9 @@ import java.util.List;
 
 import ca.ntro.app.models.Value;
 
-public abstract class World2d<GC extends Object,
-                              OBJECT2D extends Object2d<GC,OBJECT2D,WORLD2D>,
-                              WORLD2D  extends World2d <GC,OBJECT2D,WORLD2D>> implements Value {
+public abstract class World2d<RAW_GC extends Object,
+                              OBJECT2D extends Object2d<RAW_GC,OBJECT2D,WORLD2D>,
+                              WORLD2D  extends World2d <RAW_GC,OBJECT2D,WORLD2D>> implements Value {
 	
 	private double width;
 	private double height;
@@ -55,7 +55,7 @@ public abstract class World2d<GC extends Object,
 		}
 	}
 
-	public void draw(GC gc) {
+	public void draw(RAW_GC gc) {
 		for(OBJECT2D object2d : objects) {
 			object2d.draw(gc);
 		}

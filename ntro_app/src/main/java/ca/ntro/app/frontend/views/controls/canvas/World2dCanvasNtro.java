@@ -1,14 +1,25 @@
 package ca.ntro.app.frontend.views.controls.canvas;
 
+import ca.ntro.app.world2d.Object2d;
 import ca.ntro.app.world2d.World2d;
 
 public abstract class World2dCanvasNtro<RAW_GC extends Object,
-                                        RAW_CANVAS extends Object,
-                                        RAW_IMAGE extends Object> 
+                               		    RAW_CANVAS extends Object, 
+                                        RAW_IMAGE extends Object,
+                                        OBJECT2D extends Object2d<RAW_GC,OBJECT2D,WORLD2D>,
+                                        WORLD2D  extends World2d <RAW_GC,OBJECT2D,WORLD2D>> 
 
-       extends CanvasNtro<RAW_GC, RAW_CANVAS, RAW_IMAGE>
+       extends CanvasNtro<RAW_GC, 
+                          RAW_CANVAS, 
+                          RAW_IMAGE>
 
-       implements World2dCanvas<RAW_GC, RAW_CANVAS, RAW_IMAGE> {
+       implements World2dCanvas<RAW_GC, 
+                                RAW_CANVAS, 
+                                RAW_IMAGE, 
+                                OBJECT2D, 
+                                WORLD2D> {
+    	   
+    private WORLD2D world;
 
 	private double viewportWidth;
 	private double viewportHeight;
@@ -29,6 +40,14 @@ public abstract class World2dCanvasNtro<RAW_GC extends Object,
 		this.viewportHeight = viewportHeight;
 	}
 
+	public WORLD2D getWorld() {
+		return world;
+	}
+
+	public void setWorld(WORLD2D world) {
+		this.world = world;
+	}
+
 	@Override
 	public double viewportWidth() {
 		return getViewportWidth();
@@ -37,6 +56,11 @@ public abstract class World2dCanvasNtro<RAW_GC extends Object,
 	@Override
 	public double viewportHeight() {
 		return getViewportHeight();
+	}
+	
+	@Override 
+	public WORLD2D world() {
+		return getWorld();
 	}
 
 	@Override
@@ -49,14 +73,12 @@ public abstract class World2dCanvasNtro<RAW_GC extends Object,
 	}
 
 	@Override
-	public World2d getWorld() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public void drawOnWorld(CanvasDrawingLambda<RAW_GC, RAW_CANVAS, RAW_IMAGE> lambda) {
-		// TODO Auto-generated method stub
+		getGraphicsContext().save();
+		
+		lambda.draw(getGraphicsContext());
+		
+		getGraphicsContext().restore();
 		
 	}
 

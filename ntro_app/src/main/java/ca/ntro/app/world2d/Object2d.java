@@ -2,11 +2,11 @@ package ca.ntro.app.world2d;
 
 import ca.ntro.app.models.Value;
 
-public abstract class Object2d<GC extends Object,
-                               OBJECT2D extends Object2d<GC,OBJECT2D,WORLD2D>,
-                               WORLD2D extends  World2d <GC,OBJECT2D,WORLD2D> > implements Value {
+public abstract class Object2d<RAW_GC extends Object,
+                               OBJECT2D extends Object2d<RAW_GC,OBJECT2D,WORLD2D>,
+                               WORLD2D extends  World2d <RAW_GC,OBJECT2D,WORLD2D> > implements Value {
 
-	private World2d<GC,OBJECT2D,WORLD2D> world;
+	private World2d<RAW_GC,OBJECT2D,WORLD2D> world;
 	private double topLeftX;
 	private double topLeftY;
 	private double width;
@@ -19,7 +19,7 @@ public abstract class Object2d<GC extends Object,
 		return (WORLD2D) world;
 	}
 
-	public void setWorld(World2d<GC,OBJECT2D,WORLD2D> world) {
+	public void setWorld(World2d<RAW_GC,OBJECT2D,WORLD2D> world) {
 		this.world = world;
 	}
 
@@ -90,7 +90,7 @@ public abstract class Object2d<GC extends Object,
 				|| (coord2 <= coord1 && coord2 + size2 >= coord1);
 	}
 	
-	public abstract void draw(GC gc);
+	public abstract void draw(RAW_GC gc);
 
 	public abstract void initialize();
 
