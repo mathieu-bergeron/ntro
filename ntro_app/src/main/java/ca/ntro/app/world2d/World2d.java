@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ca.ntro.app.frontend.views.controls.canvas.GraphicsContext;
+import ca.ntro.app.frontend.views.controls.canvas.InternalGraphicsContext;
 import ca.ntro.app.frontend.views.controls.canvas.World2dCanvas;
 import ca.ntro.app.models.Value;
 
@@ -86,11 +87,17 @@ public abstract class World2d<RAW_GC extends Object,
 		}
 	}
 
-	public void draw(World2dCanvas canvas) {
+	@SuppressWarnings("unchecked")
+	public void draw(InternalGraphicsContext<RAW_GC, RAW_CANVAS, RAW_IMAGE, RAW_FONT, RAW_COLOR> gc) {
+		
+		// FIXME: select only objects that intersect with the viewport
+		
 		for(OBJECT2D object2d : objects) {
-			canvas.drawOnWorld(gc -> {
-				object2d.draw((GC) gc);
-			});
+
+			gc.save();
+			object2d.draw((GC) gc);
+			gc.restore();
+
 		}
 	}
 

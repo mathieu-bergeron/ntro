@@ -51,40 +51,6 @@ public class World2dCanvasNtroFx<OBJECT2D extends Object2dFx<OBJECT2D, WORLD2D>,
 		return getCanvasFx().canvasHeight();
 	}
 
-	@Override
-	public void clearViewport() {
-		drawOnViewport(gc -> {
-			gc.clearRect(0, 0, viewportWidth(), viewportHeight());
-		});
-	}
 
-	@Override
-	public void clearWorld() {
-		drawOnWorld(gc -> {
-			gc.clearRect(0,0,getWorld().getWidth(), getWorld().getHeight());
-		});
-	}
-
-
-	@Override
-	public void displayWorld2d(WORLD2D world2d) {
-		world2d.draw(this);
-	}
-
-	@Override
-	public void displayFps(String fps) {
-		drawOnCanvas(gc -> {
-
-			gc.fillText(fps, 0, 12);
-
-		});
-	}
-
-	@Override
-	public void clearCanvas() {
-		drawOnWorld(gc -> {
-			gc.clearRect(0,0,canvasWidth(), canvasHeight());
-		});
-	}
 
 }

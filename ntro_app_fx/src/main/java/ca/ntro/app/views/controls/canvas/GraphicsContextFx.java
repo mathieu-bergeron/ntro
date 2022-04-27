@@ -65,4 +65,40 @@ public class GraphicsContextFx extends GraphicsContextNtro<GraphicsContext, java
 		gc.fillText(text, topLeftX, topLeftY);
 	}
 
+	@Override
+	public void beginPath() {
+		gc.beginPath();
+	}
+
+	@Override
+	public void rect(double topLeftX, double topLeftY, double width, double height) {
+		gc.rect(topLeftX, topLeftY, width, height);
+	}
+
+	@Override
+	public void clip() {
+		gc.clip();
+	}
+
+	@Override
+	public void setTransform(double scaleX, 
+			                 double shearX, 
+			                 double shearY, 
+			                 double scaleY, 
+			                 double translateX, 
+			                 double translateY) {
+		
+		gc.setTransform(scaleX, 
+				        shearX, 
+				        shearY, 
+				        scaleY, 
+				        translateX, 
+				        translateY);
+	}
+
+	@Override
+	public void strokeRect(double topLeftX, double topLeftY, double width, double height) {
+		gc.strokeRect(topLeftX, topLeftY, width, height);
+	}
+
 }

@@ -21,7 +21,9 @@ public abstract class CanvasNtro<RAW_GC extends Object,
 	@Override
 	public void drawOnCanvas(CanvasDrawingLambda<RAW_GC, RAW_CANVAS, RAW_IMAGE, RAW_FONT, RAW_COLOR> lambda) {
 		graphicsContext.save();
-		
+
+		graphicsContext.setTransform(1.0, 0, 0, 1.0, 0, 0); 
+
 		lambda.draw(graphicsContext);
 		
 		graphicsContext.restore();

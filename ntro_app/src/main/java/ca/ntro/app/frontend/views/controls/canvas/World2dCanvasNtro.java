@@ -50,8 +50,10 @@ public abstract class World2dCanvasNtro<RAW_GC extends Object,
     	   
     private WORLD2D world;
 
-	private double viewportWidth;
-	private double viewportHeight;
+    private double viewportTopLeftX = 0;
+    private double viewportTopLeftY = 0;
+	private double viewportWidth = 400;
+	private double viewportHeight = 400;
 
 	public double getViewportWidth() {
 		return viewportWidth;
@@ -69,12 +71,38 @@ public abstract class World2dCanvasNtro<RAW_GC extends Object,
 		this.viewportHeight = viewportHeight;
 	}
 
+	public double getViewportTopLeftX() {
+		return viewportTopLeftX;
+	}
+
+	public void setViewportTopLeftX(double viewportTopLeftX) {
+		this.viewportTopLeftX = viewportTopLeftX;
+	}
+
+	public double getViewportTopLeftY() {
+		return viewportTopLeftY;
+	}
+
+	public void setViewportTopLeftY(double viewportTopLeftY) {
+		this.viewportTopLeftY = viewportTopLeftY;
+	}
+
 	public WORLD2D getWorld() {
 		return world;
 	}
 
 	public void setWorld(WORLD2D world) {
 		this.world = world;
+	}
+
+	@Override
+	public double viewportTopLeftX() {
+		return getViewportTopLeftX();
+	}
+
+	@Override
+	public double viewportTopLeftY() {
+		return getViewportTopLeftY();
 	}
 
 	@Override
@@ -105,6 +133,7 @@ public abstract class World2dCanvasNtro<RAW_GC extends Object,
 	public void drawOnWorld(CanvasDrawingLambda<RAW_GC, RAW_CANVAS, RAW_IMAGE, RAW_FONT, RAW_COLOR> lambda) {
 		getGraphicsContext().save();
 		
+		
 		lambda.draw(getGraphicsContext());
 		
 		getGraphicsContext().restore();
@@ -112,9 +141,81 @@ public abstract class World2dCanvasNtro<RAW_GC extends Object,
 	}
 
 	@Override
-	public void resizeViewport(double incrementX, double incrementY) {
-		viewportWidth += incrementX;
-		viewportHeight += incrementY;
+	public void resizeViewport(double width, double height) {
+		setViewportWidth(width);
+		setViewportHeight(height);
 	}
+
+
+	@Override
+	public void relocateViewport(double topLeftX, double topLeftY) {
+		setViewportTopLeftX(topLeftX);
+		setViewportTopLeftY(topLeftY);
+	}
+
+	@Override
+	public void relocateResizeViewport(double topLeftX, double topLeftY, double width, double height) {
+		relocateViewport(topLeftX, topLeftY);
+		resizeViewport(width, height);
+		
+	}
+
+	@Override
+	public void clearViewport() {
+		drawOnViewport(gc -> {
+			gc.clearRect(0, 0, viewportWidth, viewportHeight);
+		});
+	}
+
+	@Override
+	public void displayViewport() {
+		drawOnViewport(gc -> {
+			gc.strokeRect(0,0,viewportWidth, viewportHeight);
+		});
+		
+	}
+
+	@Override
+	public void clearWorld() {
+		drawOnWorld(gc -> {
+			gc.clearRect(0,0,getWorld().getWidth(), getWorld().getHeight());
+		});
+	}
+
+
+	@Override
+	public void displayWorld2d(WORLD2D world2d) {
+		getGraphicsContext().save();
+		getGraphicsContext().beginPath();
+
+		getGraphicsContext().rect(viewportTopLeftX(), 
+				                  viewportTopLeftY(), 
+				                  viewportWidth(), 
+				                  viewportHeight());
+
+		getGraphicsContext().clip();
+		
+		//getGraphicsContext().setTransform(0.25, 0, 0, 1.0, 0, 0);
+
+		world2d.draw(getGraphicsContext());
+		
+		getGraphicsContext().restore();
+	}
+
+	@Override
+	public void displayFps(String fps) {
+		drawOnCanvas(gc -> {
+
+			gc.fillText(fps, 0, 12);
+		});
+	}
+
+	@Override
+	public void clearCanvas() {
+		drawOnCanvas(gc -> {
+			gc.clearRect(0,0,canvasWidth(), canvasHeight());
+		});
+	}
+
 
 }

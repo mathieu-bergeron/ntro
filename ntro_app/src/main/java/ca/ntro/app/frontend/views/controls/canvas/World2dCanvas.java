@@ -37,6 +37,8 @@ public interface World2dCanvas<RAW_GC extends Object,
 
 	WORLD2D world();
 
+	double viewportTopLeftX();
+	double viewportTopLeftY();
 	double viewportWidth();
 	double viewportHeight();
 	
@@ -46,10 +48,14 @@ public interface World2dCanvas<RAW_GC extends Object,
 	void clearViewport();
 	void clearWorld();
 	
-	void resizeViewport(double incrementX, double incrementY);
+	void resizeViewport(double width, double height);
+	void relocateViewport(double topLeftX, double topLeftY);
+	void relocateResizeViewport(double topLeftX, double topLeftY, double width, double height);
 
 	void displayWorld2d(WORLD2D world2d);
 
 	void displayFps(String fps);
+
+	void displayViewport();
 
 }

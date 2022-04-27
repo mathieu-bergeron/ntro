@@ -14,6 +14,7 @@ public interface GraphicsContext<RAW_GC extends Object,
 	void clearRect(double topLeftX, double topLeftY, double width, double height);
 	
 	void fillRect(double topLeftX, double topLeftY, double width, double height);
+	void strokeRect(double topLeftX, double topLeftY, double width, double height);
 	
 	void drawImage(Image<RAW_IMAGE> image, double topLeftX, double topLeftY);
 
@@ -22,5 +23,9 @@ public interface GraphicsContext<RAW_GC extends Object,
 	void translate(double x, double y);
 	void scale(double x, double y);
 	void rotate(double degrees);
+
+	void beginPath();
+	void rect(double topLeftX, double topLeftY, double width, double height);
+	void clip();
 
 }

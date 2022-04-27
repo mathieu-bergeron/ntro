@@ -11,4 +11,7 @@ public interface InternalGraphicsContext<RAW_GC extends Object,
 	void save();
 	void restore();
 
+    void setTransform(double scaleX, double shearX, double shearY, double scaleY, double translateX, double translateY);
+
+
 }

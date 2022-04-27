@@ -120,7 +120,7 @@ public abstract class World2dCanvasFx<OBJECT2D extends Object2dFx<OBJECT2D, WORL
 	
 	public void displayFps(String fps) {
 		getGc().save();
-		getGc().setTransform(1.0, 0, 0, 1.0, 1.0, 1.0); 
+		getGc().setTransform(1.0, 0, 0, 1.0, 0, 0); 
 		getGc().fillText(fps, 0, 12);
 		getGc().restore();
 	}
@@ -192,14 +192,12 @@ public abstract class World2dCanvasFx<OBJECT2D extends Object2dFx<OBJECT2D, WORL
 
 	@Override
 	public double viewportWidth() {
-		// TODO Auto-generated method stub
-		return 0;
+		return canvasNtroFx.getViewportWidth();
 	}
 
 	@Override
 	public double viewportHeight() {
-		// TODO Auto-generated method stub
-		return 0;
+		return canvasNtroFx.getViewportHeight();
 	}
 
 	@Override
@@ -232,14 +230,40 @@ public abstract class World2dCanvasFx<OBJECT2D extends Object2dFx<OBJECT2D, WORL
 		canvasNtroFx.clearCanvas();
 	}
 
+
+	@Override
+	public void displayWorld2d(WORLD2D world2d) {
+		canvasNtroFx.displayWorld2d(world2d);
+	}
+
+	@Override
+	public double viewportTopLeftX() {
+		return canvasNtroFx.getViewportTopLeftX();
+	}
+
+	@Override
+	public double viewportTopLeftY() {
+		return canvasNtroFx.getViewportTopLeftY();
+	}
+
 	@Override
 	public void resizeViewport(double incrementX, double incrementY) {
 		canvasNtroFx.resizeViewport(incrementX, incrementY);
 	}
 
 	@Override
-	public void displayWorld2d(WORLD2D world2d) {
-		canvasNtroFx.displayWorld2d(world2d);
+	public void relocateViewport(double topLeftX, double topLeftY) {
+		canvasNtroFx.relocateViewport(topLeftX, topLeftY);
+	}
+
+	@Override
+	public void relocateResizeViewport(double topLeftX, double topLeftY, double width, double height) {
+		canvasNtroFx.relocateResizeViewport(topLeftX, topLeftY, width, height);
+	}
+
+	@Override
+	public void displayViewport() {
+		canvasNtroFx.displayViewport();
 	}
 
 }
