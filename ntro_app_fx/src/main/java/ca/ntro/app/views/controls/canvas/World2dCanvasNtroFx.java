@@ -82,8 +82,9 @@ public class World2dCanvasNtroFx<OBJECT2D extends Object2dFx<OBJECT2D, WORLD2D>,
 
 	@Override
 	public void clearCanvas() {
-		// TODO Auto-generated method stub
-		
+		drawOnWorld(gc -> {
+			gc.clearRect(0,0,canvasWidth(), canvasHeight());
+		});
 	}
 
 }
