@@ -12,6 +12,7 @@ public interface Canvas<RAW_GC extends Object,
 	double viewportWidth();
 	double viewportHeight();
 	
+	void drawOnWorld(CanvasDrawingLambda<RAW_GC, RAW_CANVAS, RAW_IMAGE> lambda);
 	void drawOnCanvas(CanvasDrawingLambda<RAW_GC, RAW_CANVAS, RAW_IMAGE> lambda);
 	void drawOnViewport(CanvasDrawingLambda<RAW_GC, RAW_CANVAS, RAW_IMAGE> lambda);
 
