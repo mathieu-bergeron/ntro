@@ -68,12 +68,12 @@ public abstract class World2dCanvasFx<OBJECT2D extends Object2dFx<OBJECT2D, WORL
 
 	@Override
 	protected void onInitialSize(double initialWidth, double initialHeight) {
-		globalTransform(initialWidth, initialHeight);
+		//globalTransform(initialWidth, initialHeight);
 	}
 
 	@Override
 	protected void onNewSize(double oldWidth, double oldHeight, double newWidth, double newHeight) {
-		globalTransform(newWidth, newHeight);
+		//globalTransform(newWidth, newHeight);
 	}
 	
 	private void globalTransform(double canvasWidth, double canvasHeight) {
@@ -139,6 +139,14 @@ public abstract class World2dCanvasFx<OBJECT2D extends Object2dFx<OBJECT2D, WORL
 	}
 	*/
 
+	/*
+	public void clearCanvas() {
+		getGc().save();
+		getGc().setTransform(1.0, 0, 0, 1.0, 1.0, 1.0); 
+		getGc().clearRect(0, 0, getWidth(), getHeight());
+		getGc().restore();
+	}
+	*/
 	
 	public <T extends MouseEvent> void addMouseEventFilter(EventType<T> eventType, MouseEventHandler handler) {
 		addEventFilter(eventType, new EventHandler<MouseEvent>() {
@@ -209,10 +217,6 @@ public abstract class World2dCanvasFx<OBJECT2D extends Object2dFx<OBJECT2D, WORL
 		canvasNtroFx.drawOnCanvas(lambda);
 	}
 
-	public void clearCanvas() {
-		canvasNtroFx.clearCanvas();
-	}
-
 	@Override
 	public void clearViewport() {
 		canvasNtroFx.clearViewport();
@@ -221,6 +225,11 @@ public abstract class World2dCanvasFx<OBJECT2D extends Object2dFx<OBJECT2D, WORL
 	@Override
 	public void clearWorld() {
 		canvasNtroFx.clearWorld();
+	}
+	
+	@Override
+	public void clearCanvas() {
+		canvasNtroFx.clearCanvas();
 	}
 
 	@Override
