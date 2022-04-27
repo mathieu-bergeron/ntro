@@ -124,6 +124,8 @@ public abstract class World2dCanvasNtro<RAW_GC extends Object,
 	public void drawOnViewport(CanvasDrawingLambda<RAW_GC, RAW_CANVAS, RAW_IMAGE, RAW_FONT, RAW_COLOR> lambda) {
 		getGraphicsContext().save();
 		
+		getGraphicsContext().setTransform(1.0, 0.0, 0.0, 1.0, viewportTopLeftX, viewportTopLeftY);
+		
 		lambda.draw(getGraphicsContext());
 		
 		getGraphicsContext().restore();
