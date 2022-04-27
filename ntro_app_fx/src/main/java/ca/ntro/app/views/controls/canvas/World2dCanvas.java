@@ -103,7 +103,7 @@ public abstract class World2dCanvas extends ResizableCanvas {
 		getGc().rect(0, 0, worldWidth, worldHeight);
 		getGc().clip();
 		
-		world2d.draw(getGc());
+		world2d.draw(new GraphicsContextFx(getGc()));
 		
 		getGc().restore();
 	}

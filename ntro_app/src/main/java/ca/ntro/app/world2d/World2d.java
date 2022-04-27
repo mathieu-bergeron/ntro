@@ -3,11 +3,40 @@ package ca.ntro.app.world2d;
 import java.util.ArrayList;
 import java.util.List;
 
+import ca.ntro.app.frontend.views.controls.canvas.GraphicsContext;
 import ca.ntro.app.models.Value;
 
 public abstract class World2d<RAW_GC extends Object,
-                              OBJECT2D extends Object2d<RAW_GC,OBJECT2D,WORLD2D>,
-                              WORLD2D  extends World2d <RAW_GC,OBJECT2D,WORLD2D>> implements Value {
+                              RAW_CANVAS extends Object, 
+                              RAW_IMAGE extends Object,
+                              RAW_FONT extends Object,
+                              RAW_COLOR extends Object,
+
+                              GC extends GraphicsContext<RAW_GC, 
+                                                         RAW_CANVAS, 
+                                                         RAW_IMAGE,
+                                                         RAW_FONT,
+                                                         RAW_COLOR>,
+
+							  OBJECT2D extends Object2d<RAW_GC, 
+														RAW_CANVAS, 
+														RAW_IMAGE,
+														RAW_FONT,
+														RAW_COLOR,
+													    GC,
+														OBJECT2D,
+														WORLD2D>,
+
+							  WORLD2D  extends World2d<RAW_GC, 
+													   RAW_CANVAS, 
+													   RAW_IMAGE, 
+													   RAW_FONT,
+													   RAW_COLOR,
+													   GC,
+													   OBJECT2D,
+													   WORLD2D>> 
+                                                          
+      implements Value {
 	
 	private double width;
 	private double height;
@@ -43,8 +72,9 @@ public abstract class World2d<RAW_GC extends Object,
 	
 	protected abstract void initialize();
 
+	@SuppressWarnings("unchecked")
 	public void addObject2d(OBJECT2D object2d) {
-		object2d.setWorld(this);
+		object2d.setWorld((WORLD2D) this);
 		objects.add(object2d);
 		object2d.initialize();
 	}
@@ -55,7 +85,7 @@ public abstract class World2d<RAW_GC extends Object,
 		}
 	}
 
-	public void draw(RAW_GC gc) {
+	public void draw(GC gc) {
 		for(OBJECT2D object2d : objects) {
 			object2d.draw(gc);
 		}

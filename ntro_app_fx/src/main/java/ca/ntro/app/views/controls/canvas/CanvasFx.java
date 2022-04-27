@@ -4,8 +4,10 @@ import ca.ntro.app.frontend.views.controls.canvas.Canvas;
 import ca.ntro.app.frontend.views.controls.canvas.CanvasDrawingLambda;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
-public class CanvasFx extends ResizableCanvas implements Canvas<GraphicsContext, javafx.scene.canvas.Canvas, Image> {
+public class CanvasFx extends ResizableCanvas implements Canvas<GraphicsContext, javafx.scene.canvas.Canvas, Image, Font, Color> {
 	
 	private CanvasNtroFx canvasNtroFx = new CanvasNtroFx(new GraphicsContextFx(getGc()), this);
 
@@ -42,7 +44,7 @@ public class CanvasFx extends ResizableCanvas implements Canvas<GraphicsContext,
 	}
 
 	@Override
-	public void drawOnCanvas(CanvasDrawingLambda<GraphicsContext, javafx.scene.canvas.Canvas, Image> lambda) {
+	public void drawOnCanvas(CanvasDrawingLambda<GraphicsContext, javafx.scene.canvas.Canvas, Image, Font, Color> lambda) {
 		canvasNtroFx.drawOnCanvas(lambda);
 	}
 

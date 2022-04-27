@@ -1,12 +1,41 @@
 package ca.ntro.app.world2d;
 
+import ca.ntro.app.frontend.views.controls.canvas.GraphicsContext;
 import ca.ntro.app.models.Value;
 
 public abstract class Object2d<RAW_GC extends Object,
-                               OBJECT2D extends Object2d<RAW_GC,OBJECT2D,WORLD2D>,
-                               WORLD2D extends  World2d <RAW_GC,OBJECT2D,WORLD2D> > implements Value {
+                               RAW_CANVAS extends Object, 
+                               RAW_IMAGE extends Object,
+                               RAW_FONT extends Object,
+                               RAW_COLOR extends Object,
 
-	private World2d<RAW_GC,OBJECT2D,WORLD2D> world;
+                               GC extends GraphicsContext<RAW_GC, 
+                                                          RAW_CANVAS, 
+                                                          RAW_IMAGE,
+                                                          RAW_FONT,
+                                                          RAW_COLOR>,
+
+							   OBJECT2D extends Object2d<RAW_GC, 
+														 RAW_CANVAS, 
+														 RAW_IMAGE,
+														 RAW_FONT,
+														 RAW_COLOR,
+													     GC,
+														 OBJECT2D,
+														 WORLD2D>,
+
+							   WORLD2D  extends World2d<RAW_GC, 
+														RAW_CANVAS, 
+														RAW_IMAGE, 
+														RAW_FONT,
+														RAW_COLOR,
+														GC,
+														OBJECT2D,
+														WORLD2D>> 
+                                                          
+        implements Value {
+
+	private WORLD2D world;
 	private double topLeftX;
 	private double topLeftY;
 	private double width;
@@ -19,9 +48,6 @@ public abstract class Object2d<RAW_GC extends Object,
 		return (WORLD2D) world;
 	}
 
-	public void setWorld(World2d<RAW_GC,OBJECT2D,WORLD2D> world) {
-		this.world = world;
-	}
 
 	public double getTopLeftX() {
 		return topLeftX;
@@ -71,6 +97,11 @@ public abstract class Object2d<RAW_GC extends Object,
 		this.speedY = speedY;
 	}
 
+	public void setWorld(WORLD2D world) {
+		this.world = world;
+	}
+
+
 	public void onTimePasses(double secondsElapsed) {
 		topLeftX += speedX * secondsElapsed;
 		topLeftY += speedY * secondsElapsed;
@@ -90,7 +121,7 @@ public abstract class Object2d<RAW_GC extends Object,
 				|| (coord2 <= coord1 && coord2 + size2 >= coord1);
 	}
 	
-	public abstract void draw(RAW_GC gc);
+	public abstract void draw(GC gc);
 
 	public abstract void initialize();
 
@@ -102,5 +133,6 @@ public abstract class Object2d<RAW_GC extends Object,
 		setSpeedX(object2d.getSpeedX());
 		setSpeedY(object2d.getSpeedY());
 	}
+
 
 }

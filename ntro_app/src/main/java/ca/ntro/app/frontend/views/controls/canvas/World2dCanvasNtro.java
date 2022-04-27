@@ -4,18 +4,47 @@ import ca.ntro.app.world2d.Object2d;
 import ca.ntro.app.world2d.World2d;
 
 public abstract class World2dCanvasNtro<RAW_GC extends Object,
-                               		    RAW_CANVAS extends Object, 
+                                        RAW_CANVAS extends Object, 
                                         RAW_IMAGE extends Object,
-                                        OBJECT2D extends Object2d<RAW_GC,OBJECT2D,WORLD2D>,
-                                        WORLD2D  extends World2d <RAW_GC,OBJECT2D,WORLD2D>> 
+                                        RAW_FONT extends Object,
+                                        RAW_COLOR extends Object,
+
+                                        GC extends GraphicsContext<RAW_GC, 
+                                                                   RAW_CANVAS, 
+                                                                   RAW_IMAGE,
+                                                                   RAW_FONT,
+                                                                   RAW_COLOR>,
+
+							            OBJECT2D extends Object2d<RAW_GC, 
+														          RAW_CANVAS, 
+														          RAW_IMAGE,
+														          RAW_FONT,
+														          RAW_COLOR,
+														          GC,
+														          OBJECT2D,
+														          WORLD2D>,
+
+							            WORLD2D  extends World2d<RAW_GC, 
+														         RAW_CANVAS, 
+														         RAW_IMAGE, 
+														         RAW_FONT,
+														         RAW_COLOR,
+														         GC,
+														         OBJECT2D,
+														         WORLD2D>> 
 
        extends CanvasNtro<RAW_GC, 
                           RAW_CANVAS, 
-                          RAW_IMAGE>
+                          RAW_IMAGE,
+                          RAW_FONT,
+                          RAW_COLOR>
 
        implements World2dCanvas<RAW_GC, 
                                 RAW_CANVAS, 
                                 RAW_IMAGE, 
+                                RAW_FONT,
+                                RAW_COLOR,
+                                GC,
                                 OBJECT2D, 
                                 WORLD2D> {
     	   
@@ -64,7 +93,7 @@ public abstract class World2dCanvasNtro<RAW_GC extends Object,
 	}
 
 	@Override
-	public void drawOnViewport(CanvasDrawingLambda<RAW_GC, RAW_CANVAS, RAW_IMAGE> lambda) {
+	public void drawOnViewport(CanvasDrawingLambda<RAW_GC, RAW_CANVAS, RAW_IMAGE, RAW_FONT, RAW_COLOR> lambda) {
 		getGraphicsContext().save();
 		
 		lambda.draw(getGraphicsContext());
@@ -73,7 +102,7 @@ public abstract class World2dCanvasNtro<RAW_GC extends Object,
 	}
 
 	@Override
-	public void drawOnWorld(CanvasDrawingLambda<RAW_GC, RAW_CANVAS, RAW_IMAGE> lambda) {
+	public void drawOnWorld(CanvasDrawingLambda<RAW_GC, RAW_CANVAS, RAW_IMAGE, RAW_FONT, RAW_COLOR> lambda) {
 		getGraphicsContext().save();
 		
 		lambda.draw(getGraphicsContext());
