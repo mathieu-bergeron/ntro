@@ -33,33 +33,17 @@ public class CanvasFx extends ResizableCanvas implements Canvas<GraphicsContext,
 
 	@Override
 	public double canvasWidth() {
-		return canvasNtroFx.getCanvasWidth();
+		return getWidth();
 	}
 
 	@Override
 	public double canvasHeight() {
-		return canvasNtroFx.getCanvasHeight();
-	}
-
-	@Override
-	public double viewportWidth() {
-		return canvasNtroFx.getViewportWidth();
-	}
-
-	@Override
-	public double viewportHeight() {
-		return canvasNtroFx.getViewportHeight();
+		return getHeight();
 	}
 
 	@Override
 	public void drawOnCanvas(CanvasDrawingLambda<GraphicsContext, javafx.scene.canvas.Canvas, Image> lambda) {
 		canvasNtroFx.drawOnCanvas(lambda);
 	}
-
-	@Override
-	public void drawOnViewport(CanvasDrawingLambda<GraphicsContext, javafx.scene.canvas.Canvas, Image> lambda) {
-		canvasNtroFx.drawOnViewport(lambda);
-	}
-
 
 }

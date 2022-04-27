@@ -26,4 +26,14 @@ public class CanvasNtroFx extends CanvasNtro<GraphicsContext, javafx.scene.canva
 		return getCanvasFx().getRawCanvas();
 	}
 
+	@Override
+	public double canvasWidth() {
+		return getCanvasFx().canvasWidth();
+	}
+
+	@Override
+	public double canvasHeight() {
+		return getCanvasFx().canvasHeight();
+	}
+
 }
