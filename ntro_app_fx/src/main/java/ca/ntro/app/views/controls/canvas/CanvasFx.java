@@ -48,4 +48,10 @@ public class CanvasFx extends ResizableCanvas implements Canvas<GraphicsContext,
 		canvasNtroFx.drawOnCanvas(lambda);
 	}
 
+	@Override
+	public void clearCanvas() {
+		canvasNtroFx.clearCanvas();
+	}
+
+
 }

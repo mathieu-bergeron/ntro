@@ -111,4 +111,10 @@ public abstract class World2dCanvasNtro<RAW_GC extends Object,
 		
 	}
 
+	@Override
+	public void resizeViewport(double incrementX, double incrementY) {
+		viewportWidth += incrementX;
+		viewportHeight += incrementY;
+	}
+
 }

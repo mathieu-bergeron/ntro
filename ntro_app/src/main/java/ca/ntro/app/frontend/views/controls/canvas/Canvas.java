@@ -12,5 +12,7 @@ public interface Canvas<RAW_GC extends Object,
 	double canvasHeight();
 	
 	void drawOnCanvas(CanvasDrawingLambda<RAW_GC, RAW_CANVAS, RAW_IMAGE, RAW_FONT, RAW_COLOR> lambda);
+	
+	void clearCanvas();
 
 }

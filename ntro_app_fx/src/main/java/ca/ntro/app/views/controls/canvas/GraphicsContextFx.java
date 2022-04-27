@@ -54,4 +54,15 @@ public class GraphicsContextFx extends GraphicsContextNtro<GraphicsContext, java
 		gc.drawImage(image.getRawImage(), topLeftX, topLeftY);
 	}
 
+	@Override
+	public void clearRect(double topLeftX, double topLeftY, double width, double height) {
+		gc.clearRect(topLeftX, topLeftY, width, height);
+		
+	}
+
+	@Override
+	public void fillText(String text, int topLeftX, int topLeftY) {
+		gc.fillText(text, topLeftX, topLeftY);
+	}
+
 }

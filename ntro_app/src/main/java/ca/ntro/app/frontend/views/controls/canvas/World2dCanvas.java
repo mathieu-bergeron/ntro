@@ -42,4 +42,14 @@ public interface World2dCanvas<RAW_GC extends Object,
 	
 	void drawOnWorld(CanvasDrawingLambda<RAW_GC, RAW_CANVAS, RAW_IMAGE, RAW_FONT, RAW_COLOR> lambda);
 	void drawOnViewport(CanvasDrawingLambda<RAW_GC, RAW_CANVAS, RAW_IMAGE, RAW_FONT, RAW_COLOR> lambda);
+	
+	void clearViewport();
+	void clearWorld();
+	
+	void resizeViewport(double incrementX, double incrementY);
+
+	void displayWorld2d(WORLD2D world2d);
+
+	void displayFps(String fps);
+
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ca.ntro.app.frontend.views.controls.canvas.GraphicsContext;
+import ca.ntro.app.frontend.views.controls.canvas.World2dCanvas;
 import ca.ntro.app.models.Value;
 
 public abstract class World2d<RAW_GC extends Object,
@@ -85,9 +86,11 @@ public abstract class World2d<RAW_GC extends Object,
 		}
 	}
 
-	public void draw(GC gc) {
+	public void draw(World2dCanvas canvas) {
 		for(OBJECT2D object2d : objects) {
-			object2d.draw(gc);
+			canvas.drawOnWorld(gc -> {
+				object2d.draw((GC) gc);
+			});
 		}
 	}
 

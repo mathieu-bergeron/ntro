@@ -38,4 +38,13 @@ public class CanvasNtroFx extends CanvasNtro<GraphicsContext, javafx.scene.canva
 		return getCanvasFx().canvasHeight();
 	}
 
+	@Override
+	public void clearCanvas() {
+		drawOnCanvas(gc -> {
+
+			gc.clearRect(0,0,canvasWidth(), canvasHeight());
+
+		});
+	}
+
 }

@@ -11,10 +11,13 @@ public interface GraphicsContext<RAW_GC extends Object,
 	Canvas<RAW_GC, RAW_CANVAS, RAW_IMAGE, RAW_FONT, RAW_COLOR> getCanvas();
 	RAW_GC getRawGraphicsContext();
 
+	void clearRect(double topLeftX, double topLeftY, double width, double height);
 	
 	void fillRect(double topLeftX, double topLeftY, double width, double height);
 	
 	void drawImage(Image<RAW_IMAGE> image, double topLeftX, double topLeftY);
+
+	void fillText(String text, int topLeftX, int topLeftY);
 
 	void translate(double x, double y);
 	void scale(double x, double y);
