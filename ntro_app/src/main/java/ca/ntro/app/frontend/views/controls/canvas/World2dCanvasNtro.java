@@ -177,10 +177,12 @@ public abstract class World2dCanvasNtro<RAW_GC extends Object,
 
 	@Override
 	public void displayViewport() {
-		drawOnViewport(gc -> {
-			gc.strokeRect(5,5,viewportWidth-5, viewportHeight-5);
+		drawOnWorld(gc -> {
+			gc.strokeRect(viewportTopLeftY,
+					      viewportTopLeftY,
+					      viewportWidth, 
+					      viewportHeight);
 		});
-		
 	}
 
 	@Override
