@@ -124,7 +124,9 @@ public abstract class World2dCanvasNtro<RAW_GC extends Object,
 	public void drawOnViewport(CanvasDrawingLambda<RAW_GC, RAW_CANVAS, RAW_IMAGE, RAW_FONT, RAW_COLOR> lambda) {
 		getGraphicsContext().save();
 		
-		getGraphicsContext().setTransform(1.0, 0.0, 0.0, 1.0, viewportTopLeftX, viewportTopLeftY);
+		//getGraphicsContext().setTransform(1.0, 0.0, 0.0, 1.0, viewportTopLeftX, viewportTopLeftY);
+		// FIXME:
+		setWorld2dTransform();
 		
 		lambda.draw(getGraphicsContext());
 		
@@ -172,7 +174,7 @@ public abstract class World2dCanvasNtro<RAW_GC extends Object,
 	@Override
 	public void displayViewport() {
 		drawOnViewport(gc -> {
-			gc.strokeRect(0,0,viewportWidth, viewportHeight);
+			gc.strokeRect(5,5,viewportWidth-5, viewportHeight-5);
 		});
 		
 	}
@@ -188,7 +190,10 @@ public abstract class World2dCanvasNtro<RAW_GC extends Object,
 	@Override
 	public void displayWorld2d(WORLD2D world2d) {
 		getGraphicsContext().save();
+
 		getGraphicsContext().beginPath();
+
+		setWorld2dTransform();
 
 		getGraphicsContext().rect(viewportTopLeftX(), 
 				                  viewportTopLeftY(), 
@@ -196,12 +201,32 @@ public abstract class World2dCanvasNtro<RAW_GC extends Object,
 				                  viewportHeight());
 
 		getGraphicsContext().clip();
-		
-		//getGraphicsContext().setTransform(0.25, 0, 0, 1.0, 0, 0);
 
 		world2d.draw(getGraphicsContext());
 		
 		getGraphicsContext().restore();
+	}
+
+	private void setWorld2dTransform() {
+		double scaleX = 1.0;
+		double shearX = 0;
+		double shearY = 0;
+		double scaleY = 1.0;
+		double translateX = 0;
+		double translateY = 0;
+		
+		scaleX = canvasWidth() / viewportWidth;
+		scaleY = canvasHeight() / viewportHeight;
+		
+		translateX = -viewportTopLeftX * scaleX;
+		translateY = -viewportTopLeftY * scaleY;
+
+		getGraphicsContext().setTransform(scaleX,
+				                          shearX,
+				                          shearY,
+				                          scaleY,
+				                          translateX,
+				                          translateY);
 	}
 
 	@Override
