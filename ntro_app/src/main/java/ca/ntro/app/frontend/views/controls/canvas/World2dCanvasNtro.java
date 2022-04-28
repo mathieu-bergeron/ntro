@@ -211,7 +211,7 @@ public abstract class World2dCanvasNtro<RAW_GC extends Object,
 		getGraphicsContext().restore();
 	}
 
-	private void setWorld2dTransform() {
+	protected void setWorld2dTransform() {
 		double scaleX = 1.0;
 		double shearX = 0;
 		double shearY = 0;

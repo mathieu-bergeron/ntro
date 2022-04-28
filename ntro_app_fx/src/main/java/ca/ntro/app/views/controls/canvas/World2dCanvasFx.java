@@ -152,18 +152,7 @@ public abstract class World2dCanvasFx<OBJECT2D extends Object2dFx<OBJECT2D, WORL
 		addEventFilter(eventType, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				double x = event.getX();
-				double y = event.getY();
-
-				double mxx = getGc().getTransform().getMxx();
-				double myy = getGc().getTransform().getMyy();
-				double tx = getGc().getTransform().getTx();
-				double ty = getGc().getTransform().getTy();
-				
-				double worldX = (x - tx) / mxx;
-				double worldY = (y - ty) / myy;
-				
-				handler.handle(event, worldX, worldY);
+				canvasNtroFx.handleMouseEvent(event, handler);
 			}
 		});
 	}
