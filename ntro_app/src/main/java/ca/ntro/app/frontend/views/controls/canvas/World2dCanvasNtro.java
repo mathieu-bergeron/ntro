@@ -1,7 +1,9 @@
 package ca.ntro.app.frontend.views.controls.canvas;
 
 import ca.ntro.app.world2d.Object2d;
+import ca.ntro.app.world2d.Object2dDrawingOptions;
 import ca.ntro.app.world2d.World2d;
+import ca.ntro.app.world2d.World2dDrawingOptions;
 
 public abstract class World2dCanvasNtro<RAW_GC extends Object,
                                         RAW_CANVAS extends Object, 
@@ -46,7 +48,9 @@ public abstract class World2dCanvasNtro<RAW_GC extends Object,
                                 RAW_COLOR,
                                 GC,
                                 OBJECT2D, 
-                                WORLD2D> {
+                                WORLD2D>,
+       
+                 World2dDrawingOptions {
     	   
     private WORLD2D world;
 
@@ -202,7 +206,7 @@ public abstract class World2dCanvasNtro<RAW_GC extends Object,
 
 		getGraphicsContext().clip();
 
-		world2d.draw(getGraphicsContext());
+		world2d.draw(getGraphicsContext(), this);
 		
 		getGraphicsContext().restore();
 	}
@@ -242,6 +246,41 @@ public abstract class World2dCanvasNtro<RAW_GC extends Object,
 		drawOnCanvas(gc -> {
 			gc.clearRect(0,0,canvasWidth(), canvasHeight());
 		});
+	}
+
+	@Override
+	public RAW_CANVAS getRawCanvas() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public double canvasWidth() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double canvasHeight() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double screenWidth(double worldWidth) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double screenHeight(double worldHeight) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public Object2dDrawingOptions toObject2dDrawingOptions() {
+		return (Object2dDrawingOptions) this;
 	}
 
 

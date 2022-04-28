@@ -88,14 +88,15 @@ public abstract class World2d<RAW_GC extends Object,
 	}
 
 	@SuppressWarnings("unchecked")
-	public void draw(InternalGraphicsContext<RAW_GC, RAW_CANVAS, RAW_IMAGE, RAW_FONT, RAW_COLOR> gc) {
+	public void draw(InternalGraphicsContext<RAW_GC, RAW_CANVAS, RAW_IMAGE, RAW_FONT, RAW_COLOR> gc,
+			         World2dDrawingOptions options) {
 		
 		// FIXME: select only objects that intersect with the viewport
 		
 		for(OBJECT2D object2d : objects) {
 
 			gc.save();
-			object2d.draw((GC) gc);
+			object2d.draw((GC) gc, options.toObject2dDrawingOptions());
 			gc.restore();
 
 		}

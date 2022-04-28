@@ -121,7 +121,7 @@ public abstract class Object2d<RAW_GC extends Object,
 				|| (coord2 <= coord1 && coord2 + size2 >= coord1);
 	}
 	
-	public abstract void draw(GC gc);
+	public abstract void draw(GC gc, Object2dDrawingOptions options);
 
 	public abstract void initialize();
 
