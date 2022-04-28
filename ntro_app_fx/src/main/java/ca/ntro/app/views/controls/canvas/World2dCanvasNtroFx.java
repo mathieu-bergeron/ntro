@@ -22,34 +22,26 @@ public class World2dCanvasNtroFx<OBJECT2D extends Object2dFx<OBJECT2D, WORLD2D>,
                                  OBJECT2D,
                                  WORLD2D> {
 	
-	private World2dCanvasFx<OBJECT2D, WORLD2D> canvasFx;
+	private Canvas rawCanvas;
 
-	public World2dCanvasFx<OBJECT2D, WORLD2D> getCanvasFx() {
-		return canvasFx;
-	}
-
-	public void setCanvasFx(World2dCanvasFx<OBJECT2D, WORLD2D> canvasFx) {
-		this.canvasFx = canvasFx;
-	}
-
-	public World2dCanvasNtroFx(GraphicsContextFx graphicsContext, World2dCanvasFx<OBJECT2D, WORLD2D> canvasFx) {
+	public World2dCanvasNtroFx(GraphicsContextFx graphicsContext, Canvas rawCanvas) {
 		setGraphicsContext(graphicsContext);
-		setCanvasFx(canvasFx);
+		this.rawCanvas = rawCanvas;
 	}
 
 	@Override
 	public Canvas getRawCanvas() {
-		return getCanvasFx().getRawCanvas();
+		return rawCanvas;
 	}
 
 	@Override
 	public double canvasWidth() {
-		return getCanvasFx().canvasWidth();
+		return rawCanvas.getWidth();
 	}
 
 	@Override
 	public double canvasHeight() {
-		return getCanvasFx().canvasHeight();
+		return rawCanvas.getHeight();
 	}
 
 	public void handleMouseEvent(MouseEvent event, MouseEventHandler handler) {
@@ -69,7 +61,6 @@ public class World2dCanvasNtroFx<OBJECT2D extends Object2dFx<OBJECT2D, WORLD2D>,
 		double worldY = (y - ty) / myy;
 		
 		handler.handle(event, worldX, worldY);
-		
 	}
 
 

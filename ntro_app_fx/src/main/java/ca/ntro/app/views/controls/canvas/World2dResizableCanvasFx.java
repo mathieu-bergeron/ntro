@@ -3,6 +3,7 @@ package ca.ntro.app.views.controls.canvas;
 import ca.ntro.app.frontend.views.controls.canvas.CanvasDrawingLambda;
 import ca.ntro.app.frontend.views.controls.canvas.World2dCanvas;
 import ca.ntro.app.world2d.Object2dFx;
+import ca.ntro.app.world2d.World2d;
 import ca.ntro.app.world2d.World2dFx;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
@@ -14,10 +15,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
-public abstract class World2dCanvasFx<OBJECT2D extends Object2dFx<OBJECT2D, WORLD2D>,
+public abstract class World2dResizableCanvasFx<OBJECT2D extends Object2dFx<OBJECT2D, WORLD2D>,
                                       WORLD2D  extends World2dFx<OBJECT2D, WORLD2D>> 
 
-       extends  Canvas 
+       extends  ResizableCanvas 
 
        implements World2dCanvas<GraphicsContext, 
                                 Canvas, 
@@ -28,7 +29,7 @@ public abstract class World2dCanvasFx<OBJECT2D extends Object2dFx<OBJECT2D, WORL
                                 OBJECT2D,
                                 WORLD2D> {
 	
-	private World2dCanvasNtroFx<OBJECT2D, WORLD2D> canvasNtroFx = new World2dCanvasNtroFx<OBJECT2D,WORLD2D>(new GraphicsContextFx(getGraphicsContext2D()), this);
+	private World2dCanvasNtroFx<OBJECT2D, WORLD2D> canvasNtroFx = new World2dCanvasNtroFx<OBJECT2D,WORLD2D>(new GraphicsContextFx(getGc()), getCanvas());
 	
 	private double worldWidth = 0;
 	private double worldHeight = 0;
@@ -58,7 +59,71 @@ public abstract class World2dCanvasFx<OBJECT2D extends Object2dFx<OBJECT2D, WORL
 	public void setWorldHeight(double worldHeight) {
 		this.worldHeight = worldHeight;
 	}
+
+	@Override
+	protected void initialize() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void onInitialSize(double initialWidth, double initialHeight) {
+		//globalTransform(initialWidth, initialHeight);
+	}
+
+	@Override
+	protected void onNewSize(double oldWidth, double oldHeight, double newWidth, double newHeight) {
+		//globalTransform(newWidth, newHeight);
+	}
 	
+	private void globalTransform(double canvasWidth, double canvasHeight) {
+		double canvasAspectRatio = canvasWidth / canvasHeight;
+		double worldAspectRatio = worldWidth / worldHeight;
+		
+		double scaleX = 1.0;
+		double scaleY = 1.0;
+		double shearX = 0;
+		double shearY = 0;
+		double translateX = 0;
+		double translateY = 0;
+		
+		if(canvasAspectRatio > worldAspectRatio) {
+
+			scaleY = canvasHeight / worldHeight;
+			scaleX = scaleY;
+
+		} else if(canvasAspectRatio <= worldAspectRatio) {
+
+			scaleX = canvasWidth / worldWidth; 
+			scaleY = scaleX;
+		}
+		
+		double worldWidthScaled = worldWidth * scaleX;
+		double worldHeightScaled = worldHeight * scaleY;
+
+		if(worldWidthScaled <  canvasWidth
+				&& position == Pos.CENTER) {
+			translateX = ((canvasWidth - worldWidthScaled) / 2);
+
+		}else if(worldWidthScaled <  canvasWidth
+				&& position == Pos.CENTER_RIGHT) {
+
+			translateX = canvasWidth - worldWidthScaled;
+		}
+
+		if(worldHeightScaled <  canvasHeight) {
+			translateY = ((canvasHeight - worldHeightScaled) / 2);
+		}
+
+		getGc().setTransform(scaleX, shearX, shearY, scaleY, translateX, translateY);
+	}
+	
+	public void displayFps(String fps) {
+		getGc().save();
+		getGc().setTransform(1.0, 0, 0, 1.0, 0, 0); 
+		getGc().fillText(fps, 0, 12);
+		getGc().restore();
+	}
 
 	/*
 	public void displayWorld2d(World2dFx world2d) {
@@ -94,7 +159,7 @@ public abstract class World2dCanvasFx<OBJECT2D extends Object2dFx<OBJECT2D, WORL
 
 	@Override
 	public Canvas getRawCanvas() {
-		return this;
+		return getCanvas();
 	}
 
 	@Override
@@ -188,11 +253,6 @@ public abstract class World2dCanvasFx<OBJECT2D extends Object2dFx<OBJECT2D, WORL
 	@Override
 	public void displayViewport() {
 		canvasNtroFx.displayViewport();
-	}
-
-	@Override
-	public void displayFps(String fps) {
-		canvasNtroFx.displayFps(fps);
 	}
 
 }
