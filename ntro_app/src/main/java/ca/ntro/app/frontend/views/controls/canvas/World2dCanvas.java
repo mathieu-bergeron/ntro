@@ -1,6 +1,6 @@
 package ca.ntro.app.frontend.views.controls.canvas;
 
-import ca.ntro.app.world2d.Object2d;
+import ca.ntro.app.world2d.Object2dNtro;
 import ca.ntro.app.world2d.World2d;
 
 public interface World2dCanvas<RAW_GC extends Object,
@@ -15,7 +15,7 @@ public interface World2dCanvas<RAW_GC extends Object,
                                                           RAW_FONT,
                                                           RAW_COLOR>,
 
-							   OBJECT2D extends Object2d<RAW_GC, 
+							   OBJECT2D extends Object2dNtro<RAW_GC, 
 														 RAW_CANVAS, 
 														 RAW_IMAGE,
 														 RAW_FONT,

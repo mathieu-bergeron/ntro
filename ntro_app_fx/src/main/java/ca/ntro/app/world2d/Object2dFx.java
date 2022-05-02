@@ -11,7 +11,7 @@ import javafx.scene.text.Font;
 public abstract class Object2dFx<OBJECT2D extends Object2dFx<OBJECT2D, WORLD2D>,
                                  WORLD2D extends World2dFx<OBJECT2D, WORLD2D>> 
        
-      extends Object2d<GraphicsContext, 
+      extends Object2dNtro<GraphicsContext, 
                        Canvas,
                        Image,
                        Font,

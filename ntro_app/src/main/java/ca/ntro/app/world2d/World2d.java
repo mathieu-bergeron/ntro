@@ -20,7 +20,7 @@ public abstract class World2d<RAW_GC extends Object,
                                                          RAW_FONT,
                                                          RAW_COLOR>,
 
-							  OBJECT2D extends Object2d<RAW_GC, 
+							  OBJECT2D extends Object2dNtro<RAW_GC, 
 														RAW_CANVAS, 
 														RAW_IMAGE,
 														RAW_FONT,
