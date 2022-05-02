@@ -94,13 +94,13 @@ public interface AnonymousRegion2d {
 			                                     double size2, 
 			                                     double epsilon) {
 
-		return (coord1 < coord2 + epsilon 
-				&& coord1 + size1 + epsilon >= coord2)
+		return (coord1 + epsilon > coord2
+				&& coord1 < coord2 + size2 + epsilon)
 
 				|| 
 				
-				(coord2 <= coord1 
-				&& coord2 + size2 >= coord1);
+				(coord1 + size1 + epsilon > coord2
+				&& coord1 + size1 < coord2 + size2 + epsilon);
 	}
 
 	public static boolean isEqualTo(double topLeftX01, 
@@ -132,8 +132,8 @@ public interface AnonymousRegion2d {
 			                                double size2, 
 			                                double epsilon) {
 
-		return Math.abs(coord1 - coord2) <= epsilon
-				&& Math.abs(size1 - size2) <= epsilon;
+		return Math.abs(coord1 - coord2) < epsilon
+				&& Math.abs(size1 - size2) < epsilon;
 	}
 	
 }
