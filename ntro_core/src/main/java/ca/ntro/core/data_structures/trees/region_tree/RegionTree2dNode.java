@@ -8,7 +8,7 @@ public interface RegionTree2dNode<R extends Region2d> extends AnonymousRegion2d 
 
 	void remove(R region, double epsilon);
 
-	Stream<R> get(R regionSpec, double epsilon);
+	Stream<R> get(AnonymousRegion2d regionSpec, double epsilon);
 
 	Stream<R> get(double topLeftX,
 			      double topLeftY,
@@ -16,7 +16,7 @@ public interface RegionTree2dNode<R extends Region2d> extends AnonymousRegion2d 
 			      double height,
 			      double epsilon);
 
-	Stream<R> intersectWith(R otherRegion, double epsilon);
+	Stream<R> intersectWith(AnonymousRegion2d otherRegion, double epsilon);
 
 	Stream<R> intersectWith(double topLeftX,
 			                double topLeftY,
@@ -24,7 +24,7 @@ public interface RegionTree2dNode<R extends Region2d> extends AnonymousRegion2d 
 			                double height,
 			                double epsilon);
 
-	Stream<R> containedIn(R otherRegion, double epsilon);
+	Stream<R> containedIn(AnonymousRegion2d otherRegion, double epsilon);
 
 	Stream<R> containedIn(double topLeftX,
 			              double topLeftY,

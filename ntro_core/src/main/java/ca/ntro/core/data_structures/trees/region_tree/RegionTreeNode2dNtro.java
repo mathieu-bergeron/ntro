@@ -97,7 +97,7 @@ public class RegionTreeNode2dNtro<R extends Region2d>
 		}
 	}
 	
-	private Set<String> containedInSubRegions(R region, double epsilon){
+	private Set<String> containedInSubRegions(AnonymousRegion2d region, double epsilon){
 		Set<String> containedIn = new HashSet<>();
 
 		for(RegionName regionName : RegionName.values()) {
@@ -156,9 +156,9 @@ public class RegionTreeNode2dNtro<R extends Region2d>
 	private void removeFromOrphans(R region, double epsilon) {
 		Set<R> toRemove = new HashSet<>();
 		
-		for(R candidate : orphanRegions) {
-			if(candidate.isEqualTo(region, epsilon)) {
-				toRemove.add(candidate);
+		for(R orphan : orphanRegions) {
+			if(orphan.isEqualTo(region, epsilon)) {
+				toRemove.add(orphan);
 			}
 		}
 
@@ -166,12 +166,36 @@ public class RegionTreeNode2dNtro<R extends Region2d>
 	}
 
 	@Override
-	public Stream<R> get(R regionSpec, double epsilon) {
-		return get(regionSpec.topLeftX(),
-				   regionSpec.topLeftY(),
-				   regionSpec.width(),
-				   regionSpec.height(),
-				   epsilon);
+	public Stream<R> get(AnonymousRegion2d regionSpec, double epsilon) {
+		Stream<R> result = null;
+		Set<String> containedIn = containedInSubRegions(regionSpec, epsilon);
+
+		if(containedIn.size() == 1) {
+			for(String subNodeName : containedIn) {
+				result = subNodes.get(subNodeName).get(regionSpec, epsilon);
+			}
+
+		}else {
+			
+			result = getFromOrphans(regionSpec, epsilon);
+			
+		}
+		
+		return result;
+	}
+
+	private Stream<R> getFromOrphans(AnonymousRegion2d regionSpec, double epsilon) {
+		return new StreamNtro<R>() {
+
+			@Override
+			public void forEach_(Visitor<R> visitor) throws Throwable {
+				for(R orphan : orphanRegions) {
+					if(orphan.isEqualTo(regionSpec, epsilon)) {
+						visitor.visit(orphan);
+					}
+				}
+			}
+		};
 	}
 
 	@Override
@@ -180,22 +204,34 @@ public class RegionTreeNode2dNtro<R extends Region2d>
 			             double width, 
 			             double height, 
 			             double epsilon) {
+		
+		return get(new AnonymousRegion2dNtro(topLeftX, topLeftY, width, height), epsilon);
+	}
 
+	@Override
+	public Stream<R> intersectWith(AnonymousRegion2d otherRegion, double epsilon) {
 		return new StreamNtro<R>() {
 			@Override
 			public void forEach_(Visitor<R> visitor) throws Throwable {
 				
+				for(Map.Entry<String, AnonymousRegion2dNtro> entry : subRegions.entrySet()) {
+					if(entry.getValue().intersectsWith(otherRegion, epsilon)) {
+						RegionTreeNode2dNtro<R> subNode = subNodes.get(entry.getKey());
+						if(subNode != null) {
+							subNode.intersectWith(otherRegion, epsilon).forEach(r -> {
+								visitor.visit(r);
+							});
+						}
+					}
+				}
+				
+				for(R orphan : orphanRegions) {
+					if(orphan.intersectsWith(otherRegion, epsilon)) {
+						visitor.visit(orphan);
+					}
+				}
 			}
 		};
-	}
-
-	@Override
-	public Stream<R> intersectWith(R otherRegion, double epsilon) {
-		return intersectWith(otherRegion.topLeftX(),
-				             otherRegion.topLeftY(),
-				             otherRegion.width(),
-				             otherRegion.height(),
-				             epsilon);
 	}
 
 	@Override
@@ -204,22 +240,18 @@ public class RegionTreeNode2dNtro<R extends Region2d>
 			                       double width, 
 			                       double height,
 			                       double epsilon) {
+		
+		return intersectWith(new AnonymousRegion2dNtro(topLeftX, topLeftY, width, height), epsilon);
+	}
 
+	@Override
+	public Stream<R> containedIn(AnonymousRegion2d otherRegion, double epsilon) {
 		return new StreamNtro<R>() {
 			@Override
 			public void forEach_(Visitor<R> visitor) throws Throwable {
 				
 			}
 		};
-	}
-
-	@Override
-	public Stream<R> containedIn(R otherRegion, double epsilon) {
-		return containedIn(otherRegion.topLeftX(),
-				           otherRegion.topLeftY(),
-				           otherRegion.width(),
-				           otherRegion.height(),
-				           epsilon);
 	}
 
 	@Override
@@ -229,13 +261,7 @@ public class RegionTreeNode2dNtro<R extends Region2d>
 			                     double height,
 			                     double epsilon) {
 
-		return new StreamNtro<R>() {
-			@Override
-			public void forEach_(Visitor<R> visitor) throws Throwable {
-				// TODO Auto-generated method stub
-				
-			}
-		};
+		return containedIn(new AnonymousRegion2dNtro(topLeftX, topLeftY, width, height), epsilon);
 	}
 
 }

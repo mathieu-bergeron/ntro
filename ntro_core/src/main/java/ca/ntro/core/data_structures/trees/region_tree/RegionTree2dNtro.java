@@ -92,7 +92,7 @@ public class RegionTree2dNtro<R extends Region2d> implements RegionTree2d<R> {
 	}
 
 	@Override
-	public Stream<R> intersectWith(R otherRegion) {
+	public Stream<R> intersectWith(AnonymousRegion2d otherRegion) {
 		return rootNode.intersectWith(otherRegion, epsilon);
 	}
 
@@ -106,7 +106,7 @@ public class RegionTree2dNtro<R extends Region2d> implements RegionTree2d<R> {
 	}
 
 	@Override
-	public Stream<R> containedIn(R otherRegion) {
+	public Stream<R> containedIn(AnonymousRegion2d otherRegion) {
 		return rootNode.containedIn(otherRegion, epsilon);
 	}
 
@@ -120,7 +120,7 @@ public class RegionTree2dNtro<R extends Region2d> implements RegionTree2d<R> {
 	}
 
 	@Override
-	public Stream<R> get(R regionSpec) {
+	public Stream<R> get(AnonymousRegion2d regionSpec) {
 		return rootNode.get(regionSpec, epsilon);
 	}
 

@@ -13,21 +13,21 @@ public interface RegionTree2d<R extends Region2d> {
 
 	R get(String id);
 
-	Stream<R> intersectWith(R otherRegion);
+	Stream<R> intersectWith(AnonymousRegion2d otherRestion);
 
 	Stream<R> intersectWith(double topLeftX,
 			                double topLeftY,
 			                double width,
 			                double height);
 
-	Stream<R> containedIn(R otherRegion);
+	Stream<R> containedIn(AnonymousRegion2d otherRegion);
 
 	Stream<R> containedIn(double topLeftX,
 			              double topLeftY,
 			              double width,
 			              double height);
 
-	Stream<R> get(R regionSpec);
+	Stream<R> get(AnonymousRegion2d regionSpec);
 
 	Stream<R> get(double topLeftX,
 			      double topLeftY,
