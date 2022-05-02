@@ -58,8 +58,8 @@ public abstract class World2dCanvasNtro<RAW_GC extends Object,
 
     private double viewportTopLeftX = 0;
     private double viewportTopLeftY = 0;
-	private double viewportWidth = 400;
-	private double viewportHeight = 400;
+	private double viewportWidth = 0;
+	private double viewportHeight = 0;
 
 	public double getViewportWidth() {
 		return viewportWidth;
@@ -155,8 +155,10 @@ public abstract class World2dCanvasNtro<RAW_GC extends Object,
 	@Override
 	public void drawOnWorld(CanvasDrawingLambda<RAW_GC, RAW_CANVAS, RAW_IMAGE, RAW_FONT, RAW_COLOR> lambda) {
 		getGraphicsContext().save();
-		
-		
+
+		// FIXME:
+		setWorld2dTransform();
+
 		lambda.draw(getGraphicsContext());
 		
 		getGraphicsContext().restore();
@@ -187,16 +189,6 @@ public abstract class World2dCanvasNtro<RAW_GC extends Object,
 	public void clearViewport() {
 		drawOnViewport(gc -> {
 			gc.clearRect(0, 0, viewportWidth, viewportHeight);
-		});
-	}
-
-	@Override
-	public void displayViewport() {
-		drawOnWorld(gc -> {
-			gc.strokeRect(viewportTopLeftY,
-					      viewportTopLeftY,
-					      viewportWidth, 
-					      viewportHeight);
 		});
 	}
 
@@ -251,14 +243,6 @@ public abstract class World2dCanvasNtro<RAW_GC extends Object,
 	}
 
 	@Override
-	public void displayFps(String fps) {
-		drawOnCanvas(gc -> {
-
-			gc.fillText(fps, 0, 12);
-		});
-	}
-
-	@Override
 	public void clearCanvas() {
 		drawOnCanvas(gc -> {
 			gc.clearRect(0,0,canvasWidth(), canvasHeight());
@@ -266,49 +250,28 @@ public abstract class World2dCanvasNtro<RAW_GC extends Object,
 	}
 
 	@Override
-	public RAW_CANVAS getRawCanvas() {
-		// TODO Auto-generated method stub
-		return null;
+	public double widthOnScreen(double widthInWorld) {
+		return widthInWorld * worldWidth() / canvasWidth();
 	}
 
 	@Override
-	public double canvasWidth() {
-		// TODO Auto-generated method stub
-		return 0;
+	public double heightOnScreen(double heightInWorld) {
+		return heightInWorld * worldHeight() / canvasHeight();
 	}
 
 	@Override
-	public double canvasHeight() {
-		// TODO Auto-generated method stub
-		return 0;
+	public double widthInWorld(double widthOnScreen) {
+		return widthOnScreen * canvasWidth() / worldWidth();
 	}
 
 	@Override
-	public double screenWidth(double worldWidth) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public double screenHeight(double worldHeight) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public double worldWidth(double screenWidth) {
-		return 0;
-	}
-
-	@Override
-	public double worldHeight(double screenHeight) {
-		return 0;
+	public double heightInWorld(double heightOnScreen) {
+		return heightOnScreen * canvasHeight() / worldHeight();
 	}
 
 	@Override
 	public Object2dDrawingOptions toObject2dDrawingOptions() {
 		return (Object2dDrawingOptions) this;
 	}
-
 
 }

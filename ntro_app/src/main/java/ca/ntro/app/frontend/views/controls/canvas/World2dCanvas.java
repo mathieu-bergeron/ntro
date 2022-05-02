@@ -55,8 +55,4 @@ public interface World2dCanvas<RAW_GC extends Object,
 
 	void displayWorld2d(WORLD2D world2d);
 
-	void displayFps(String fps);
-
-	void displayViewport();
-
 }

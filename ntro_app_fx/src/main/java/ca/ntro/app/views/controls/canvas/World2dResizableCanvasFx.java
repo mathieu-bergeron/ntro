@@ -3,7 +3,6 @@ package ca.ntro.app.views.controls.canvas;
 import ca.ntro.app.frontend.views.controls.canvas.CanvasDrawingLambda;
 import ca.ntro.app.frontend.views.controls.canvas.World2dCanvas;
 import ca.ntro.app.world2d.Object2dFx;
-import ca.ntro.app.world2d.World2d;
 import ca.ntro.app.world2d.World2dFx;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
@@ -31,51 +30,22 @@ public abstract class World2dResizableCanvasFx<OBJECT2D extends Object2dFx<OBJEC
 	
 	private World2dCanvasNtroFx<OBJECT2D, WORLD2D> canvasNtroFx = new World2dCanvasNtroFx<OBJECT2D,WORLD2D>(new GraphicsContextFx(getGc()), getCanvas());
 	
-	private double worldWidth = 0;
-	private double worldHeight = 0;
-	
-	private Pos position = Pos.CENTER;
-
-	public Pos getPosition() {
-		return position;
-	}
-
-	public void setPosition(Pos position) {
-		this.position = position;
-	}
-
-	public double getWorldWidth() {
-		return worldWidth;
-	}
-
-	public void setWorldWidth(double worldWidth) {
-		this.worldWidth = worldWidth;
-	}
-
-	public double getWorldHeight() {
-		return worldHeight;
-	}
-
-	public void setWorldHeight(double worldHeight) {
-		this.worldHeight = worldHeight;
-	}
-
 	@Override
 	protected void initialize() {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	protected void onInitialSize(double initialWidth, double initialHeight) {
-		//globalTransform(initialWidth, initialHeight);
+		resizeViewport(initialWidth, initialHeight);
 	}
 
 	@Override
 	protected void onNewSize(double oldWidth, double oldHeight, double newWidth, double newHeight) {
-		//globalTransform(newWidth, newHeight);
+		resizeViewport(newWidth, newHeight);
 	}
 	
+	/*
 	private void globalTransform(double canvasWidth, double canvasHeight) {
 		double canvasAspectRatio = canvasWidth / canvasHeight;
 		double worldAspectRatio = worldWidth / worldHeight;
@@ -117,14 +87,8 @@ public abstract class World2dResizableCanvasFx<OBJECT2D extends Object2dFx<OBJEC
 
 		getGc().setTransform(scaleX, shearX, shearY, scaleY, translateX, translateY);
 	}
+	*/
 	
-	public void displayFps(String fps) {
-		getGc().save();
-		getGc().setTransform(1.0, 0, 0, 1.0, 0, 0); 
-		getGc().fillText(fps, 0, 12);
-		getGc().restore();
-	}
-
 	/*
 	public void displayWorld2d(World2dFx world2d) {
 
@@ -174,14 +138,12 @@ public abstract class World2dResizableCanvasFx<OBJECT2D extends Object2dFx<OBJEC
 
 	@Override
 	public double worldWidth() {
-		// TODO Auto-generated method stub
-		return 0;
+		return canvasNtroFx.worldWidth();
 	}
 
 	@Override
 	public double worldHeight() {
-		// TODO Auto-generated method stub
-		return 0;
+		return canvasNtroFx.worldHeight();
 	}
 
 	@Override
@@ -241,8 +203,8 @@ public abstract class World2dResizableCanvasFx<OBJECT2D extends Object2dFx<OBJEC
 	}
 
 	@Override
-	public void resizeViewport(double incrementX, double incrementY) {
-		canvasNtroFx.resizeViewport(incrementX, incrementY);
+	public void resizeViewport(double width, double height) {
+		canvasNtroFx.resizeViewport(width, height);
 	}
 
 	@Override
@@ -255,9 +217,11 @@ public abstract class World2dResizableCanvasFx<OBJECT2D extends Object2dFx<OBJEC
 		canvasNtroFx.relocateResizeViewport(topLeftX, topLeftY, width, height);
 	}
 
-	@Override
-	public void displayViewport() {
-		canvasNtroFx.displayViewport();
+	public void setWorldWidth(double worldWidth) {
+		canvasNtroFx.setWorldWidth(worldWidth);
 	}
 
+	public void setWorldHeight(double worldHeight) {
+		canvasNtroFx.setWorldHeight(worldHeight);
+	}
 }
