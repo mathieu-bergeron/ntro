@@ -81,12 +81,7 @@ public class RegionTreeNode2dNtro<R extends Region2d>
 
 	@Override
 	public void add(R region, double epsilon) {
-		Set<String> containedIn = new HashSet<>();
-
-		for(RegionName regionName : RegionName.values()) {
-			if(region.isContainedIn(subRegions.get(regionName.name()), epsilon))
-				containedIn.add(regionName.name());
-		}
+		Set<String> containedIn = containedInSubRegions(region, epsilon);
 
 		if(containedIn.size() == 1) {
 			containedIn.forEach(subNodeName -> {
@@ -100,6 +95,17 @@ public class RegionTreeNode2dNtro<R extends Region2d>
 			addToOrphans(region);
 			
 		}
+	}
+	
+	private Set<String> containedInSubRegions(R region, double epsilon){
+		Set<String> containedIn = new HashSet<>();
+
+		for(RegionName regionName : RegionName.values()) {
+			if(region.isContainedIn(subRegions.get(regionName.name()), epsilon))
+				containedIn.add(regionName.name());
+		}
+		
+		return containedIn;
 	}
 
 	private void addToSubNode(R region, String subNodeName, double epsilon) {
@@ -128,7 +134,35 @@ public class RegionTreeNode2dNtro<R extends Region2d>
 
 	@Override
 	public void remove(R region, double epsilon) {
+		Set<String> containedIn = containedInSubRegions(region, epsilon);
+
+		if(containedIn.size() == 1) {
+			containedIn.forEach(subNodeName -> {
+
+				removeFromSubNode(region, subNodeName, epsilon);
+
+			});
+
+		}else {
+			
+			removeFromOrphans(region, epsilon);
+		}
+	}
+
+	private void removeFromSubNode(R region, String subNodeName, double epsilon) {
+		subNodes.get(subNodeName).remove(region, epsilon);
+	}
+
+	private void removeFromOrphans(R region, double epsilon) {
+		Set<R> toRemove = new HashSet<>();
 		
+		for(R candidate : orphanRegions) {
+			if(candidate.isEqualTo(region, epsilon)) {
+				toRemove.add(candidate);
+			}
+		}
+
+		orphanRegions.removeAll(toRemove);
 	}
 
 	@Override
@@ -203,6 +237,5 @@ public class RegionTreeNode2dNtro<R extends Region2d>
 			}
 		};
 	}
-
 
 }
