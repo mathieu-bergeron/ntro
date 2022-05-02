@@ -109,9 +109,13 @@ public abstract class World2dCanvasFx<OBJECT2D extends Object2dFx<OBJECT2D, WORL
 
 
 	@Override
-	public WORLD2D world() {
-		// TODO Auto-generated method stub
-		return null;
+	public double worldWidth() {
+		return canvasNtroFx.worldWidth();
+	}
+
+	@Override
+	public double worldHeight() {
+		return canvasNtroFx.worldHeight();
 	}
 
 	@Override

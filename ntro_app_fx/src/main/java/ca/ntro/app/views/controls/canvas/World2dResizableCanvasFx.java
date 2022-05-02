@@ -172,11 +172,16 @@ public abstract class World2dResizableCanvasFx<OBJECT2D extends Object2dFx<OBJEC
 		return getHeight();
 	}
 
+	@Override
+	public double worldWidth() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 	@Override
-	public WORLD2D world() {
+	public double worldHeight() {
 		// TODO Auto-generated method stub
-		return null;
+		return 0;
 	}
 
 	@Override

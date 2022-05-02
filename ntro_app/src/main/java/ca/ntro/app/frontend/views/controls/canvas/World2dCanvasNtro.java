@@ -52,7 +52,9 @@ public abstract class World2dCanvasNtro<RAW_GC extends Object,
        
                  World2dDrawingOptions {
     	   
-    private WORLD2D world;
+    	   
+    private double worldWidth = 0;
+    private double worldHeight = 0;
 
     private double viewportTopLeftX = 0;
     private double viewportTopLeftY = 0;
@@ -91,12 +93,20 @@ public abstract class World2dCanvasNtro<RAW_GC extends Object,
 		this.viewportTopLeftY = viewportTopLeftY;
 	}
 
-	public WORLD2D getWorld() {
-		return world;
+	public double getWorldWidth() {
+		return worldWidth;
 	}
 
-	public void setWorld(WORLD2D world) {
-		this.world = world;
+	public void setWorldWidth(double worldWidth) {
+		this.worldWidth = worldWidth;
+	}
+
+	public double getWorldHeight() {
+		return worldHeight;
+	}
+
+	public void setWorldHeight(double worldHeight) {
+		this.worldHeight = worldHeight;
 	}
 
 	@Override
@@ -118,10 +128,15 @@ public abstract class World2dCanvasNtro<RAW_GC extends Object,
 	public double viewportHeight() {
 		return getViewportHeight();
 	}
-	
-	@Override 
-	public WORLD2D world() {
-		return getWorld();
+
+	@Override
+	public double worldWidth() {
+		return getWorldWidth();
+	}
+
+	@Override
+	public double worldHeight() {
+		return getWorldHeight();
 	}
 
 	@Override
@@ -188,7 +203,7 @@ public abstract class World2dCanvasNtro<RAW_GC extends Object,
 	@Override
 	public void clearWorld() {
 		drawOnWorld(gc -> {
-			gc.clearRect(0,0,getWorld().getWidth(), getWorld().getHeight());
+			gc.clearRect(0,0,worldWidth, worldHeight);
 		});
 	}
 
@@ -277,6 +292,16 @@ public abstract class World2dCanvasNtro<RAW_GC extends Object,
 	@Override
 	public double screenHeight(double worldHeight) {
 		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double worldWidth(double screenWidth) {
+		return 0;
+	}
+
+	@Override
+	public double worldHeight(double screenHeight) {
 		return 0;
 	}
 

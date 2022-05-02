@@ -35,7 +35,8 @@ public interface World2dCanvas<RAW_GC extends Object,
 
        extends Canvas<RAW_GC, RAW_CANVAS, RAW_IMAGE, RAW_FONT, RAW_COLOR> {
 
-	WORLD2D world();
+	double worldWidth();
+	double worldHeight();
 
 	double viewportTopLeftX();
 	double viewportTopLeftY();
