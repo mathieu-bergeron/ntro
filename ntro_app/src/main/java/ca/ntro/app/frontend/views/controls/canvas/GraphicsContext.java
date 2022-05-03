@@ -28,15 +28,5 @@ public interface GraphicsContext<RAW_GC extends Object,
 	void rect(double topLeftX, double topLeftY, double width, double height);
 	void clip();
 	
-	double viewportTopLeftX();
-	double viewportTopLeftY();
-	double viewportWidth();
-	double viewportHeight();
-
-	double widthOnScreen(double worldWidth);
-	double heightOnScreen(double worldHeight);
-
-	double widthInWorld(double screenWidth);
-	double heightInWorld(double screenHeight);
 
 }

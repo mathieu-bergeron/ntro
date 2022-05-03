@@ -101,4 +101,5 @@ public class GraphicsContextFx extends GraphicsContextNtro<GraphicsContext, java
 		gc.strokeRect(topLeftX, topLeftY, width, height);
 	}
 
+
 }
