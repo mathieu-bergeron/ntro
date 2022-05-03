@@ -219,7 +219,7 @@ public abstract class World2dCanvasNtro<RAW_GC extends Object,
 
 		world2d.draw(getGraphicsContext());
 		
-		//getGraphicsContext().restore();
+		getGraphicsContext().restore();
 	}
 
 	protected void setWorld2dTransform() {
