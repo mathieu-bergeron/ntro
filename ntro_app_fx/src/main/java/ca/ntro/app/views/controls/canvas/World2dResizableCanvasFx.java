@@ -44,7 +44,7 @@ public abstract class World2dResizableCanvasFx<OBJECT2D extends Object2dFx<OBJEC
 
 	@Override
 	protected void onNewSize(double oldWidth, double oldHeight, double newWidth, double newHeight) {
-		resizeViewport(newWidth, newHeight);
+		resizeViewport(viewportWidth() * newWidth / oldWidth, viewportHeight() * newHeight / oldHeight);
 	}
 	
 	/*
