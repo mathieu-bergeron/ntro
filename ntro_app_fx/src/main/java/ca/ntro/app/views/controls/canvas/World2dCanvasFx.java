@@ -145,4 +145,5 @@ public abstract class World2dCanvasFx<OBJECT2D extends Object2dFx<OBJECT2D, WORL
 		canvasNtroFx.setWorldHeight(worldHeight);
 	}
 
+
 }
