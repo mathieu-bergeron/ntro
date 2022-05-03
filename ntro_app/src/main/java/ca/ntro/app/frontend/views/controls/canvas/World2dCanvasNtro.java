@@ -251,22 +251,22 @@ public abstract class World2dCanvasNtro<RAW_GC extends Object,
 
 	@Override
 	public double widthOnScreen(double widthInWorld) {
-		return widthInWorld * worldWidth() / canvasWidth();
+		return widthInWorld * canvasWidth() / viewportWidth;
 	}
 
 	@Override
 	public double heightOnScreen(double heightInWorld) {
-		return heightInWorld * worldHeight() / canvasHeight();
+		return heightInWorld * canvasHeight() / viewportHeight;
 	}
 
 	@Override
 	public double widthInWorld(double widthOnScreen) {
-		return widthOnScreen * canvasWidth() / worldWidth();
+		return widthOnScreen * viewportWidth / canvasWidth();
 	}
 
 	@Override
 	public double heightInWorld(double heightOnScreen) {
-		return heightOnScreen * canvasHeight() / worldHeight();
+		return heightOnScreen * viewportHeight / canvasHeight();
 	}
 
 	@Override
