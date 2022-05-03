@@ -3,6 +3,7 @@ package ca.ntro.app.world2d;
 import java.util.ArrayList;
 import java.util.List;
 
+import ca.ntro.app.frontend.views.controls.canvas.Canvas;
 import ca.ntro.app.frontend.views.controls.canvas.GraphicsContext;
 import ca.ntro.app.frontend.views.controls.canvas.InternalGraphicsContext;
 import ca.ntro.app.frontend.views.controls.canvas.World2dCanvas;
@@ -13,18 +14,21 @@ public abstract class World2d<RAW_GC extends Object,
                               RAW_IMAGE extends Object,
                               RAW_FONT extends Object,
                               RAW_COLOR extends Object,
+                              CANVAS extends Canvas<RAW_GC, RAW_CANVAS, RAW_IMAGE, RAW_FONT, RAW_COLOR, CANVAS>,
 
                               GC extends GraphicsContext<RAW_GC, 
                                                          RAW_CANVAS, 
                                                          RAW_IMAGE,
                                                          RAW_FONT,
-                                                         RAW_COLOR>,
+                                                         RAW_COLOR,
+                                                         CANVAS>,
 
 							  OBJECT2D extends Object2dNtro<RAW_GC, 
 														RAW_CANVAS, 
 														RAW_IMAGE,
 														RAW_FONT,
 														RAW_COLOR,
+														CANVAS,
 													    GC,
 														OBJECT2D,
 														WORLD2D>,
@@ -34,6 +38,7 @@ public abstract class World2d<RAW_GC extends Object,
 													   RAW_IMAGE, 
 													   RAW_FONT,
 													   RAW_COLOR,
+													   CANVAS,
 													   GC,
 													   OBJECT2D,
 													   WORLD2D>> 
@@ -88,7 +93,7 @@ public abstract class World2d<RAW_GC extends Object,
 	}
 
 	@SuppressWarnings("unchecked")
-	public void draw(InternalGraphicsContext<RAW_GC, RAW_CANVAS, RAW_IMAGE, RAW_FONT, RAW_COLOR> gc,
+	public void draw(InternalGraphicsContext<RAW_GC, RAW_CANVAS, RAW_IMAGE, RAW_FONT, RAW_COLOR, CANVAS> gc,
 			         World2dDrawingOptions options) {
 		
 		// FIXME: select only objects that intersect with the viewport

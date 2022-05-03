@@ -1,7 +1,7 @@
 package ca.ntro.app.world2d;
 
-import ca.ntro.app.views.controls.canvas.CanvasFx;
-import ca.ntro.app.views.controls.canvas.GraphicsContextFx;
+import ca.ntro.app.views.controls.canvas.World2dCanvasFx;
+import ca.ntro.app.views.controls.canvas.World2dGraphicsContextFx;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -17,7 +17,8 @@ public abstract class World2dFx<OBJECT2D extends Object2dFx<OBJECT2D, WORLD2D>,
                        Image,
                        Font,
                        Color,
-                       GraphicsContextFx,
+                       World2dCanvasFx<OBJECT2D, WORLD2D>,
+                       World2dGraphicsContextFx<OBJECT2D, WORLD2D>,
                        OBJECT2D,
                        WORLD2D> {
 

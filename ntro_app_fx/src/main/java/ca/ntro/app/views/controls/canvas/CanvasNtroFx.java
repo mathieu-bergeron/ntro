@@ -6,7 +6,7 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
-public class CanvasNtroFx extends CanvasNtro<GraphicsContext, javafx.scene.canvas.Canvas, Image, Font, Color> {
+public class CanvasNtroFx extends CanvasNtro<GraphicsContext, javafx.scene.canvas.Canvas, Image, Font, Color, CanvasFx> {
 	
 	private CanvasFx canvasFx;
 

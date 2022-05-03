@@ -6,7 +6,6 @@ import ca.ntro.app.world2d.Object2dFx;
 import ca.ntro.app.world2d.World2dFx;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
-import javafx.geometry.Pos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -15,7 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 public abstract class World2dResizableCanvasFx<OBJECT2D extends Object2dFx<OBJECT2D, WORLD2D>,
-                                      WORLD2D  extends World2dFx<OBJECT2D, WORLD2D>> 
+                                               WORLD2D  extends World2dFx<OBJECT2D, WORLD2D>> 
 
        extends  ResizableCanvas 
 
@@ -24,11 +23,12 @@ public abstract class World2dResizableCanvasFx<OBJECT2D extends Object2dFx<OBJEC
                                 Image, 
                                 Font, 
                                 Color,
-                                GraphicsContextFx,
+                                World2dCanvasFx<OBJECT2D, WORLD2D>,
+                                World2dGraphicsContextFx<OBJECT2D, WORLD2D>,
                                 OBJECT2D,
                                 WORLD2D> {
 	
-	private World2dCanvasNtroFx<OBJECT2D, WORLD2D> canvasNtroFx = new World2dCanvasNtroFx<OBJECT2D,WORLD2D>(new GraphicsContextFx(getGc()), getCanvas());
+	private World2dCanvasNtroFx<OBJECT2D, WORLD2D> canvasNtroFx = new World2dCanvasNtroFx<OBJECT2D,WORLD2D>(new World2dGraphicsContextFx<OBJECT2D, WORLD2D>(getGc()), getCanvas());
 	
 	@Override
 	protected void initialize() {
@@ -157,17 +157,17 @@ public abstract class World2dResizableCanvasFx<OBJECT2D extends Object2dFx<OBJEC
 	}
 
 	@Override
-	public void drawOnWorld(CanvasDrawingLambda<GraphicsContext, Canvas, Image, Font, Color> lambda) {
+	public void drawOnWorld(CanvasDrawingLambda<GraphicsContext, Canvas, Image, Font, Color, World2dCanvasFx<OBJECT2D, WORLD2D>> lambda) {
 		canvasNtroFx.drawOnWorld(lambda);
 	}
 
 	@Override
-	public void drawOnViewport(CanvasDrawingLambda<GraphicsContext, Canvas, Image, Font, Color> lambda) {
+	public void drawOnViewport(CanvasDrawingLambda<GraphicsContext, Canvas, Image, Font, Color, World2dCanvasFx<OBJECT2D, WORLD2D>> lambda) {
 		canvasNtroFx.drawOnViewport(lambda);
 	}
 
 	@Override
-	public void drawOnCanvas(CanvasDrawingLambda<GraphicsContext, Canvas, Image, Font, Color> lambda) {
+	public void drawOnCanvas(CanvasDrawingLambda<GraphicsContext, Canvas, Image, Font, Color, World2dCanvasFx<OBJECT2D, WORLD2D>> lambda) {
 		canvasNtroFx.drawOnCanvas(lambda);
 	}
 

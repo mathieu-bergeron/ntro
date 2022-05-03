@@ -18,13 +18,14 @@ public class World2dCanvasNtroFx<OBJECT2D extends Object2dFx<OBJECT2D, WORLD2D>,
                                  Image, 
                                  Font, 
                                  Color,
-                                 GraphicsContextFx,
+                                 World2dCanvasFx<OBJECT2D, WORLD2D>,
+                                 World2dGraphicsContextFx<OBJECT2D, WORLD2D>,
                                  OBJECT2D,
                                  WORLD2D> {
 	
 	private Canvas rawCanvas;
 
-	public World2dCanvasNtroFx(GraphicsContextFx graphicsContext, Canvas rawCanvas) {
+	public World2dCanvasNtroFx(World2dGraphicsContextFx<OBJECT2D, WORLD2D> graphicsContext, Canvas rawCanvas) {
 		setGraphicsContext(graphicsContext);
 		this.rawCanvas = rawCanvas;
 	}

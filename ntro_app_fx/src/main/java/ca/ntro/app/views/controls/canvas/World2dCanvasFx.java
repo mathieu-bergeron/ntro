@@ -23,11 +23,12 @@ public abstract class World2dCanvasFx<OBJECT2D extends Object2dFx<OBJECT2D, WORL
                                 Image, 
                                 Font, 
                                 Color,
-                                GraphicsContextFx,
+                                World2dCanvasFx<OBJECT2D, WORLD2D>,
+                                World2dGraphicsContextFx<OBJECT2D, WORLD2D>,
                                 OBJECT2D,
                                 WORLD2D> {
 	
-	private World2dCanvasNtroFx<OBJECT2D, WORLD2D> canvasNtroFx = new World2dCanvasNtroFx<OBJECT2D,WORLD2D>(new GraphicsContextFx(getGraphicsContext2D()), this);
+	private World2dCanvasNtroFx<OBJECT2D, WORLD2D> canvasNtroFx = new World2dCanvasNtroFx<OBJECT2D,WORLD2D>(new World2dGraphicsContextFx<OBJECT2D, WORLD2D>(getGraphicsContext2D()), this);
 
 	public <T extends MouseEvent> void addMouseEventFilter(EventType<T> eventType, MouseEventHandler handler) {
 		addEventFilter(eventType, new EventHandler<MouseEvent>() {
@@ -75,17 +76,17 @@ public abstract class World2dCanvasFx<OBJECT2D extends Object2dFx<OBJECT2D, WORL
 	}
 
 	@Override
-	public void drawOnWorld(CanvasDrawingLambda<GraphicsContext, Canvas, Image, Font, Color> lambda) {
+	public void drawOnWorld(CanvasDrawingLambda<GraphicsContext, Canvas, Image, Font, Color, World2dCanvasFx<OBJECT2D, WORLD2D>> lambda) {
 		canvasNtroFx.drawOnWorld(lambda);
 	}
 
 	@Override
-	public void drawOnViewport(CanvasDrawingLambda<GraphicsContext, Canvas, Image, Font, Color> lambda) {
+	public void drawOnViewport(CanvasDrawingLambda<GraphicsContext, Canvas, Image, Font, Color, World2dCanvasFx<OBJECT2D, WORLD2D>> lambda) {
 		canvasNtroFx.drawOnViewport(lambda);
 	}
 
 	@Override
-	public void drawOnCanvas(CanvasDrawingLambda<GraphicsContext, Canvas, Image, Font, Color> lambda) {
+	public void drawOnCanvas(CanvasDrawingLambda<GraphicsContext, Canvas, Image, Font, Color, World2dCanvasFx<OBJECT2D, WORLD2D>> lambda) {
 		canvasNtroFx.drawOnCanvas(lambda);
 	}
 
