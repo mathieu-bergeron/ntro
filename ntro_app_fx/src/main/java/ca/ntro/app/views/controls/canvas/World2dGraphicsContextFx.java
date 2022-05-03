@@ -11,12 +11,13 @@ import javafx.scene.text.Font;
 public class World2dGraphicsContextFx<OBJECT2D extends Object2dFx<OBJECT2D, WORLD2D>,
                                       WORLD2D  extends World2dFx<OBJECT2D, WORLD2D>> 
 
-       extends GraphicsContextFx<World2dCanvasFx<OBJECT2D, WORLD2D>>
+       extends GraphicsContextFx<AbstractWorld2dCanvasFx<OBJECT2D, WORLD2D>>
 
-       implements World2dGraphicsContext<GraphicsContext, javafx.scene.canvas.Canvas, Image, Font, Color, World2dCanvasFx<OBJECT2D, WORLD2D>> {
+       implements World2dGraphicsContext<GraphicsContext, javafx.scene.canvas.Canvas, Image, Font, Color, AbstractWorld2dCanvasFx<OBJECT2D, WORLD2D>> {
 
-	public World2dGraphicsContextFx(GraphicsContext gc) {
+	public World2dGraphicsContextFx(GraphicsContext gc, AbstractWorld2dCanvasFx<OBJECT2D, WORLD2D> canvas) {
 		super(gc);
+		setCanvas(canvas);
 	}
 
 	@Override
