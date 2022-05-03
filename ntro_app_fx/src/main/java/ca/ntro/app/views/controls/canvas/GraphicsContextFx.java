@@ -1,12 +1,15 @@
 package ca.ntro.app.views.controls.canvas;
 
+import ca.ntro.app.frontend.views.controls.canvas.Canvas;
 import ca.ntro.app.frontend.views.controls.canvas.GraphicsContextNtro;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
-public class GraphicsContextFx extends GraphicsContextNtro<GraphicsContext, javafx.scene.canvas.Canvas, Image, Font, Color, CanvasFx> {
+public class GraphicsContextFx<CANVAS extends Canvas<GraphicsContext, javafx.scene.canvas.Canvas, Image, Font, Color, CANVAS>>
+
+       extends GraphicsContextNtro<GraphicsContext, javafx.scene.canvas.Canvas, Image, Font, Color, CANVAS> {
 	
 	private GraphicsContext gc;
 

@@ -17,10 +17,10 @@ public interface World2dGraphicsContext<RAW_GC extends Object,
 	double viewportWidth();
 	double viewportHeight();
 
-	double widthOnScreen(double worldWidth);
-	double heightOnScreen(double worldHeight);
+	double widthOnScreen(double widthInWorld);
+	double heightOnScreen(double heightInWorld);
 
-	double widthInWorld(double screenWidth);
-	double heightInWorld(double screenHeight);
+	double widthInWorld(double widthOnScreen);
+	double heightInWorld(double heightOnScreen);
 
 } 

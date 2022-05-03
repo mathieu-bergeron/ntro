@@ -1,9 +1,7 @@
 package ca.ntro.app.frontend.views.controls.canvas;
 
 import ca.ntro.app.world2d.Object2dNtro;
-import ca.ntro.app.world2d.Object2dDrawingOptions;
 import ca.ntro.app.world2d.World2d;
-import ca.ntro.app.world2d.World2dDrawingOptions;
 
 public abstract class World2dCanvasNtro<RAW_GC extends Object,
                                         RAW_CANVAS extends Object, 
@@ -54,9 +52,7 @@ public abstract class World2dCanvasNtro<RAW_GC extends Object,
                                 CANVAS,
                                 GC,
                                 OBJECT2D, 
-                                WORLD2D>,
-       
-                 World2dDrawingOptions {
+                                WORLD2D> {
     	   
     	   
     private double worldWidth = 0;
@@ -221,8 +217,7 @@ public abstract class World2dCanvasNtro<RAW_GC extends Object,
 
 		getGraphicsContext().clip();
 
-		throw new RuntimeException("FIXME");
-		//world2d.draw(getGraphicsContext(), this);
+		world2d.draw(getGraphicsContext());
 		
 		//getGraphicsContext().restore();
 	}
@@ -254,31 +249,6 @@ public abstract class World2dCanvasNtro<RAW_GC extends Object,
 		drawOnCanvas(gc -> {
 			gc.clearRect(0,0,canvasWidth(), canvasHeight());
 		});
-	}
-
-	@Override
-	public double widthOnScreen(double widthInWorld) {
-		return widthInWorld * canvasWidth() / viewportWidth;
-	}
-
-	@Override
-	public double heightOnScreen(double heightInWorld) {
-		return heightInWorld * canvasHeight() / viewportHeight;
-	}
-
-	@Override
-	public double widthInWorld(double widthOnScreen) {
-		return widthOnScreen * viewportWidth / canvasWidth();
-	}
-
-	@Override
-	public double heightInWorld(double heightOnScreen) {
-		return heightOnScreen * viewportHeight / canvasHeight();
-	}
-
-	@Override
-	public Object2dDrawingOptions toObject2dDrawingOptions() {
-		return (Object2dDrawingOptions) this;
 	}
 
 }

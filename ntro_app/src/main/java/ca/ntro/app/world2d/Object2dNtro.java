@@ -175,7 +175,7 @@ public abstract class Object2dNtro<RAW_GC extends Object,
 				|| (coord2 <= coord1 && coord2 + size2 >= coord1);
 	}
 	
-	public abstract void draw(GC gc, Object2dDrawingOptions options);
+	public abstract void draw(GC gc);
 
 	public abstract void initialize();
 
