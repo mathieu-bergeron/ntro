@@ -2,6 +2,7 @@ package ca.ntro.app.world2d;
 
 import ca.ntro.app.frontend.views.controls.canvas.Canvas;
 import ca.ntro.app.frontend.views.controls.canvas.GraphicsContext;
+import ca.ntro.app.frontend.views.controls.canvas.World2dGraphicsContext;
 import ca.ntro.core.data_structures.trees.region_tree.AnonymousRegion2d;
 import ca.ntro.core.data_structures.trees.region_tree.Region2d;
 
@@ -175,7 +176,8 @@ public abstract class Object2dNtro<RAW_GC extends Object,
 				|| (coord2 <= coord1 && coord2 + size2 >= coord1);
 	}
 	
-	public abstract void draw(GC gc);
+	@SuppressWarnings("rawtypes")
+	public abstract void draw(World2dGraphicsContext gc);
 
 	public abstract void initialize();
 
@@ -188,7 +190,6 @@ public abstract class Object2dNtro<RAW_GC extends Object,
 		setSpeedY(object2d.getSpeedY());
 	}
 	
-	@SuppressWarnings("rawtypes")
 	@Override
 	public boolean isContainedIn(AnonymousRegion2d otherRegion, double epsilon) {
 		return isContainedIn(otherRegion.topLeftX(),
@@ -217,7 +218,6 @@ public abstract class Object2dNtro<RAW_GC extends Object,
 	}
 
 
-	@SuppressWarnings("rawtypes")
 	@Override
 	public boolean intersectsWith(AnonymousRegion2d otherRegion, double epsilon) {
 		return intersectsWith(otherRegion.topLeftX(),
@@ -245,7 +245,6 @@ public abstract class Object2dNtro<RAW_GC extends Object,
 				                                epsilon);
 	}
 
-	@SuppressWarnings("rawtypes")
 	@Override
 	public boolean isEqualTo(AnonymousRegion2d otherRegion, double epsilon) {
 		return isEqualTo(otherRegion.topLeftX(),

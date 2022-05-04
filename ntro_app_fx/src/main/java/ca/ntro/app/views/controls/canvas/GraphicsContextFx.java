@@ -64,7 +64,7 @@ public class GraphicsContextFx<CANVAS extends Canvas<GraphicsContext, javafx.sce
 	}
 
 	@Override
-	public void fillText(String text, int topLeftX, int topLeftY) {
+	public void fillText(String text, double topLeftX, double topLeftY) {
 		gc.fillText(text, topLeftX, topLeftY);
 	}
 
@@ -104,5 +104,19 @@ public class GraphicsContextFx<CANVAS extends Canvas<GraphicsContext, javafx.sce
 		gc.strokeRect(topLeftX, topLeftY, width, height);
 	}
 
+	@Override
+	public void setFill(ca.ntro.app.frontend.views.elements.Color<Color> color) {
+		gc.setFill(color.rawColor());
+	}
+
+	@Override
+	public void setStroke(ca.ntro.app.frontend.views.elements.Color<Color> color) {
+		gc.setStroke(color.rawColor());
+	}
+
+	@Override
+	public void strokeText(String text, double topLeftX, double topLeftY) {
+		gc.strokeText(text, topLeftX, topLeftY);
+	}
 
 }

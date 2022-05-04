@@ -1,7 +1,10 @@
 package ca.ntro.app;
 
 import ca.ntro.app.frontend.events.EventNtro;
+import ca.ntro.app.frontend.views.elements.Color;
 import ca.ntro.app.messages.MessageNtro;
+import ca.ntro.app.services.ColorService;
+import ca.ntro.app.services.ColorServiceNull;
 import ca.ntro.app.services.EventService;
 import ca.ntro.app.services.EventServiceNtro;
 import ca.ntro.app.services.ExitHandler;
@@ -115,7 +118,22 @@ public class NtroApp {
 		NtroApp.exitService.exit(exitHandler);
 	}
 
-
 	/* </ExitService> */
+	
+	
+	/* <ColorService> */
+	
+	private static ColorService colorService = new ColorServiceNull();
+	
+	static void registerColorService(ColorService colorService) {
+		NtroApp.colorService = colorService;
+	}
+	
+	public static Color colorFromString(String colorString) {
+		return colorService.colorFromString(colorString);
+	}
+	
+	/* </ColorService> */
+	
 
 }

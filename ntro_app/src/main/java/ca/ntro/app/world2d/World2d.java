@@ -7,6 +7,7 @@ import ca.ntro.app.frontend.views.controls.canvas.Canvas;
 import ca.ntro.app.frontend.views.controls.canvas.GraphicsContext;
 import ca.ntro.app.frontend.views.controls.canvas.InternalGraphicsContext;
 import ca.ntro.app.frontend.views.controls.canvas.World2dCanvas;
+import ca.ntro.app.frontend.views.controls.canvas.World2dGraphicsContext;
 import ca.ntro.app.models.Value;
 
 public abstract class World2d<RAW_GC extends Object,
@@ -92,7 +93,7 @@ public abstract class World2d<RAW_GC extends Object,
 		}
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void draw(InternalGraphicsContext<RAW_GC, RAW_CANVAS, RAW_IMAGE, RAW_FONT, RAW_COLOR, CANVAS> gc) {
 		
 		// FIXME: select only objects that intersect with the viewport
@@ -100,7 +101,7 @@ public abstract class World2d<RAW_GC extends Object,
 		for(OBJECT2D object2d : objects) {
 
 			gc.save();
-			object2d.draw((GC) gc);
+			object2d.draw((World2dGraphicsContext) gc);
 			gc.restore();
 
 		}

@@ -1,5 +1,6 @@
 package ca.ntro.app.frontend.views.controls.canvas;
 
+import ca.ntro.app.frontend.views.elements.Color;
 import ca.ntro.app.frontend.views.elements.Image;
 
 public interface GraphicsContext<RAW_GC extends Object,
@@ -11,6 +12,9 @@ public interface GraphicsContext<RAW_GC extends Object,
 
 	Canvas<RAW_GC, RAW_CANVAS, RAW_IMAGE, RAW_FONT, RAW_COLOR, CANVAS> getCanvas();
 	RAW_GC getRawGraphicsContext();
+	
+	void setFill(Color<RAW_COLOR> color);
+	void setStroke(Color<RAW_COLOR> color);
 
 	void clearRect(double topLeftX, double topLeftY, double width, double height);
 	
@@ -19,7 +23,8 @@ public interface GraphicsContext<RAW_GC extends Object,
 	
 	void drawImage(Image<RAW_IMAGE> image, double topLeftX, double topLeftY);
 
-	void fillText(String text, int topLeftX, int topLeftY);
+	void fillText(String text, double topLeftX, double topLeftY);
+	void strokeText(String text, double topLeftX, double topLeftY);
 
 	void translate(double x, double y);
 	void scale(double x, double y);
