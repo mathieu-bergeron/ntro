@@ -1,12 +1,15 @@
 package ca.ntro.app.world2d;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import ca.ntro.app.frontend.views.controls.canvas.Canvas;
 import ca.ntro.app.frontend.views.controls.canvas.GraphicsContext;
 import ca.ntro.app.frontend.views.controls.canvas.InternalGraphicsContext;
-import ca.ntro.app.frontend.views.controls.canvas.World2dCanvas;
 import ca.ntro.app.frontend.views.controls.canvas.World2dGraphicsContext;
 import ca.ntro.app.models.Value;
 
@@ -49,6 +52,7 @@ public abstract class World2d<RAW_GC extends Object,
 	private double width;
 	private double height;
 	private List<OBJECT2D> objects = new ArrayList<>();
+	private Map<String, OBJECT2D> objectsById = new HashMap<>();
 
 	public double getWidth() {
 		return width;
@@ -84,7 +88,12 @@ public abstract class World2d<RAW_GC extends Object,
 	public void addObject2d(OBJECT2D object2d) {
 		object2d.setWorld((WORLD2D) this);
 		objects.add(object2d);
+		objectsById.put(object2d.id(), object2d);
 		object2d.initialize();
+	}
+	
+	public OBJECT2D objectById(String id) {
+		return objectsById.get(id);
 	}
 
 	public void onTimePasses(double secondsElapsed) {
@@ -117,6 +126,23 @@ public abstract class World2d<RAW_GC extends Object,
 		if(i < objects.size()) {
 			object2d.copyDataFrom(objects.get(i));
 		}
+	}
+
+	public void removeObject2dNotIn(Set<String> ids) {
+		List<OBJECT2D> oldObjects = objects;
+		objects = new ArrayList<>();
+		
+		for(OBJECT2D object2d : oldObjects) {
+			if(ids.contains(object2d.id())) {
+
+				objects.add(object2d);
+
+			}else {
+				
+				objectsById.remove(object2d.id());
+			}
+		}
+		
 	}
 
 }

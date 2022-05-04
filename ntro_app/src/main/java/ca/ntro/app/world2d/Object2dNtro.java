@@ -4,7 +4,6 @@ import ca.ntro.app.frontend.views.controls.canvas.Canvas;
 import ca.ntro.app.frontend.views.controls.canvas.GraphicsContext;
 import ca.ntro.app.frontend.views.controls.canvas.World2dGraphicsContext;
 import ca.ntro.core.data_structures.trees.region_tree.AnonymousRegion2d;
-import ca.ntro.core.data_structures.trees.region_tree.Region2d;
 
 public abstract class Object2dNtro<RAW_GC extends Object,
                                    RAW_CANVAS extends Object, 
@@ -43,7 +42,6 @@ public abstract class Object2dNtro<RAW_GC extends Object,
                                                           
         implements Object2d<RAW_GC, RAW_CANVAS, RAW_IMAGE, RAW_FONT, RAW_COLOR, CANVAS, GC, OBJECT2D, WORLD2D> {
                                                             	  
-    private String id;
 	private WORLD2D world;
 	private double topLeftX;
 	private double topLeftY;
@@ -51,14 +49,6 @@ public abstract class Object2dNtro<RAW_GC extends Object,
 	private double height;
 	private double speedX;
 	private double speedY;
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
 
 	public WORLD2D getWorld() {
 		return world;
@@ -150,12 +140,6 @@ public abstract class Object2dNtro<RAW_GC extends Object,
 	public double speedY() {
 		return getSpeedY();
 	}
-
-	@Override
-	public String id() {
-		return getId();
-	}
-
 
 	public void onTimePasses(double secondsElapsed) {
 		topLeftX += speedX * secondsElapsed;
