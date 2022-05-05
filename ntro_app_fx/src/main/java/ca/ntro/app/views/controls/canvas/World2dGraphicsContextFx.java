@@ -2,7 +2,7 @@ package ca.ntro.app.views.controls.canvas;
 
 import ca.ntro.app.frontend.views.controls.canvas.World2dGraphicsContext;
 import ca.ntro.app.world2d.Object2dFx;
-import ca.ntro.app.world2d.World2dDrawingOptions;
+import ca.ntro.app.world2d.DrawingOptions;
 import ca.ntro.app.world2d.World2dFx;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -11,7 +11,7 @@ import javafx.scene.text.Font;
 
 public class World2dGraphicsContextFx<OBJECT2D extends Object2dFx<OBJECT2D, WORLD2D, OPTIONS>,
                                       WORLD2D  extends World2dFx<OBJECT2D, WORLD2D, OPTIONS>,
-                                      OPTIONS extends World2dDrawingOptions> 
+                                      OPTIONS extends DrawingOptions> 
 
        extends GraphicsContextFx<AbstractWorld2dCanvasFx<OBJECT2D, WORLD2D, OPTIONS>>
 

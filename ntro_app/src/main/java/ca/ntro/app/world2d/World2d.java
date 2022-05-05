@@ -48,7 +48,7 @@ public abstract class World2d<RAW_GC extends Object,
 													   WORLD2D,
 													   OPTIONS>,
 
-                              OPTIONS extends World2dDrawingOptions>
+                              OPTIONS extends DrawingOptions>
                                                           
       implements Value {
 	

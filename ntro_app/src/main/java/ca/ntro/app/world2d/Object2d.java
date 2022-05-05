@@ -41,7 +41,7 @@ public interface Object2d<RAW_GC extends Object,
 												   WORLD2D,
 												   OPTIONS>,
 
-					      OPTIONS extends World2dDrawingOptions> 
+					      OPTIONS extends DrawingOptions> 
 
       extends Region2d, Value {
                                                     	 

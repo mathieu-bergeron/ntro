@@ -42,7 +42,7 @@ public abstract class Object2dNtro<RAW_GC extends Object,
 														WORLD2D,
 														OPTIONS>,
 							   
-							   OPTIONS extends World2dDrawingOptions> 
+							   OPTIONS extends DrawingOptions> 
                                                           
         implements Object2d<RAW_GC, RAW_CANVAS, RAW_IMAGE, RAW_FONT, RAW_COLOR, CANVAS, GC, OBJECT2D, WORLD2D, OPTIONS> {
                                                             	  

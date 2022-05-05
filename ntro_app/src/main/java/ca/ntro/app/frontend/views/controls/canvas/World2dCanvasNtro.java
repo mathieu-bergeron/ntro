@@ -2,7 +2,7 @@ package ca.ntro.app.frontend.views.controls.canvas;
 
 import ca.ntro.app.world2d.Object2dNtro;
 import ca.ntro.app.world2d.World2d;
-import ca.ntro.app.world2d.World2dDrawingOptions;
+import ca.ntro.app.world2d.DrawingOptions;
 
 public abstract class World2dCanvasNtro<RAW_GC extends Object,
                                         RAW_CANVAS extends Object, 
@@ -40,7 +40,7 @@ public abstract class World2dCanvasNtro<RAW_GC extends Object,
 														         WORLD2D,
 														         OPTIONS>,
 							            
-							            OPTIONS extends World2dDrawingOptions> 
+							            OPTIONS extends DrawingOptions> 
 
        extends CanvasNtro<RAW_GC, 
                           RAW_CANVAS, 

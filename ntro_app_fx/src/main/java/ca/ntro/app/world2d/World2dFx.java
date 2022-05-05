@@ -12,7 +12,7 @@ import javafx.scene.text.Font;
 
 public abstract class World2dFx<OBJECT2D extends Object2dFx<OBJECT2D, WORLD2D, OPTIONS>,
                                 WORLD2D  extends World2dFx<OBJECT2D, WORLD2D, OPTIONS>,
-                                OPTIONS extends World2dDrawingOptions> 
+                                OPTIONS extends DrawingOptions> 
 
        extends World2d<GraphicsContext, 
                        Canvas,
