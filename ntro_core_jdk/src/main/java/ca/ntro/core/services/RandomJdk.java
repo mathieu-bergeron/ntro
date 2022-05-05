@@ -24,5 +24,15 @@ public class    RandomJdk
 		return random.nextInt(bound);
 	}
 
+	@Override
+	public double nextDouble() {
+		return random.nextDouble();
+	}
+
+	@Override
+	public double nextDouble(double bound) {
+		return random.nextDouble() * bound;
+	}
+
 
 }

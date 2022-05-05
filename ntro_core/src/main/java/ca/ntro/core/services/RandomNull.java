@@ -31,5 +31,17 @@ public class RandomNull implements Random {
 		return null;
 	}
 
+	@Override
+	public double nextDouble() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double nextDouble(double bound) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }
 
