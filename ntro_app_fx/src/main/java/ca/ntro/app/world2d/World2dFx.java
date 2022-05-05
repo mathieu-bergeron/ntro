@@ -1,7 +1,6 @@
 package ca.ntro.app.world2d;
 
 import ca.ntro.app.views.controls.canvas.AbstractWorld2dCanvasFx;
-import ca.ntro.app.views.controls.canvas.World2dCanvasFx;
 import ca.ntro.app.views.controls.canvas.World2dGraphicsContextFx;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
