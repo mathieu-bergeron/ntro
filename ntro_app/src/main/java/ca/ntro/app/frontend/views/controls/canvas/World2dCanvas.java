@@ -2,6 +2,7 @@ package ca.ntro.app.frontend.views.controls.canvas;
 
 import ca.ntro.app.world2d.Object2dNtro;
 import ca.ntro.app.world2d.World2d;
+import ca.ntro.app.world2d.World2dDrawingOptions;
 
 public interface World2dCanvas<RAW_GC extends Object,
                                RAW_CANVAS extends Object, 
@@ -25,7 +26,8 @@ public interface World2dCanvas<RAW_GC extends Object,
 														 CANVAS,
 														 GC,
 														 OBJECT2D,
-														 WORLD2D>,
+														 WORLD2D,
+														 OPTIONS>,
 
 							   WORLD2D  extends World2d<RAW_GC, 
 														RAW_CANVAS, 
@@ -35,7 +37,10 @@ public interface World2dCanvas<RAW_GC extends Object,
 														CANVAS,
 														GC,
 														OBJECT2D,
-														WORLD2D>> 
+														WORLD2D,
+														OPTIONS>,
+
+							   OPTIONS extends World2dDrawingOptions> 
 
        extends Canvas<RAW_GC, RAW_CANVAS, RAW_IMAGE, RAW_FONT, RAW_COLOR, CANVAS> {
 
@@ -57,6 +62,6 @@ public interface World2dCanvas<RAW_GC extends Object,
 	void relocateViewport(double topLeftX, double topLeftY);
 	void relocateResizeViewport(double topLeftX, double topLeftY, double width, double height);
 
-	void displayWorld2d(WORLD2D world2d);
+	void displayWorld2d(WORLD2D world2d, OPTIONS options);
 
 }

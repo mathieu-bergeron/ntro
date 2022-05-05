@@ -27,7 +27,8 @@ public interface Object2d<RAW_GC extends Object,
 														CANVAS,
 													    GC,
 														OBJECT2D,
-														WORLD2D>,
+														WORLD2D,
+														OPTIONS>,
 
 					      WORLD2D  extends World2d<RAW_GC, 
 											       RAW_CANVAS, 
@@ -37,7 +38,10 @@ public interface Object2d<RAW_GC extends Object,
 												   CANVAS,
 												   GC,
 												   OBJECT2D,
-												   WORLD2D>> 
+												   WORLD2D,
+												   OPTIONS>,
+
+					      OPTIONS extends World2dDrawingOptions> 
 
       extends Region2d, Value {
                                                     	 

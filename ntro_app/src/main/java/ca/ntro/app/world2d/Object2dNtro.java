@@ -28,7 +28,8 @@ public abstract class Object2dNtro<RAW_GC extends Object,
 														     CANVAS,
 													         GC,
 														     OBJECT2D,
-														     WORLD2D>,
+														     WORLD2D,
+														     OPTIONS>,
 
 							   WORLD2D  extends World2d<RAW_GC, 
 														RAW_CANVAS, 
@@ -38,9 +39,12 @@ public abstract class Object2dNtro<RAW_GC extends Object,
 														CANVAS,
 														GC,
 														OBJECT2D,
-														WORLD2D>> 
+														WORLD2D,
+														OPTIONS>,
+							   
+							   OPTIONS extends World2dDrawingOptions> 
                                                           
-        implements Object2d<RAW_GC, RAW_CANVAS, RAW_IMAGE, RAW_FONT, RAW_COLOR, CANVAS, GC, OBJECT2D, WORLD2D> {
+        implements Object2d<RAW_GC, RAW_CANVAS, RAW_IMAGE, RAW_FONT, RAW_COLOR, CANVAS, GC, OBJECT2D, WORLD2D, OPTIONS> {
                                                             	  
 	private WORLD2D world;
 	private double topLeftX;
@@ -161,7 +165,7 @@ public abstract class Object2dNtro<RAW_GC extends Object,
 	}
 	
 	@SuppressWarnings("rawtypes")
-	public abstract void draw(World2dGraphicsContext gc);
+	public abstract void draw(World2dGraphicsContext gc, OPTIONS options);
 
 	public abstract void initialize();
 

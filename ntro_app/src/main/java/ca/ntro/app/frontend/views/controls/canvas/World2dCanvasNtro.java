@@ -2,6 +2,7 @@ package ca.ntro.app.frontend.views.controls.canvas;
 
 import ca.ntro.app.world2d.Object2dNtro;
 import ca.ntro.app.world2d.World2d;
+import ca.ntro.app.world2d.World2dDrawingOptions;
 
 public abstract class World2dCanvasNtro<RAW_GC extends Object,
                                         RAW_CANVAS extends Object, 
@@ -25,7 +26,8 @@ public abstract class World2dCanvasNtro<RAW_GC extends Object,
 														          CANVAS,
 														          GC,
 														          OBJECT2D,
-														          WORLD2D>,
+														          WORLD2D,
+														          OPTIONS>,
 
 							            WORLD2D  extends World2d<RAW_GC, 
 														         RAW_CANVAS, 
@@ -35,7 +37,10 @@ public abstract class World2dCanvasNtro<RAW_GC extends Object,
 														         CANVAS,
 														         GC,
 														         OBJECT2D,
-														         WORLD2D>> 
+														         WORLD2D,
+														         OPTIONS>,
+							            
+							            OPTIONS extends World2dDrawingOptions> 
 
        extends CanvasNtro<RAW_GC, 
                           RAW_CANVAS, 
@@ -52,7 +57,8 @@ public abstract class World2dCanvasNtro<RAW_GC extends Object,
                                 CANVAS,
                                 GC,
                                 OBJECT2D, 
-                                WORLD2D> {
+                                WORLD2D,
+                                OPTIONS> {
     	   
     	   
     private double worldWidth = 0;
@@ -203,7 +209,7 @@ public abstract class World2dCanvasNtro<RAW_GC extends Object,
 
 
 	@Override
-	public void displayWorld2d(WORLD2D world2d) {
+	public void displayWorld2d(WORLD2D world2d, OPTIONS options) {
 		getGraphicsContext().save();
 
 		getGraphicsContext().beginPath();
@@ -217,7 +223,7 @@ public abstract class World2dCanvasNtro<RAW_GC extends Object,
 
 		getGraphicsContext().clip();
 
-		world2d.draw(getGraphicsContext());
+		world2d.draw(getGraphicsContext(), options);
 		
 		getGraphicsContext().restore();
 	}

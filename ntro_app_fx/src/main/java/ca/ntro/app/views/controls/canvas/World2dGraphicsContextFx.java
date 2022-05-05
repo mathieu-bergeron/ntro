@@ -2,20 +2,22 @@ package ca.ntro.app.views.controls.canvas;
 
 import ca.ntro.app.frontend.views.controls.canvas.World2dGraphicsContext;
 import ca.ntro.app.world2d.Object2dFx;
+import ca.ntro.app.world2d.World2dDrawingOptions;
 import ca.ntro.app.world2d.World2dFx;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
-public class World2dGraphicsContextFx<OBJECT2D extends Object2dFx<OBJECT2D, WORLD2D>,
-                                      WORLD2D  extends World2dFx<OBJECT2D, WORLD2D>> 
+public class World2dGraphicsContextFx<OBJECT2D extends Object2dFx<OBJECT2D, WORLD2D, OPTIONS>,
+                                      WORLD2D  extends World2dFx<OBJECT2D, WORLD2D, OPTIONS>,
+                                      OPTIONS extends World2dDrawingOptions> 
 
-       extends GraphicsContextFx<AbstractWorld2dCanvasFx<OBJECT2D, WORLD2D>>
+       extends GraphicsContextFx<AbstractWorld2dCanvasFx<OBJECT2D, WORLD2D, OPTIONS>>
 
-       implements World2dGraphicsContext<GraphicsContext, javafx.scene.canvas.Canvas, Image, Font, Color, AbstractWorld2dCanvasFx<OBJECT2D, WORLD2D>> {
+       implements World2dGraphicsContext<GraphicsContext, javafx.scene.canvas.Canvas, Image, Font, Color, AbstractWorld2dCanvasFx<OBJECT2D, WORLD2D, OPTIONS>> {
 
-	public World2dGraphicsContextFx(GraphicsContext gc, AbstractWorld2dCanvasFx<OBJECT2D, WORLD2D> canvas) {
+	public World2dGraphicsContextFx(GraphicsContext gc, AbstractWorld2dCanvasFx<OBJECT2D, WORLD2D, OPTIONS> canvas) {
 		super(gc);
 		setCanvas(canvas);
 	}

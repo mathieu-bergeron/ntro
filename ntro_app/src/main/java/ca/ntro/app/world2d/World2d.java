@@ -2,7 +2,6 @@ package ca.ntro.app.world2d;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -35,7 +34,8 @@ public abstract class World2d<RAW_GC extends Object,
 														CANVAS,
 													    GC,
 														OBJECT2D,
-														WORLD2D>,
+														WORLD2D,
+														OPTIONS>,
 
 							  WORLD2D  extends World2d<RAW_GC, 
 													   RAW_CANVAS, 
@@ -45,7 +45,10 @@ public abstract class World2d<RAW_GC extends Object,
 													   CANVAS,
 													   GC,
 													   OBJECT2D,
-													   WORLD2D>> 
+													   WORLD2D,
+													   OPTIONS>,
+
+                              OPTIONS extends World2dDrawingOptions>
                                                           
       implements Value {
 	
@@ -103,14 +106,15 @@ public abstract class World2d<RAW_GC extends Object,
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public void draw(InternalGraphicsContext<RAW_GC, RAW_CANVAS, RAW_IMAGE, RAW_FONT, RAW_COLOR, CANVAS> gc) {
+	public void draw(InternalGraphicsContext<RAW_GC, RAW_CANVAS, RAW_IMAGE, RAW_FONT, RAW_COLOR, CANVAS> gc,
+			         OPTIONS options) {
 		
 		// FIXME: select only objects that intersect with the viewport
 		
 		for(OBJECT2D object2d : objects) {
 
 			gc.save();
-			object2d.draw((World2dGraphicsContext) gc);
+			object2d.draw((World2dGraphicsContext) gc, options);
 			gc.restore();
 
 		}

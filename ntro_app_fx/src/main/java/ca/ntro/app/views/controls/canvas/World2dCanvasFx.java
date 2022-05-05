@@ -3,6 +3,7 @@ package ca.ntro.app.views.controls.canvas;
 import ca.ntro.app.frontend.views.controls.canvas.CanvasDrawingLambda;
 import ca.ntro.app.frontend.views.controls.canvas.World2dCanvas;
 import ca.ntro.app.world2d.Object2dFx;
+import ca.ntro.app.world2d.World2dDrawingOptions;
 import ca.ntro.app.world2d.World2dFx;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
@@ -13,8 +14,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
-public abstract class World2dCanvasFx<OBJECT2D extends Object2dFx<OBJECT2D, WORLD2D>,
-                                      WORLD2D  extends World2dFx<OBJECT2D, WORLD2D>> 
+public abstract class World2dCanvasFx<OBJECT2D extends Object2dFx<OBJECT2D, WORLD2D, OPTIONS>,
+                                      WORLD2D  extends World2dFx<OBJECT2D, WORLD2D, OPTIONS>,
+                                      OPTIONS extends World2dDrawingOptions> 
 
        extends  Canvas 
 
@@ -23,14 +25,15 @@ public abstract class World2dCanvasFx<OBJECT2D extends Object2dFx<OBJECT2D, WORL
                                 Image, 
                                 Font, 
                                 Color,
-                                AbstractWorld2dCanvasFx<OBJECT2D, WORLD2D>,
-                                World2dGraphicsContextFx<OBJECT2D, WORLD2D>,
+                                AbstractWorld2dCanvasFx<OBJECT2D, WORLD2D, OPTIONS>,
+                                World2dGraphicsContextFx<OBJECT2D, WORLD2D, OPTIONS>,
                                 OBJECT2D,
-                                WORLD2D>,
+                                WORLD2D,
+                                OPTIONS>,
        
-                  AbstractWorld2dCanvasFx<OBJECT2D, WORLD2D> {
+                  AbstractWorld2dCanvasFx<OBJECT2D, WORLD2D, OPTIONS> {
 	
-	private World2dCanvasNtroFx<OBJECT2D, WORLD2D> canvasNtroFx = new World2dCanvasNtroFx<OBJECT2D,WORLD2D>(new World2dGraphicsContextFx<OBJECT2D, WORLD2D>(getGraphicsContext2D(), this), this);
+	private World2dCanvasNtroFx<OBJECT2D, WORLD2D, OPTIONS> canvasNtroFx = new World2dCanvasNtroFx<OBJECT2D,WORLD2D, OPTIONS>(new World2dGraphicsContextFx<OBJECT2D, WORLD2D, OPTIONS>(getGraphicsContext2D(), this), this);
 
 	public <T extends MouseEvent> void addMouseEventFilter(EventType<T> eventType, MouseEventHandler handler) {
 		addEventFilter(eventType, new EventHandler<MouseEvent>() {
@@ -78,17 +81,17 @@ public abstract class World2dCanvasFx<OBJECT2D extends Object2dFx<OBJECT2D, WORL
 	}
 
 	@Override
-	public void drawOnWorld(CanvasDrawingLambda<GraphicsContext, Canvas, Image, Font, Color, AbstractWorld2dCanvasFx<OBJECT2D, WORLD2D>> lambda) {
+	public void drawOnWorld(CanvasDrawingLambda<GraphicsContext, Canvas, Image, Font, Color, AbstractWorld2dCanvasFx<OBJECT2D, WORLD2D, OPTIONS>> lambda) {
 		canvasNtroFx.drawOnWorld(lambda);
 	}
 
 	@Override
-	public void drawOnViewport(CanvasDrawingLambda<GraphicsContext, Canvas, Image, Font, Color, AbstractWorld2dCanvasFx<OBJECT2D, WORLD2D>> lambda) {
+	public void drawOnViewport(CanvasDrawingLambda<GraphicsContext, Canvas, Image, Font, Color, AbstractWorld2dCanvasFx<OBJECT2D, WORLD2D, OPTIONS>> lambda) {
 		canvasNtroFx.drawOnViewport(lambda);
 	}
 
 	@Override
-	public void drawOnCanvas(CanvasDrawingLambda<GraphicsContext, Canvas, Image, Font, Color, AbstractWorld2dCanvasFx<OBJECT2D, WORLD2D>> lambda) {
+	public void drawOnCanvas(CanvasDrawingLambda<GraphicsContext, Canvas, Image, Font, Color, AbstractWorld2dCanvasFx<OBJECT2D, WORLD2D, OPTIONS>> lambda) {
 		canvasNtroFx.drawOnCanvas(lambda);
 	}
 
@@ -108,8 +111,8 @@ public abstract class World2dCanvasFx<OBJECT2D extends Object2dFx<OBJECT2D, WORL
 	}
 
 	@Override
-	public void displayWorld2d(WORLD2D world2d) {
-		canvasNtroFx.displayWorld2d(world2d);
+	public void displayWorld2d(WORLD2D world2d, OPTIONS options) {
+		canvasNtroFx.displayWorld2d(world2d, options);
 	}
 
 	@Override
