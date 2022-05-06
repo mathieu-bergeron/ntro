@@ -122,7 +122,6 @@ public class ModelStoreDefault implements ModelStore {
 	@Override
 	public void watch(Class<?> modelClass) {
 		
-		
 		Path filePath = filePathFromClass(modelClass);
 
 		Object model = load(modelClass);
@@ -165,6 +164,8 @@ public class ModelStoreDefault implements ModelStore {
 			previousModelGraph.write(Ntro.graphWriter());
 			modelGraph.write(Ntro.graphWriter());
 			*/
+			
+			save(currentModel);
 			
 			pushObservation(modelClass, previousModel, currentModel);
 		}
