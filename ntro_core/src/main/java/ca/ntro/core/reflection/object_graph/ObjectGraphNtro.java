@@ -88,12 +88,6 @@ public abstract class ObjectGraphNtro
 
 	@Override
 	public Object buildObject() {
-		Object result = getObjectBuilder().build();
-
-		if(result instanceof Initializable) {
-			((Initializable) result).initialize();
-		}
-		
 		return getObjectBuilder().build();
 	}
 

@@ -66,6 +66,10 @@ public abstract class GenericObjectBuilderNtro<O> {
 				setAttribute(object, attributeName, attributeValue);
 			}
 		});
+
+		if(object instanceof Initializable) {
+			((Initializable) object).initialize();
+		}
 		
 		return object;
 	}
