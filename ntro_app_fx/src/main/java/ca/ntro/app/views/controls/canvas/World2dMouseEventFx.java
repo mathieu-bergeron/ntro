@@ -1,23 +1,24 @@
 package ca.ntro.app.views.controls.canvas;
 
+import ca.ntro.app.frontend.views.controls.canvas.World2dGraphicsContext;
 import ca.ntro.app.frontend.views.controls.canvas.World2dMouseEvent;
 import javafx.scene.input.MouseEvent;
 
 public class World2dMouseEventFx implements World2dMouseEvent<MouseEvent> {
 	
 	private MouseEvent rawMouseEvent;
-	private World2dCanvasNtroFx world2dCanvas;
+	private World2dCanvasNtroFx world2dCanvasFx;
 	private double worldX;
 	private double worldY;
 
 	@SuppressWarnings("rawtypes")
 	public World2dMouseEventFx(MouseEvent rawMouseEvent, 
-			                   World2dCanvasNtroFx world2dCanvas, 
+			                   World2dCanvasNtroFx world2dCanvasFx, 
 			                   double worldX, 
 			                   double worldY) {
 		
 		this.rawMouseEvent = rawMouseEvent;
-		this.world2dCanvas = world2dCanvas;
+		this.world2dCanvasFx = world2dCanvasFx;
 		this.worldX = worldX;
 		this.worldY = worldY;
 	}
@@ -49,62 +50,54 @@ public class World2dMouseEventFx implements World2dMouseEvent<MouseEvent> {
 
 	@Override
 	public double worldWidth() {
-		// TODO Auto-generated method stub
-		return 0;
+		return world2dCanvasFx.worldWidth();
 	}
 
 	@Override
 	public double worldHeight() {
-		// TODO Auto-generated method stub
-		return 0;
+		return world2dCanvasFx.worldHeight();
 	}
 
 	@Override
 	public double viewportTopLeftX() {
-		// TODO Auto-generated method stub
-		return 0;
+		return world2dCanvasFx.viewportTopLeftX();
 	}
 
 	@Override
 	public double viewportTopLeftY() {
-		// TODO Auto-generated method stub
-		return 0;
+		return world2dCanvasFx.viewportTopLeftY();
 	}
 
 	@Override
 	public double viewportWidth() {
-		// TODO Auto-generated method stub
-		return 0;
+		return world2dCanvasFx.viewportWidth();
 	}
 
 	@Override
 	public double viewportHeight() {
-		// TODO Auto-generated method stub
-		return 0;
+		return world2dCanvasFx.getViewportHeight();
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public double widthOnScreen(double widthInWorld) {
-		// TODO Auto-generated method stub
-		return 0;
+		return ((World2dGraphicsContext) world2dCanvasFx.getGraphicsContext()).widthOnScreen(widthInWorld);
+
 	}
 
 	@Override
 	public double heightOnScreen(double heightInWorld) {
-		// TODO Auto-generated method stub
-		return 0;
+		return ((World2dGraphicsContext) world2dCanvasFx.getGraphicsContext()).heightOnScreen(heightInWorld);
 	}
 
 	@Override
 	public double widthInWorld(double widthOnScreen) {
-		// TODO Auto-generated method stub
-		return 0;
+		return ((World2dGraphicsContext) world2dCanvasFx.getGraphicsContext()).widthInWorld(widthOnScreen);
 	}
 
 	@Override
 	public double heightInWorld(double heightOnScreen) {
-		// TODO Auto-generated method stub
-		return 0;
+		return ((World2dGraphicsContext) world2dCanvasFx.getGraphicsContext()).heightInWorld(heightOnScreen);
 	}
 
 }

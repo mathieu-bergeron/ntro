@@ -33,17 +33,15 @@ public abstract class World2dFx<OBJECT2D extends Object2dFx<OBJECT2D, WORLD2D, O
 		boolean consumed = false;
 		for(OBJECT2D object : getObjects()) {
 			if(object.collidesWith(worldX-2, worldY-2, 4, 4)) {
-				consumed = consumed || object.onMouseEvent(world2dMouseEventFx.rawMouseEvent(), worldX, worldY);
+				consumed = consumed || object.onMouseEvent(world2dMouseEventFx);
 			}
 		}
 
 		if(!consumed) {
-			onMouseEventNotConsumed(world2dMouseEventFx.rawMouseEvent(), worldX, worldY);
+			onMouseEventNotConsumed(world2dMouseEventFx);
 		}
 	}
 
-	protected abstract void onMouseEventNotConsumed(MouseEvent evtFx, 
-			                                        double worldX, 
-			                                        double worldY);
+	protected abstract void onMouseEventNotConsumed(World2dMouseEventFx mouseEvent);
 
 }
