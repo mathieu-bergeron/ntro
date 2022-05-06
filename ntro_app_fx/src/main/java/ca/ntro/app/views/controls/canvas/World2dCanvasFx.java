@@ -35,7 +35,7 @@ public abstract class World2dCanvasFx<OBJECT2D extends Object2dFx<OBJECT2D, WORL
 	
 	private World2dCanvasNtroFx<OBJECT2D, WORLD2D, OPTIONS> canvasNtroFx = new World2dCanvasNtroFx<OBJECT2D,WORLD2D, OPTIONS>(new World2dGraphicsContextFx<OBJECT2D, WORLD2D, OPTIONS>(getGraphicsContext2D(), this), this);
 
-	public <T extends MouseEvent> void addMouseEventFilter(EventType<T> eventType, MouseEventHandler handler) {
+	public <T extends MouseEvent> void addMouseEventFilter(EventType<T> eventType, MouseEventHandlerFx handler) {
 		addEventFilter(eventType, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {

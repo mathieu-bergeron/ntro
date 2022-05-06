@@ -117,7 +117,7 @@ public abstract class World2dResizableCanvasFx<OBJECT2D extends Object2dFx<OBJEC
 	}
 	*/
 	
-	public <T extends MouseEvent> void addMouseEventFilter(EventType<T> eventType, MouseEventHandler handler) {
+	public <T extends MouseEvent> void addMouseEventFilter(EventType<T> eventType, MouseEventHandlerFx handler) {
 		addEventFilter(eventType, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {

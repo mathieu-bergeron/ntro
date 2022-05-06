@@ -2,6 +2,7 @@ package ca.ntro.app.world2d;
 
 import ca.ntro.app.views.controls.canvas.AbstractWorld2dCanvasFx;
 import ca.ntro.app.views.controls.canvas.World2dGraphicsContextFx;
+import ca.ntro.app.views.controls.canvas.World2dMouseEventFx;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -24,19 +25,20 @@ public abstract class World2dFx<OBJECT2D extends Object2dFx<OBJECT2D, WORLD2D, O
                        WORLD2D,
                        OPTIONS> {
 
-	public void dispatchMouseEvent(MouseEvent evtFx, 
-			                       double worldX, 
-			                       double worldY) {
+	public void dispatchMouseEvent(World2dMouseEventFx world2dMouseEventFx) {
+		
+		double worldX = world2dMouseEventFx.worldX();
+		double worldY = world2dMouseEventFx.worldY();
 
 		boolean consumed = false;
 		for(OBJECT2D object : getObjects()) {
 			if(object.collidesWith(worldX-2, worldY-2, 4, 4)) {
-				consumed = consumed || object.onMouseEvent(evtFx, worldX, worldY);
+				consumed = consumed || object.onMouseEvent(world2dMouseEventFx.rawMouseEvent(), worldX, worldY);
 			}
 		}
 
 		if(!consumed) {
-			onMouseEventNotConsumed(evtFx, worldX, worldY);
+			onMouseEventNotConsumed(world2dMouseEventFx.rawMouseEvent(), worldX, worldY);
 		}
 	}
 

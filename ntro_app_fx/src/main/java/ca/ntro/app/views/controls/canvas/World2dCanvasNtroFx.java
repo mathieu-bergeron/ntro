@@ -48,7 +48,7 @@ public class World2dCanvasNtroFx<OBJECT2D extends Object2dFx<OBJECT2D, WORLD2D, 
 		return rawCanvas.getHeight();
 	}
 
-	public void handleMouseEvent(MouseEvent event, MouseEventHandler handler) {
+	public void handleMouseEvent(MouseEvent event, MouseEventHandlerFx handler) {
 		double x = event.getX();
 		double y = event.getY();
 		
@@ -64,7 +64,12 @@ public class World2dCanvasNtroFx<OBJECT2D extends Object2dFx<OBJECT2D, WORLD2D, 
 		double worldX = (x - tx) / mxx;
 		double worldY = (y - ty) / myy;
 		
-		handler.handle(event, worldX, worldY);
+		World2dMouseEventFx mouseEventFx = new World2dMouseEventFx(event, 
+				                                                   this,
+				                                                   worldX,
+				                                                   worldY);
+		
+		handler.handle(mouseEventFx);
 	}
 
 
