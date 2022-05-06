@@ -9,6 +9,7 @@ import ca.ntro.app.models.Watchable;
 import ca.ntro.core.initialization.Ntro;
 import ca.ntro.core.json.JsonObject;
 import ca.ntro.core.path.Path;
+import ca.ntro.core.reflection.object_graph.Initializable;
 import ca.ntro.core.reflection.object_graph.ObjectGraph;
 import ca.ntro.core.reflection.observer.Observable;
 import ca.ntro.core.reflection.observer.ObservationNtro;
@@ -29,18 +30,25 @@ public class ModelStoreDefault implements ModelStore {
 		if(model == null) {
 
 			model = (M) loadFromFile(modelClass);
+
 		}
 		
 		if(model == null) {
 			
 			model = (M) Ntro.factory().newInstance(modelClass);
-			
+
 		}
 
 		previousModels.put(modelClass, Ntro.reflection().clone(model));
 		currentModels.put(modelClass, model);
 		
 		return model;
+	}
+	
+	private <M extends Model> void initialize(M model) {
+		if(model instanceof Initializable) {
+			((Initializable) model).initialize();
+		}
 	}
 
 
