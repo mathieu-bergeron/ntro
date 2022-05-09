@@ -5,6 +5,7 @@ import ca.ntro.app.frontend.views.controls.canvas.GraphicsContextNtro;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.ArcType;
 import javafx.scene.text.Font;
 
 public class GraphicsContextFx<CANVAS extends Canvas<GraphicsContext, javafx.scene.canvas.Canvas, Image, Font, Color, CANVAS>>
@@ -117,6 +118,32 @@ public class GraphicsContextFx<CANVAS extends Canvas<GraphicsContext, javafx.sce
 	@Override
 	public void strokeText(String text, double topLeftX, double topLeftY) {
 		gc.strokeText(text, topLeftX, topLeftY);
+	}
+
+	@Override
+	public void fillArc(double topLeftX, double topLeftY, double width, double height, double startAngle,
+			double arcExtent) {
+		
+		gc.fillArc(topLeftX, 
+				   topLeftY,
+				   width,
+				   height,
+				   startAngle, 
+				   arcExtent, 
+				   ArcType.CHORD);
+	}
+
+	@Override
+	public void strokeArc(double topLeftX, double topLeftY, double width, double height, double startAngle,
+			double arcExtent) {
+
+		gc.strokeArc(topLeftX, 
+				     topLeftY,
+				     width,
+				     height,
+				     startAngle, 
+				     arcExtent, 
+				     ArcType.CHORD);
 	}
 
 }

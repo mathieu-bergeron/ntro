@@ -20,6 +20,9 @@ public interface GraphicsContext<RAW_GC extends Object,
 	
 	void fillRect(double topLeftX, double topLeftY, double width, double height);
 	void strokeRect(double topLeftX, double topLeftY, double width, double height);
+
+	void fillArc(double topLeftX, double topLeftY, double width, double height, double startAngle, double arcExtent);
+	void strokeArc(double topLeftX, double topLeftY, double width, double height, double startAngle, double arcExtent);
 	
 	void drawImage(Image<RAW_IMAGE> image, double topLeftX, double topLeftY);
 

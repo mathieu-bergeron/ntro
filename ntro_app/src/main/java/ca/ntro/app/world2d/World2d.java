@@ -149,4 +149,22 @@ public abstract class World2d<RAW_GC extends Object,
 		
 	}
 
+	public void removeObject2dIn(Set<String> ids) {
+		List<OBJECT2D> oldObjects = objects;
+		objects = new ArrayList<>();
+		
+		for(OBJECT2D object2d : oldObjects) {
+			if(ids.contains(object2d.id())) {
+
+				objectsById.remove(object2d.id());
+
+
+			}else {
+
+				objects.add(object2d);
+
+			}
+		}
+	}
+
 }

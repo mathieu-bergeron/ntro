@@ -260,4 +260,8 @@ public abstract class Object2dNtro<RAW_GC extends Object,
 				                           epsilon);
 	}
 
+	public boolean hasId(String id) {
+		return id().equals(id);
+	}
+
 }
