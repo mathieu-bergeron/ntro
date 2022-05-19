@@ -10,6 +10,8 @@ import services.ExitServiceFx;
 import services.MessageServiceFx;
 
 public interface NtroClientFx extends App<FrontendRegistrarFx> {
+	
+	void registerArgs(String[] args);
     
     private static void checkJavaVersion() {
         String javaVersion = System.getProperty("java.version");
@@ -57,6 +59,7 @@ public interface NtroClientFx extends App<FrontendRegistrarFx> {
     private static void launchImpl(Class<? extends NtroClientFx> callerClass, String[] args) {
 
         AppWrapperFx.appClass = callerClass;
+        AppWrapperFx.args = args;
 
         Application.launch(AppWrapperFx.class, args);
     }

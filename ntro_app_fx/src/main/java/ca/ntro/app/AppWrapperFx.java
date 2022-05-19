@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 public class AppWrapperFx extends Application {
     
     static Class<? extends NtroClientFx> appClass;
+    static String[] args;
     
     private static BackendRegistrarNtro backendRegistrar;
     private static FrontendRegistrarFx  frontendRegistrar;
@@ -27,6 +28,7 @@ public class AppWrapperFx extends Application {
         
         
         NtroClientFx app = Ntro.factory().newInstance(appClass);
+        app.registerArgs(args);
 
         MessageRegistrarNtro messageRegistrar  = new MessageRegistrarNtro();
         ModelRegistrarNtro   modelRegistrar    = new ModelRegistrarNtro();
