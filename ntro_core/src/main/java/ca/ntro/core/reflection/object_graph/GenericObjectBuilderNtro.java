@@ -67,8 +67,8 @@ public abstract class GenericObjectBuilderNtro<O> {
 			}
 		});
 
-		if(object instanceof Initializable) {
-			((Initializable) object).initialize();
+		if(object instanceof Initialize) {
+			((Initialize) object).initialize();
 		}
 		
 		return object;

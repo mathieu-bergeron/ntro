@@ -5,11 +5,12 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import ca.ntro.app.NtroApp;
 import ca.ntro.app.models.Model;
-import ca.ntro.app.models.Watchable;
+import ca.ntro.app.models.Watch;
+import ca.ntro.app.models.WriteObjectGraph;
 import ca.ntro.core.initialization.Ntro;
 import ca.ntro.core.json.JsonObject;
 import ca.ntro.core.path.Path;
-import ca.ntro.core.reflection.object_graph.Initializable;
+import ca.ntro.core.reflection.object_graph.Initialize;
 import ca.ntro.core.reflection.object_graph.ObjectGraph;
 import ca.ntro.core.reflection.observer.Observable;
 import ca.ntro.core.reflection.observer.ObservationNtro;
@@ -46,8 +47,8 @@ public class ModelStoreDefault implements ModelStore {
 	}
 	
 	private <M extends Model> void initialize(M model) {
-		if(model instanceof Initializable) {
-			((Initializable) model).initialize();
+		if(model instanceof Initialize) {
+			((Initialize) model).initialize();
 		}
 	}
 
@@ -109,7 +110,9 @@ public class ModelStoreDefault implements ModelStore {
 	@Override
 	public void writeGraphs() {
 		for(Object model : currentModels.values()) {
-			writeModelGraph(model);
+			if(model instanceof WriteObjectGraph) {
+				writeModelGraph(model);
+			}
 		}
 	}
 
@@ -130,7 +133,7 @@ public class ModelStoreDefault implements ModelStore {
 		
 		pushFirstObservation(modelClass);
 
-		if(Ntro.reflection().ifClassImplements(modelClass, Watchable.class)) {
+		if(Ntro.reflection().ifClassImplements(modelClass, Watch.class)) {
 
 			Ntro.storage().watchFile(filePathFromClass(modelClass), () -> {
 				observeModelFile(modelClass);
