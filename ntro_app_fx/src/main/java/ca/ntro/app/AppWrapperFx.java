@@ -105,8 +105,12 @@ public class AppWrapperFx extends Application {
 
     public static void onExit() {
 
-        System.out.println("\n\n\n[GENERATING GRAPHS]\n\n\n");
+        System.out.println("\n\n\n[WRITING JSON FILES]");
+        NtroApp.models().writeModelFiles();
+
+        System.out.println("\n[GENERATING GRAPHS]\n\n\n");
         NtroApp.models().writeGraphs();
+
         
         if(!backendRegistrar.isRemoteBackend()) {
 			backendRegistrar.writeGraph();

@@ -80,8 +80,10 @@ public class ModelStoreDefault implements ModelStore {
 				&& !Ntro.reflection().graphEquals(previousModel, model)) {
 			
 			pushObservation(model.getClass(), previousModel, model);
-
-			writeModelFile(model);
+			
+			if(model instanceof Watch) {
+				writeModelFile(model);
+			}
 		}
 	}
 
