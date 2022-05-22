@@ -10,6 +10,9 @@ public interface ModelStore {
 	<M extends Model> M load(Class<?> modelClass);
 
 	void save(Object model);
+
+	void suspendDiskOperations();
+	void resumeDiskOperations();
 	
 	void writeModelFiles();
 	void writeGraphs();

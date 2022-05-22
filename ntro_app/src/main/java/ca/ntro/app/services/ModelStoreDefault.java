@@ -20,6 +20,8 @@ import ca.ntro.core.stream.Visitor;
 
 public class ModelStoreDefault implements ModelStore {
 	
+	private boolean areDiskOperationsEnabled = true;
+	
 	private Map<Class<?>, Object> previousModels = new ConcurrentHashMap<>();
 	private Map<Class<?>, Object> currentModels = new ConcurrentHashMap<>();
 
@@ -81,7 +83,9 @@ public class ModelStoreDefault implements ModelStore {
 			
 			pushObservation(model.getClass(), previousModel, model);
 			
-			if(model instanceof Watch) {
+			if(model instanceof Watch
+					&& areDiskOperationsEnabled) {
+
 				writeModelFile(model);
 			}
 		}
@@ -214,7 +218,14 @@ public class ModelStoreDefault implements ModelStore {
 		};
 	}
 
+	@Override
+	public void suspendDiskOperations() {
+		this.areDiskOperationsEnabled = false;
+	}
 
-
+	@Override
+	public void resumeDiskOperations() {
+		this.areDiskOperationsEnabled = true;
+	}
 
 }
