@@ -22,7 +22,7 @@ public abstract class RandomNtro implements Random {
 		if(array.length > 0) {
 			result = array[nextInt(array.length)];
 		}
-		
+
 		return result;
 	}
 
