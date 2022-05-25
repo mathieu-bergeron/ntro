@@ -19,7 +19,7 @@ import static ca.ntro.app.tasks.frontend.FrontendTasks.*;
 public class ModelRegistrarNtro implements ModelRegistrar {
 	
 	private Set<Class<? extends Model>> modelClasses = new HashSet<>();
-	private Set<Class<? extends Value>> valueClasses = new HashSet<>();
+	private Set<Class<? extends ModelOrValue>> valueClasses = new HashSet<>();
 
 	public Set<Class<? extends Model>> getModelClasses() {
 		return modelClasses;
@@ -29,11 +29,11 @@ public class ModelRegistrarNtro implements ModelRegistrar {
 		this.modelClasses = modelClasses;
 	}
 
-	public Set<Class<? extends Value>> getValueClasses() {
+	public Set<Class<? extends ModelOrValue>> getValueClasses() {
 		return valueClasses;
 	}
 
-	public void setValueClasses(Set<Class<? extends Value>> valueClasses) {
+	public void setValueClasses(Set<Class<? extends ModelOrValue>> valueClasses) {
 		this.valueClasses = valueClasses;
 	}
 	
@@ -45,7 +45,7 @@ public class ModelRegistrarNtro implements ModelRegistrar {
 	}
 
 	@Override
-	public <V extends Value> void registerValue(Class<V> valueClass) {
+	public <V extends ModelOrValue> void registerValue(Class<V> valueClass) {
 		getValueClasses().add(valueClass);
 		Ntro.factory().registerNamedClass(valueClass);
 	}
