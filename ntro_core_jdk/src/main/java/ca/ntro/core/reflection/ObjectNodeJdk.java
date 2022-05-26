@@ -9,10 +9,12 @@ import ca.ntro.core.reflection.object_graph.ObjectGraphNtro;
 import ca.ntro.core.reflection.object_graph.ObjectGraphSearchOptions;
 import ca.ntro.core.reflection.object_graph.ObjectGraphSearchOptionsNtro;
 import ca.ntro.core.reflection.object_graph.ObjectNodeNtro;
+import ca.ntro.core.reflection.object_graph.ObjectNodeSimpleValue;
 import ca.ntro.core.reflection.object_graph.ObjectNode;
 import ca.ntro.core.reflection.object_graph.ReferenceEdge;
 import ca.ntro.core.reflection.object_graph.revisions.Revision;
 import ca.ntro.core.reflection.object_graph.revisions.Revisions;
+import ca.ntro.core.services.ReflectionServiceJdk;
 
 public class ObjectNodeJdk extends ObjectNodeNtro {
 	
@@ -31,9 +33,18 @@ public class ObjectNodeJdk extends ObjectNodeNtro {
 	public ObjectNodeJdk(ObjectGraphNtro graph, LocalHeap localHeap, Object object, NodeId nodeId, boolean isStartNode) {
 		super(graph, localHeap, object, nodeId);
 		
+		convertEnumToStringIfNecessary();
+		
 		setNodeStructure(new ObjectNodeStructureJdk((ObjectNodeNtro) this, (ObjectGraphNtro) getGraph(), isStartNode));
 	}
 
+	private void convertEnumToStringIfNecessary() {
+		if(object() != null
+				&& ((ReflectionServiceJdk) Ntro.reflection()).isEnum(object())) {
+
+			setObject(String.valueOf(object()));
+		}
+	}
 
 	@Override
 	protected ObjectGraphSearchOptions defaultSearchOptions() {
@@ -61,9 +72,5 @@ public class ObjectNodeJdk extends ObjectNodeNtro {
 
 		
 	}
-
-
-
-
 
 }

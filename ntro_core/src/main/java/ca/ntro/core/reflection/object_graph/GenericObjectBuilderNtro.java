@@ -97,7 +97,7 @@ public abstract class GenericObjectBuilderNtro<O> {
 		}else if(node.isMap()) {
 
 			value = buildMap(node);
-
+			
 		}else {
 
 			value = node.object();

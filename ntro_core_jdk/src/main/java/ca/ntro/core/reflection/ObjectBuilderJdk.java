@@ -34,7 +34,7 @@ public class ObjectBuilderJdk extends ObjectBuilderNtro {
 				Ntro.throwException("[FATAL] setter not found: " + setterName(object, setterName));
 			}
 			
-			attributeValue = convertListToArrayIfNecessary(method, attributeValue);
+			attributeValue = convertValueAccordingToSetterType(method, attributeValue);
 
 			method.invoke(object, attributeValue);
 
@@ -47,10 +47,11 @@ public class ObjectBuilderJdk extends ObjectBuilderNtro {
 			Ntro.throwException(e);
 		}
 	}
+
 	
-	private static Object convertListToArrayIfNecessary(Method method, Object attributeValue) {
+	private static Object convertValueAccordingToSetterType(Method method, Object attributeValue) {
 		Object result = attributeValue;
-		
+
 		Class<?> paramType = null;
 
 		if(method.getParameterTypes().length > 0) {
@@ -69,6 +70,13 @@ public class ObjectBuilderJdk extends ObjectBuilderNtro {
 				&& attributeValue instanceof List) {
 			
 			result = convertListToArray(paramType, (List<?>) attributeValue);
+
+		}else if(paramType != null
+				&& paramType.isEnum()
+				&& attributeValue != null
+				&& attributeValue instanceof String) {
+
+			result = convertStringToEnum((Class<? extends Enum>) paramType, (String) attributeValue);
 
 		}
 		
@@ -95,6 +103,10 @@ public class ObjectBuilderJdk extends ObjectBuilderNtro {
 		}
 
 		return array;
+	}
+
+	private static <T extends Enum> T convertStringToEnum(Class<T> enumType, String name) {
+		return (T) Enum.valueOf(enumType, name.toUpperCase());
 	}
 
 	private static String setterName(Object object, String setterName) {

@@ -33,7 +33,20 @@ public class ReflectionServiceJdk extends ReflectionServiceNtro {
 	public ObjectGraph graphFromJsonObject(JsonObject jsonObject, String graphName) {
 		return new JsonObjectGraphJdk(jsonObject, graphName);
 	}
+
+	@Override
+	public boolean isUserDefinedObject(Object object) {
+		return super.isUserDefinedObject(object) && !isEnum(object);
+	}
+
+	@Override
+	public boolean isSimpleValue(Object object) {
+		return super.isSimpleValue(object) || isEnum(object);
+	}
 	
+	public boolean isEnum(Object object) {
+		return object.getClass().isEnum();
+	}
 
 	@Override
 	public char asChar(Object object) {
