@@ -55,7 +55,7 @@ public class ModelStoreDefault implements ModelStore {
 	}
 
 
-	private <M extends Model> M loadFromFile(Class<?> modelClass) {
+	private synchronized <M extends Model> M loadFromFile(Class<?> modelClass) {
 		M model = null;
 
 		Path filePath = filePathFromClass(modelClass);
@@ -94,7 +94,7 @@ public class ModelStoreDefault implements ModelStore {
 		}
 	}
 
-	private void writeModelFile(Path filePath, Object model) {
+	private synchronized void writeModelFile(Path filePath, Object model) {
 
 		ObjectGraph graph = Ntro.reflection().graphFromObject(model);
 
