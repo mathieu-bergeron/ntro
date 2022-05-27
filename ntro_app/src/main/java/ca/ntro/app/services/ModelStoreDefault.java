@@ -78,16 +78,19 @@ public class ModelStoreDefault implements ModelStore {
 	public void save(Object model) {
 		Object previousModel = previousModels.get(model.getClass());
 		
-		if(previousModel != null
-				&& !Ntro.reflection().graphEquals(previousModel, model)) {
-			
-			pushObservation(model.getClass(), previousModel, model);
-			
-			if(model instanceof Watch
-					&& areDiskOperationsEnabled) {
+		if(model instanceof Watch
+				&& areDiskOperationsEnabled) {
 
-				writeModelFile(model);
-			}
+			writeModelFile(model);
+
+		}else if(model instanceof Watch){
+
+			writeModelFile(model);
+			
+		}else {
+
+			pushObservation(model.getClass(), previousModel, model);
+
 		}
 	}
 
@@ -142,7 +145,7 @@ public class ModelStoreDefault implements ModelStore {
 		if(Ntro.reflection().ifClassImplements(modelClass, Watch.class)) {
 
 			Ntro.storage().watchFile(filePathFromClass(modelClass), () -> {
-				observeModelFile(modelClass);
+				onModelFileChanged(modelClass);
 			});
 		}
 	}
@@ -153,31 +156,11 @@ public class ModelStoreDefault implements ModelStore {
 		}
 	}
 
-	private void observeModelFile(Class<?> modelClass) {
+	private void onModelFileChanged(Class<?> modelClass) {
 		Object previousModel = currentModels.get(modelClass);
 		Object currentModel = loadFromFile(modelClass);
-		
-		if(currentModel != null) {
-			currentModels.put(modelClass, currentModel);
-		}
 
-		if(previousModel != null
-				&& currentModel != null
-				&& !Ntro.reflection().graphEquals(previousModel, currentModel)) {
-
-			/*
-			System.out.println("[INFO] observation from file");
-			ObjectGraph previousModelGraph = Ntro.reflection().graphFromObject(previousModel, "previousModel");
-			ObjectGraph modelGraph = Ntro.reflection().graphFromObject(currentModel, "model");
-			
-			previousModelGraph.write(Ntro.graphWriter());
-			modelGraph.write(Ntro.graphWriter());
-			*/
-			
-			save(currentModel);
-			
-			pushObservation(modelClass, previousModel, currentModel);
-		}
+		pushObservation(modelClass, previousModel, currentModel);
 	}
 	
 	private void pushFirstObservation(Class<?> modelClass) {
@@ -192,17 +175,21 @@ public class ModelStoreDefault implements ModelStore {
 	private void pushObservation(Class<?> modelClass, Object previousModel, Object currentModel) {
 		currentModels.put(modelClass, currentModel);
 		
-		ObservationNtro observation = new ObservationNtro<>();
-		observation.setPreviousValue((Observable) previousModel);
+		if(previousModel != null) {
 
-		// XXX: clone currentModel to simulate that the observation
-		//      is received after serialization and deserialization
-		observation.setCurrentValue((Observable) Ntro.reflection().clone(currentModel));
+			ObservationNtro observation = new ObservationNtro<>();
+			observation.setPreviousValue((Observable) previousModel);
 
-		//Revisions revisions = Ntro.reflection().revisionsFromTo(initialModel, currentModel);
+			// XXX: clone currentModel to simulate that the observation
+			//      is received after serialization and deserialization
+			observation.setCurrentValue((Observable) Ntro.reflection().clone(currentModel));
 
-		NtroApp.messageService().receiveObservationFromServer(Ntro.reflection().simpleName(modelClass), observation);
-		NtroApp.messageService().pushObservationToClients(Ntro.reflection().simpleName(modelClass), observation);
+			//Revisions revisions = Ntro.reflection().revisionsFromTo(initialModel, currentModel);
+
+			NtroApp.messageService().receiveObservationFromServer(Ntro.reflection().simpleName(modelClass), observation);
+			NtroApp.messageService().pushObservationToClients(Ntro.reflection().simpleName(modelClass), observation);
+
+		}
 	}
 
 
