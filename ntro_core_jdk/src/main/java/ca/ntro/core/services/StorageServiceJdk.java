@@ -59,7 +59,7 @@ public class   StorageServiceJdk
 		}.start();
 	}
 	
-	private synchronized void writeTextFileSync(Path filePath, String content) {
+	protected void writeTextFileSync(Path filePath, String content) {
 		File file = toFile(filePath);
 
 		createParentDirectories(file);
@@ -75,8 +75,6 @@ public class   StorageServiceJdk
 
 			Ntro.throwException(e);
 		}
-		
-		
 	}
 	
 	
